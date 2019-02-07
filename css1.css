@@ -2,24 +2,22 @@ body {
   background-color: black;
   font-family: 'Roboto', sans-serif;
 }
-#tablero {
-  width: 500px;
-  height: 500px;
+div.tablero {
+  width: 1500px;
   border: 1px solid greenyellow;
+  background-color: blue;
 }
 
+.filaArriba {
+  
+  height: 15%;
 
-
-
-
-
-
-
-
-
-
-
-
+}
+.cosa {
+  display: column;
+  background-color: chocolate; 
+  border: 1px solid red;
+}
 
 
 
