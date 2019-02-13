@@ -3,7 +3,6 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 div.tablero {
-  width: 1500px;
   border: 1px solid greenyellow;
   background-color: blue;
 }
