@@ -10,47 +10,192 @@
             <title>Tablero Monopoly</title>
     </head>
     <body>
+        <div id="infoJuego" class="container row mx-auto">
+                
+                <div id="jugadorTurno" class="col-xl-6 col-lg-6 col-sm-6">
+                        <p>Turno del jugador: </p>
+                </div>
+                <div id="numeroTurno" class="col-xl-6 col-lg-6 col-sm-6">
+                        <p>Turno nº</p>
+                </div>
+                
+        </div>
+
         <div class="container mt-5 tablero">
+
+
                 <div class="row filaArriba">
-                        <div class="col-xl-4 col-lg-4 col-sm-4 cosa"></div>
-                        <div class="col-xl-1 col-lg-1 col-sm-1 cosa">COsa1</div>
-                        <div class="col-xl-1 col-lg-1 col-sm-1 cosa">COsa1</div>
-                        <div class="col-xl-1 col-lg-1 col-sm-1 cosa">COsa1</div>
-                        <div class="col-xl-1 col-lg-1 col-sm-1 cosa">COsa1</div>
-                        <div class="col-xl-4 col-lg-4 col-sm-4 cosa"></div>
+                        <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths cosa"></div>
+                        
+                        <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths cosa"></div>
+
+                        <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths cosa">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 h-75"></div>
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 h-25 grupoAzul"></div>
+                        </div>
+                        <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths cosa">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 h-75"></div>
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 h-25 grupoAzul"></div>
+                        </div>
+                        <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths cosa">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 h-75 cosa"></div>
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 h-25 grupoAzul"></div>
+                        </div>
+
+                        <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths cosa"></div>
                 </div>
-                <div class="row">
-                        <div class="col-xl-4 col-lg-4 col-sm-4 cosa"></div>
-                        <div class="col-xl-4 col-lg-4 col-sm-4 cosa">COsa1</div>
-                        <div class="col-xl-4 col-lg-4 col-sm-4 cosa"></div>
+
+
+
+                <div class="row filaCentral">
+
+                        <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths cosa column">
+                                <div class="mx-auto col-xl-2ths col-lg-2ths col-md-2ths col-sm-2ths row"></div>
+                                
+                                <div class="mx-auto col-xl-2ths col-lg-2ths col-md-2ths col-sm-2ths row">
+                                        <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 h-100">
+                                                
+                                        </div>
+                                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 h-100 grupoAmarillo">
+                                                
+                                        </div>
+                                </div>
+                                <div class="mx-auto col-xl-2ths col-lg-2ths col-md-2ths col-sm-2ths row">
+                                                <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 h-100">
+                                                        
+                                                </div>
+                                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 h-100 grupoAmarillo">
+                                                        
+                                                </div>
+                                </div>
+                                <div class="mx-auto col-xl-2ths col-lg-2ths col-md-2ths col-sm-2ths row">
+                                        <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 h-100">
+                                                
+                                        </div>
+                                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 h-100 grupoAmarillo">
+                                                
+                                        </div>
+                                </div>
+                        </div>
+                        
+                        <div class="col-xl-8ths col-lg-8ths col-md-8ths col-sm-8ths cosa"></div>
+
+                        <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths cosa column">
+                                <div class="mx-auto col-xl-2ths col-lg-2ths col-md-2ths col-sm-2ths row">
+                                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 h-100 grupoRojo">
+                                                
+                                        </div>
+                                        <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 h-100 ">
+                                                
+                                        </div>
+                                </div>
+                                <div class="mx-auto col-xl-2ths col-lg-2ths col-md-2ths col-sm-2ths row">
+                                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 h-100 grupoRojo">
+                                                
+                                        </div>
+                                        <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 h-100">
+                                                
+                                        </div>
+
+                                </div>
+                                <div class="mx-auto col-xl-2ths col-lg-2ths col-md-2ths col-sm-2ths row">
+                                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 h-100 grupoRojo">
+                                                
+                                        </div>
+                                        <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 h-100">
+                                                
+                                        </div>
+
+                                </div>
+                                <div class="mx-auto col-xl-2ths col-lg-2ths col-md-2ths col-sm-2ths row">
+                                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 h-100 grupoRojo">
+                                                
+                                        </div>
+                                        <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 h-100">
+                                                
+                                        </div>
+
+                                </div>
+                        </div>
                 </div>
-                <div class="row">
-                        <div class="col-xl-4 col-lg-4 col-sm-4 cosa"></div>
-                        <div class="col-xl-4 col-lg-4 col-sm-4 cosa">COsa1</div>
-                        <div class="col-xl-4 col-lg-4 col-sm-4 cosa"></div>
-                </div>
-                <div class="row">
-                        <div class="col-xl-4 col-lg-4 col-sm-4 cosa"></div>
-                        <div class="col-xl-4 col-lg-4 col-sm-4 cosa">COsa1</div>
-                        <div class="col-xl-4 col-lg-4 col-sm-4 cosa"></div>
-                </div>
-                <div class="row">
-                        <div class="col-xl-4 col-lg-4 col-sm-4 cosa"></div>
-                        <div class="col-xl-4 col-lg-4 col-sm-4 cosa">COsa1</div>
-                        <div class="col-xl-4 col-lg-4 col-sm-4 cosa"></div>
-                </div>
-                <div class="row h-25">
-                        <div class="col-xl-4 col-lg-4 col-sm-4 cosa"></div>
-                        <div class="col-xl-1 col-lg-1 col-sm-1 cosa">COsa1</div>
-                        <div class="col-xl-1 col-lg-1 col-sm-1 cosa">COsa1</div>
-                        <div class="col-xl-1 col-lg-1 col-sm-1 cosa">COsa1</div>
-                        <div class="col-xl-1 col-lg-1 col-sm-1 cosa">COsa1</div>
-                        <div class="col-xl-4 col-lg-4 col-sm-4 cosa"></div>
+                <div class="row filaAbajo">
+
+                        <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths cosa"></div>
+
+                        <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths colum cosa">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 h-25 grupoVerde"></div>
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 h-75"></div>
+                        </div>
+
+                        <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths colum cosa"></div>
+
+                        <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths colum cosa">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 h-25 grupoVerde"></div>
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 h-75"></div>
+                        </div>
+
+                        <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths colum cosa">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 h-25 grupoVerde"></div>
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 h-75"></div>
+                        </div>
+
+                        <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths cosa"></div>
                 </div>
         </div>
-        <div class="mx-auto" style="width: 100px;">
-                Centered element
-              </div>
+        <div id="controlesJuego" class="container mx-auto row">
+
+                <div id="informacion" class="colum">
+                        <div id="saldo">
+                                <textarea>Saldo:</textarea>
+                        </div>
+                        <div id="dado">
+                                <p>Dado:</p>
+                                <button>Tirar</button>
+                        </div>
+                </div>
+                
+                <div id="compraVentaEdificacion" class="colum">
+
+                        <div>
+                                <button>Comprar</button>
+                        </div>
+
+                        <div>
+                                <button>Vender</button>   
+                        </div>
+                        <div>
+                                <button>Edificar Casa</button>
+                        </div>
+
+                        <div>
+                                <button>Edificar Hotel</button>
+                        </div>
+ 
+                        
+                </div>
+
+                <div id="cartasYPropiedades" class="colum">
+
+                        <div id="cartas">
+                                Lista de cartas: 
+                                <select>
+                                        <option value="">Carta1</option>
+                                        <option value="">Carta2</option>
+                                        <option value="">Carta3</option>                                                <option value="">Carta4</option>
+                                </select>
+                                
+                        </div>
+                        <div id="propiedades">
+                                <ul>
+                                        <li>Propiedad1</li>
+                                        <li>Propiedad2</li>
+                                        <li>Propiedad3</li>
+                                        <li>Propiedad4</li>
+                                </ul>
+                        </div>
+                        
+                </div>
+        </div>
 
     </body>
 </html>

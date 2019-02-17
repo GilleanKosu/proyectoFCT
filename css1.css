@@ -1,23 +1,62 @@
+*{
+  margin: 0px;
+  padding: 0px;
+}
 body {
   background-color: black;
   font-family: 'Roboto', sans-serif;
+}
+#infojuego #jugadorTurno{
+  background-color: blue;
+}
+#infojuego #numeroTurno{
+  background-color: red;
 }
 div.tablero {
   border: 1px solid greenyellow;
   background-color: blue;
   /* margin-left: 10%;
   margin-right: 10%; */
+  width: 50%;
 }
-
-.filaArriba {
-  
-  height: 15%;
-
+.filaArriba, .filaAbajo{
+  height: 20%;
+}
+.filaCentral {
+  height: 50%;
 }
 .cosa {
-  display: column;
-  background-color: chocolate; 
-  border: 1px solid red;
+  background-color: white; 
+  border: 1px solid black;
+}
+.col-xl-4ths, .col-lg-4ths, .col-md-4ths, .col-sm-4ths {
+  width: 25%;
+}
+.col-xl-1ths, .col-lg-1ths, .col-md-1ths,.col-sm-1ths {
+  width: 12.5%;
+}
+.col-xl-8ths, .col-lg-8ths, .col-md-8ths, .col-sm-8ths {
+  width: 50%;
+}
+.col-xl-2ths, .col-lg-2ths, .col-md-2ths, .col-sm-2ths {
+  height: 25%;
+}
+.grupoAzul {
+  background-color: #677db8;
+  border-top: 1px solid black;
+}
+.grupoVerde{
+  background-color: #43c42c;
+  border-bottom: 1px solid black;
+  
+}
+.grupoAmarillo{
+  background-color: #f8fd0f;
+  border-left: 1px solid black;
+}
+.grupoRojo{
+  background-color: #fc3b22;
+  border-right: 1px solid black;
 }
 
 
