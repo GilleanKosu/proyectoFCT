@@ -10,18 +10,14 @@ class DefaultController extends AbstractController
     /**
      * @Route("/", name="index")
      */
-    public function index()
-    {
-        return $this->render('base.html.twig');
+    public function index(){
+        return $this->render('index.html');
     }
     /**
-     * @Route("/default", name="default")
+     * @Route("/tablero", name="tablero")
      */
-    // public function index()
-    // {
-    //     return $this->json([
-    //         'message' => 'Welcome to your new controller!',
-    //         'path' => 'src/Controller/DefaultController.php',
-    //     ]);
-    // }
+    public function tablero()
+    {
+        return $this->render('tableBoots.html');
+    }
 }

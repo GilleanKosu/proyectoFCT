@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" type="text/css" href="css.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.5.0/css/all.css' integrity='sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU' crossorigin='anonymous'>
+  <link href="https://fonts.googleapis.com/css?family=Bangers" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="stylesheets/cssIndex.css">
+  <title>Qytetet.com</title>
+
+</head>
+<body>
+
+  <!--Barra de navegacion -->
+  <nav class="navbar navbar-expand-xl navbar-dark bg-dark">
+    <div class="navbar-collapse collapse w-100 px-5 collapse-ambos order-1 order-md-0">
+      <ul class="navbar-nav ml-auto text-center">
+        <!-- Opcion1 -->
+        <li class="nav-item px-5">
+          <article id="opcion1">
+            <img class="fichas" src="imagenes/sombrero.png" id="sombrero">
+            <a class="nav-link" href="/login">Log In</a>
+          </article>
+        </li>
+
+        <!-- Opcion2 -->
+        <li class="nav-item px-5">
+          <article id="opcion2">
+            <img class="fichas" src="imagenes/perro.png" id="perro">
+            <a class="nav-link" href="/register">Registro</a>
+          </article>
+
+        </li>
+      </ul>
+    </div>
+
+    <!-- Logo central-->
+    <div class="mx-auto order-0 order-md-1 px-3 position-relative">
+      <a class="mx-auto" href="index.html">
+        <img src="imagenes/Monopoly_pack_logo.png">
+      </a>
+      <!-- Boton para cuando colapse -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".collapse-ambos">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+
+    <!-- Opciones 3 y 4 del menu-->
+    <div class="navbar-collapse collapse w-100 px-5 collapse-ambos order-2 order-md-2">
+      <ul class="navbar-nav mr-auto text-center">
+
+        <!-- Opcion 3 -->
+        <li class="nav-item px-5">
+          <article id="opcion3">
+            <img class="fichas" src="imagenes/bota.png" id="zapato">
+            <a class="nav-link" href="#">Jugar</a>
+          </article>
+        </li>
+
+        <!-- Opcion 4-->
+        <li class="nav-item px-5">
+          <article id="opcion4">
+            <img class="fichas" src="imagenes/dedal.png" id="dedal">
+            <a class="nav-link" href="#">Contacto</a>
+          </article>
+        </li>
+
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Seccion Que es el monopoly junto con el carousel-->
+  <section class="container-fluid bg-success" id="QueEs">
+
+    <article id="explicacionQueEs" class="mx-auto col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+      <h1>¿Qué es?</h1>
+      <h2>Es un juego de comprar propiedades y negociar por ellas</h2>
+      <p>Disfruta de una divertida partida contra otros jugadores en una lucha por ver quien sera el magnate supremo de los negocios</p>
+
+    </article>
+
+    <!-- Anclas de la seccion -->
+    <article class="row" id="anclas">
+
+      <div class="col-2"><a href="#comojugar">¿Cómo Jugar? </a><i class='fas fa-arrow-down'></i></div>
+      <div class="col-2"><a href="#comprarBarrio">Compra un barrio </a><i class='fas fa-arrow-down'></i></div>
+      <div class="col-2"><a href="#serConservador">Sé conservador </a><i class='fas fa-arrow-down'></i></div>
+      <div class="col-2"><a href="#agotar">Agota a tu oponente </a><i class='fas fa-arrow-down'></i></div>
+
+    </article>
+
+    <!-- Carousel -->
+    <!-- <div id="carouselExampleControls" class="carousel slide w-50" data-ride="carousel">
+      <div class="carousel-inner">
+
+        <div class="carousel-item active">
+
+          <article class="row mb-5" id="juego1">
+            <div class="col juegos">
+              <h2>Monopoly Empire</h2>
+              <p>Versión del monopoly centrada en el mundo de las marcas. En esta nueva versión del Monopoly, los jugadores pueden convertirse en dueños de las mayores marcas del mundo. Construye tu propio imperio comprando, vendiendo y, sobre todo, teniendo suerte con los dados.</p>
+            </div>
+            <div class="col"><img class="d-block w-75" src="imagenes/juego9.png" alt="First slide"></div>
+          </article>
+          
+        </div>
+
+
+        <div class="carousel-item" id="juego2">
+          <article class="row mb-5">
+            <div class="col juegos">
+              <h2>Monopoly Tradicional</h2>
+              <p>La versión del monopoly de toda la vida. En esta versión del Monopoly, los jugadores pueden convertirse en dueños de las calles mas emplematicas de España, como la Gran Via de Madrid. Construye tu propio imperio comprando, y vendiendo</p>
+            </div>
+            <div class="col"><img class="d-block w-75" src="imagenes/ima01.png" alt="Second slide"></div>
+          </article>
+        </div>
+
+
+        <div class="carousel-item" id="juego3">
+          <article class="row mb-5">
+
+            <div class="col juegos">
+              <h2>Monopoly Mundial</h2>
+              <p>Versión mundia del monopoly. En esta nueva versión del Monopoly, los jugadores pueden convertirse en los propietarios de algunos de los edicios mas emblematicos del mundo como la torre Eifel. Construye tu propio imperio comprando, y vendiendo.</p>
+            </div>
+
+            <div class="col"><img class="d-block w-75" src="imagenes/juego16.png" alt="Third slide"></div>
+          </article>
+        </div>
+
+      </div>
+      <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div> -->
+  </section>
+
+  <!-- Primera seccion con consejos sobre como jugar-->
+  <section class="container-fluid" id="ComoJugar">
+
+    <div class="row">
+
+      <article class="col bg-light" id="textJugar">
+        <h1 id="comojugar">¿Cómo jugar?</h1>
+        <p>Monopoly es un juego de mesa en el que los jugadores lanzan dos dados de seis caras para moverse por el tablero de juego, comprar y comercializar propiedades y desarrolarlas con casas y hoteles. los jugadores cobran la renta de sus oponentes con el objetivo de llevarlos a la bancarrota.</p>
+
+        <p>El dinero también puede ganarse o perderse a través de cartas de Cofre y cartas de Comunidad o al tener que pagar impuestos a los jugadores. </p>
+        <p>Los jugadores también pueden terminar en la carcel y no podran salir hasta que cumplan algunas condiciones.</p>
+      </article>
+
+      <article class="col bg-danger" id="imagenJugar"></article>
+
+    </div>
+  </section>
+
+  <!-- Segunda seccion con consejos sobre como jugar-->
+  <section class="container-fluid clavesJuego">
+
+    <div class="row">
+
+      <article class="col imagenesClave" id="imagenClave1"></article>
+      <article class="col">
+        <h1 id="comprarBarrio">Compra un barrio</h1>
+        <p>Compra todo, todo en lo que caigas. Hazlo hasta que te quede poco dinero, pero no lo gastes absolutamente todo, claro.</p>
+        <p>Obtén un barrio, aunque salga caro. Intenta negociar con tus oponentes, incluso dales propiedades que sepas que no vas a querer si a cambio te ceden la calle que te falta.</p>
+        <p>Obtener un barrio te da ciertos bonus de cara a construir propiedades más adelante que te hará ganar mas dinero si algún oponente cae en esas casillas.</p>
+      </article>
+
+    </div>
+
+  </section>
+
+  <!-- Tercera seccion con consejos sobre como jugar-->
+  <section class="container-fluid clavesJuego">
+
+    <div class="row">
+
+     <article class="col">
+      <h1 id="serConservador">Sé conservador</h1>
+      <p>Tu objetivo es jugar de forma conservadora, asegurándote los recursos y haciendo que el oponente pierda por desgaste.</p>
+      <p>Para ello es importante también tener una reserva de fondos. Te servirá para proteger tus barrios de posibles pérdidas y de una bancarrota si tienes que pagar al caer en otras propiedades varias veces o si te sale alguna carta especial.</p>
+      <p>Por cierto, si te toca ir a la cárcel, tranquilo. Quédate ahí, no pasa nada. Disfruta y tómate un respiro mientras ganas pasta gansa.</p>
+    </article>
+
+    <article class="col imagenesClave" id="imagenClave2"></article>
+
+  </div>
+
+</section>
+
+<!-- Cuarta seccion con consejos sobre como jugar-->
+<section class="container-fluid clavesJuego">
+
+  <div class="row">
+
+    <article class="col imagenesClave" id="imagenClave3"></article>
+
+    <article class="col">
+      <h1 id="agotar">Agota a tu oponente</h1>
+      <p>Agota los recursos de tus oponentes. No dejes que te paguen con otras propiedades y exígeles dinero de verdad. Si no tienen, que vendan o se hipotequen (lo que te dará la ventaja extra de no tener que pagarles cuando caigas en sus propiedades).</p>
+      <p>Conforme hagas esto verás que poco a poco irás adquiriendo más ventaja y como los oponentes estarán mas astiados.</p>
+      <p>Y ya está. Acaba con el juego. La gente perderá o directamente lo dejará. Y todos estarán muy enfadados por la paliza que les has dado. Que disfrutéis del juego</p>
+    </article>
+
+  </div>
+
+</section>
+
+<!--Pie de pagina-->
+
+<section class="container-fluid bg-dark" id="pieDePagina">
+
+  <!--Se divide en 3 columnas, cada una con su contenido, cada una ocupa 4 espacios-->
+  <div class="row">
+
+    <article class="col primeraColumna">
+      <div class="row jugueterias"><img class="mx-auto d-block" src="imagenes/toysrus.png"></div>
+      <div class="row jugueterias"><img class="mx-auto d-block" src="imagenes/juguetilandia.png"></div>
+    </article>
+
+
+    <article class="col segundaColumna">
+
+      <img class="mx-auto d-block" src="imagenes/hasbroLogo.png" id="logoHasbro">
+      <p>© 2018 Hasbro Política de Privacidad D.R. © Hasbro Inc. R.I., EUA, 2015. Todo el audio, contenido visual y de texto de este sitio (incluidos todos los nombres, personajes, imágenes, marcas comerciales y logotipos) están protegidos por registros marcarios, derechos de autor y otros derechos de propiedad intelectual de Hasbro o de sus subsidiarias, licenciantes, licenciatarios y proveedores</p>
+      <p><a href="https://docs.hasbro.com/es-es/legal/terms">Terminos y condiciones</a> | <a href="https://hasbro.gcs-web.com/corporate">Corporativo</a> | <a href="https://docs.hasbro.com/es-es/legal/cookie-policy">Cookies</a></p>
+
+    </article>
+
+
+    <article class="col terceraColumna">
+
+      <img class="mx-auto d-block" src="imagenes/ESRB_2013_Everyone.png" id="logoESRB">
+
+    </article>
+
+  </div>
+
+</section>
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>  
+
+</body>
+</html>

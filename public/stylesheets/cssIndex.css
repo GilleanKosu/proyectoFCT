@@ -1,0 +1,207 @@
+/**Barra de navegacion**/
+.navbar a{
+  font-family: 'Bangers', cursive;
+}
+
+a img {
+  width: 300px;
+}
+
+.fichas{
+  /*margin-top: 5px;*/
+  width: 50px;
+  height: 50px;
+}
+
+
+/**Contenedor con Que es y el Carousel**/
+section .container-fluid{
+  background: url(../imagenes/fondo.jpg);
+  background-size: cover;
+}
+section#QueEs {
+  background: url(../imagenes/fondo.jpg);
+  background-size: cover;                  
+}
+section#QueEs #explicacionQueEs h1, h2{
+  text-align: center;
+  margin-left: 25%;
+  margin-right: 25%;
+  font-family: 'Bangers', cursive;
+}
+section#QueEs #explicacionQueEs h1 {
+  padding: 2%;
+}
+section#QueEs #explicacionQueEs p{
+  padding: 5px;
+  text-align: justify;
+  margin-left: 30%;
+  margin-right: 30%;
+  margin-bottom: 5%;
+}
+/**Anclas a otras partes de la pagina**/
+#anclas div:first-child{
+  margin-left: 15%;
+}
+#anclas div {
+  padding-bottom: 4%;
+  text-align: center;
+}
+#anclas div a{
+  color: red;
+  font-size: 150%;
+  font-family: 'Bangers', cursive;
+}
+/**Texto carousel**/
+.juegos h1{
+  text-align: center;
+}
+.juegos p {
+  text-align: justify;
+}
+
+/**Seccion Como jugar**/
+section#ComoJugar div article#textJugar h1 {
+  padding: 20px;
+  text-align: center;
+  font-family: 'Bangers', cursive;
+}
+
+section#ComoJugar div article#textJugar p{
+  text-align: justify;
+  padding: 10px;
+  margin-right: 15%;
+  margin-left: 15%;
+}
+article#imagenJugar {
+  background: url(../imagenes/Monopoly-3.jpg);
+  background-size: cover;
+}
+#carouselExampleControls{
+  margin: 0 auto;
+}
+/**Animaciones y transiciones para los elementos del menu**/
+#opcion1{
+  transition: transform 0.2s linear;
+}
+#opcion1:hover #sombrero{
+  animation-name: sombreroMoviendose;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
+#opcion2:hover #perro{
+  animation-name: perroCaminando;
+  animation-duration: 1.5s;
+  animation-fill-mode: forwards;
+}
+
+#opcion3:hover #zapato {
+  animation-name: zapatoGirando;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
+#opcion4:hover #dedal{
+  animation-name: dedalGirando;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
+/**Seccion de claves del juego**/
+.clavesJuego h1 {
+  padding: 20px;
+  text-align: center;
+  font-family: 'Bangers', cursive;
+}
+
+.clavesJuego p{
+  text-align: justify;
+  padding: 10px;
+  margin-right: 15%;
+  margin-left: 15%;
+}
+
+.clavesJuego #imagenClave1 {
+  background: url(../imagenes/barrio.jpg);
+  background-size: cover;
+}
+.clavesJuego #imagenClave2 {
+  background: url(../imagenes/conservador.jpg);
+  background-size: cover;
+}
+.clavesJuego #imagenClave3 {
+  background: url(../imagenes/lluviaBilletes.jpg);
+  background-size: cover;
+}
+
+/**Pie de pagina**/
+#logoHasbro {
+  padding: 3%;
+  width: 25%;
+}
+
+#logoESRB {
+  padding: 3%;
+  width: 25%;
+}
+
+#pieDePagina .segundaColumna {
+  font-size: 70%;
+  color: white;
+}
+
+#pieDePagina .segundaColumna a {
+  padding: 2%;
+  color: white;
+}
+
+#pieDePagina .jugueterias img{
+  width: 50%;
+  height: 25%;
+  padding: 3%;
+}
+
+/**Animaciones**/
+@keyframes perroCaminando {
+  0%{
+    transform: translateX(-15%);
+  }
+  1% {
+    transform: rotate(180deg);
+  }
+  50%{
+    transform: translateX(15%);
+  }
+  100%{
+    transform: translateX(0%);
+  }
+
+}
+@keyframes zapatoGirando {
+  0%{
+    transform: rotate(0deg);
+  }
+  100%{
+    transform: rotate(30deg);
+  }
+
+}
+@keyframes dedalGirando {
+  0%{
+    transform: rotate(0deg);
+  }
+  100%{
+    transform: rotate(30deg);
+  }
+
+}
+@keyframes sombreroMoviendose {
+  0%{
+    transform: translateY(-15%);
+  }
+  100%{
+    transform: translateY(0%);
+  }
+}
+
