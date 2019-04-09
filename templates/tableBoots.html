@@ -8,9 +8,24 @@
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
             <link rel="stylesheet" type="text/css" href="stylesheets/css1.css">
             <title>Tablero Monopoly</title>
+
+            <!-- Añadidos nuevos -->
+            <script type="text/javascript">
+                $.ajax({
+                    type: 'post',
+                    url:'/logeoAjax',
+                    data: {
+                        email:email
+                        password:pass
+                    },
+                    success:function(response) {
+                        alert('Logeo Exitoso');
+                    }
+                });
+            </script>
     </head>
     <body>
-        <div id="infoJuego" class="container row mx-auto">
+        <!-- <div id="infoJuego" class="container row mx-auto">
                 
                 <div id="jugadorTurno" class="col-xl-6 col-lg-6 col-sm-6">
                         <p>Turno del jugador: </p>
@@ -181,7 +196,8 @@
                                 <select>
                                         <option value="">Carta1</option>
                                         <option value="">Carta2</option>
-                                        <option value="">Carta3</option>                                                <option value="">Carta4</option>
+                                        <option value="">Carta3</option>                                                
+                                        <option value="">Carta4</option>
                                 </select>
                                 
                         </div>
@@ -195,7 +211,14 @@
                         </div>
                         
                 </div>
-        </div>
+            
+        </div> -->
+        <!-- Nuevos añadidos -->
+        <form method="POST" action="/logeoAjax" id="Jugador2" onsubmit="return logeo_tablero();">
 
+            <input type="text" name="nombre_jugador2">
+            <input type="password" name="pass_jugador2">
+                    
+        </form>
     </body>
 </html>
