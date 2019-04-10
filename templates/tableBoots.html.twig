@@ -11,20 +11,29 @@
 
             <!-- Añadidos nuevos -->
             <script type="text/javascript">
-                $.ajax({
-                    type: 'post',
-                    url:'/logeoAjax',
-                    data: {
-                        email:email
-                        password:pass
-                    },
-                    success:function(response) {
-                        alert('Logeo Exitoso');
-                    }
+                function logeoAjax () {
+
+                        var email=$("#email1").val();
+                        var pass=$("#pass1").val();
+                        $.ajax({
+                        type: 'post',
+                        url:'/logeoAjax',
+                        data: {
+                                logeoAjax:logeoAjax,
+                                email:email,
+                                password:pass
+                        },
+                        success:function(response) {
+                                alert('Logeo Exitoso');
+                        }
                 });
+
+                }
+               
             </script>
     </head>
     <body>
+    
         <!-- <div id="infoJuego" class="container row mx-auto">
                 
                 <div id="jugadorTurno" class="col-xl-6 col-lg-6 col-sm-6">
@@ -216,8 +225,9 @@
         <!-- Nuevos añadidos -->
         <form method="POST" action="/logeoAjax" id="Jugador2" onsubmit="return logeo_tablero();">
 
-            <input type="text" name="nombre_jugador2">
-            <input type="password" name="pass_jugador2">
+            <input type="text" name="nombre_jugador2" id="email1">
+            <input type="password" name="pass_jugador2" id="pass1">
+            <input type="submit" name="enviar_logeo" value="Enviar">
                     
         </form>
     </body>

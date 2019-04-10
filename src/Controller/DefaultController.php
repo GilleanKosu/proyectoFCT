@@ -18,6 +18,16 @@ class DefaultController extends AbstractController
      */
     public function tablero()
     {
-        return $this->render('tableBoots.html');
+        return $this->render('tableBoots.html.twig');
+    }
+    /**
+     * @Route("/logeoAjax", name="logeoAjax")
+     */
+    public function logeoAjax()
+    {
+        $hola= "hola";
+        return $this->render('tableBoots.html.twig', [
+            'saludo' => $hola
+        ]);
     }
 }
