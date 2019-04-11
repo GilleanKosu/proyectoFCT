@@ -25,9 +25,15 @@ class DefaultController extends AbstractController
      */
     public function logeoAjax()
     {
-        $hola= "hola";
+        $session_start();
+        $repository = $this->getDoctrine()->getRepository(User::class);
+
+        $usuario = $repository->findUserByEmail($_POST['nombre_jugador2']);
+        if (!empty($usuario)) {
+            $_SESSION['usuario1'] = $usuario;
+        }
         return $this->render('tableBoots.html.twig', [
-            'saludo' => $hola
+            'usuario1' => $usuario
         ]);
     }
 }
