@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Response;
+use App\Entity\User;
 
 class DefaultController extends AbstractController
 {
@@ -25,15 +27,18 @@ class DefaultController extends AbstractController
      */
     public function logeoAjax()
     {
-        $session_start();
         $repository = $this->getDoctrine()->getRepository(User::class);
 
         $usuario = $repository->findUserByEmail($_POST['nombre_jugador2']);
-        if (!empty($usuario)) {
-            $_SESSION['usuario1'] = $usuario;
+
+        if ($usuario!=NULL) {
+            $_SESSION['usuario2'] = $usuario;
         }
-        return $this->render('tableBoots.html.twig', [
-            'usuario1' => $usuario
-        ]);
+        if(isset($_SESSION['usuario2'])) {
+            return $this->json(['username' => $usuario -> getEmail(), 'id' => $usuario -> getId()]);
+        } else {
+            return $this->render('tableBoots.html.twig');
+        }
+        
     }
 }
