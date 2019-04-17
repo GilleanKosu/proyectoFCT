@@ -25,16 +25,12 @@ class DefaultController extends AbstractController
     /**
      * @Route("/logeoAjax", name="logeoAjax")
      */
-    public function logeoAjax()
-    {
+    public function logeoAjax(){
         $repository = $this->getDoctrine()->getRepository(User::class);
+        // $encriptedPass=password_hash($_POST['password'], PASSWORD_ARGON2I);
+        $usuario = $repository->findUserByEmailPass($_POST['email'], $_POST['password']);
 
-        $usuario = $repository->findUserByEmail($_POST['nombre_jugador2']);
-
-        if ($usuario!=NULL) {
-            $_SESSION['usuario2'] = $usuario;
-        }
-        if(isset($_SESSION['usuario2'])) {
+        if(isset($_POST['email'])) {
             return $this->json(['username' => $usuario -> getEmail(), 'id' => $usuario -> getId()]);
         } else {
             return $this->render('tableBoots.html.twig');

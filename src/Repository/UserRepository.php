@@ -48,11 +48,12 @@ class UserRepository extends ServiceEntityRepository
     }
     */
 
-    public function findUserByEmail($value): ?User
+    public function findUserByEmailPass($email, $pass): ?User
     {
         return $this->createQueryBuilder('u')
-            ->andWhere('u.email = :val')
-            ->setParameter('val', $value)
+            ->andWhere('u.email = :val AND u.password = :val2')
+            ->setParameter('val', $email)
+            ->setParameter('val2', $pass)
             ->getQuery()
             ->getOneOrNullResult()
         ;

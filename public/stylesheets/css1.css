@@ -3,7 +3,7 @@
   padding: 0px;
 }
 body {
-  background-color: black;
+  background-color: grey;
   font-family: 'Roboto', sans-serif;
 }
 #infojuego #jugadorTurno{
@@ -14,23 +14,23 @@ body {
 }
 div.tablero {
   border: 1px solid greenyellow;
-  background-color: blue;
+  background-color: red;
   /* margin-left: 10%;
   margin-right: 10%; */
-  width: 50%;
+  /* width: 50%; */
 }
 .filaArriba, .filaAbajo{
-  height: 20%;
+  height: 15%;
 }
 .filaCentral {
-  height: 50%;
+  height: 45%;
 }
 .cosa {
   background-color: white; 
   border: 1px solid black;
 }
 .col-xl-4ths, .col-lg-4ths, .col-md-4ths, .col-sm-4ths {
-  width: 25%;
+  width: 20%;
 }
 .col-xl-1ths, .col-lg-1ths, .col-md-1ths,.col-sm-1ths {
   width: 12.5%;

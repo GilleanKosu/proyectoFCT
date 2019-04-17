@@ -4,37 +4,56 @@
             <meta name="viewport" content="width=device-width, initial-scale=1">
             <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
-            <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+            <script src="https://code.jquery.com/jquery-3.4.0.js" integrity="sha256-DYZMCC8HTC+QDr5QNaIcfR7VSPtcISykd+6eSmBW5qo="crossorigin="anonymous"></script>            
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
             <link rel="stylesheet" type="text/css" href="stylesheets/css1.css">
             <title>Tablero Monopoly</title>
 
             <!-- Añadidos nuevos -->
             <script type="text/javascript">
-                function logeoAjax () {
+                
+                $(function() {
+                        $('.logueoJugador').submit(function(evento){
+                               evento.preventDefault();
+                               var hijosFormulario = $(this).children();
+                               var email=hijosFormulario.eq(0).val();
+                               var pass=hijosFormulario.eq(1).val();
+                               $.ajax({
+                                type: 'POST',
+                                url:'/logeoAjax',
+                                data: {
+                                        email:email,
+                                        password:pass
+                                },success:function(response) {
+                                        console.log(response.username);
+                                }
+                                });
 
-                        var email=$("#email1").val();
-                        var pass=$("#pass1").val();
-                        $.ajax({
-                        type: 'post',
-                        url:'/logeoAjax',
-                        data: {
-                                email:email,
-                                password:pass
-                        },
-                        success:function(response) {
-                            //Ver la respuesta en la consola
-                                alert("hola");
-                        }
+                        });
                 });
-
-                }
+                
                
             </script>
     </head>
     <body>
+        {# Formularios de prueba #}
+
+        {# <form method="POST" action="/logeoAjax" id="jugador1" class="logueoJugador">
+
+            <input type="text" name="nombre_jugador1" id="email1">
+            <input type="password" name="pass_jugador1" id="pass1">
+            <input type="submit" name="enviar_logeo" value="Enviar">
+                    
+        </form>
+        <form method="POST" action="/logeoAjax" id="jugador2" class="logueoJugador">
+
+            <input type="text" name="nombre_jugador2" id="email2">
+            <input type="password" name="pass_jugador2" id="pass2">
+            <input type="submit" name="enviar_logeo" value="Enviar">
+                    
+        </form> #}
     
-        <!-- <div id="infoJuego" class="container row mx-auto">
+        <div id="infoJuego" class="container row mx-auto">
                 
                 <div id="jugadorTurno" class="col-xl-6 col-lg-6 col-sm-6">
                         <p>Turno del jugador: </p>
@@ -45,10 +64,169 @@
                 
         </div>
 
-        <div class="container mt-5 tablero">
+        <div class="container row mt-5 mb-5 mx-auto principal">
+
+                <div class="container col-xl-1 col-lg-1 col-md-1 col-sm-1 bg-danger">
+
+                        <div class="row">
+                                <div class="col">adsfadsf</div>
+                        </div>
+                        <div class="row">
+                                <div class="col">adsfadsf</div>
+                        </div>
+                        <div class="row">
+                                <div class="col">adsfadsf</div>
+                        </div>
+                        <div class="row">
+                                <div class="col">adsfadsf</div>
+                        </div>
+
+                </div>
+                <div class="container col-xl-9 col-lg-9 col-md-10 col-sm-10">
+
+                        <div class="row filaArriba">
+                                <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths cosa"></div>
+                                
+                                <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths cosa"></div>
+
+                                <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths cosa">
+                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 h-75"></div>
+                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 h-25 grupoAzul"></div>
+                                </div>
+                                <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths cosa">
+                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 h-75"></div>
+                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 h-25 grupoAzul"></div>
+                                </div>
+                                <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths cosa">
+                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 h-75 cosa"></div>
+                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 h-25 grupoAzul"></div>
+                                </div>
+
+                                <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths cosa"></div>
+                        </div>
+                        <div class="row filaCentral">
+
+                                <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths cosa column">
+                                        <div class="mx-auto col-xl-2ths col-lg-2ths col-md-2ths col-sm-2ths row"></div>
+                                        
+                                        <div class="mx-auto col-xl-2ths col-lg-2ths col-md-2ths col-sm-2ths row">
+                                                <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 h-100">
+                                                        
+                                                </div>
+                                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 h-100 grupoAmarillo">
+                                                        
+                                                </div>
+                                        </div>
+                                        <div class="mx-auto col-xl-2ths col-lg-2ths col-md-2ths col-sm-2ths row">
+                                                        <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 h-100">
+                                                                
+                                                        </div>
+                                                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 h-100 grupoAmarillo">
+                                                                
+                                                        </div>
+                                        </div>
+                                        <div class="mx-auto col-xl-2ths col-lg-2ths col-md-2ths col-sm-2ths row">
+                                                <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 h-100">
+                                                        
+                                                </div>
+                                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 h-100 grupoAmarillo">
+                                                        
+                                                </div>
+                                        </div>
+                                </div>
+                        
+                                <div class="col-xl-8ths col-lg-8ths col-md-8ths col-sm-8ths cosa"></div>
+
+                                <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths cosa column">
+                                        <div class="mx-auto col-xl-2ths col-lg-2ths col-md-2ths col-sm-2ths row">
+                                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 h-100 grupoRojo">
+                                                        
+                                                </div>
+                                                <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 h-100 ">
+                                                        
+                                                </div>
+                                        </div>
+                                        <div class="mx-auto col-xl-2ths col-lg-2ths col-md-2ths col-sm-2ths row">
+                                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 h-100 grupoRojo">
+                                                        
+                                                </div>
+                                                <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 h-100">
+                                                        
+                                                </div>
+
+                                        </div>
+                                        <div class="mx-auto col-xl-2ths col-lg-2ths col-md-2ths col-sm-2ths row">
+                                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 h-100 grupoRojo">
+                                                        
+                                                </div>
+                                                <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 h-100">
+                                                        
+                                                </div>
+
+                                        </div>
+                                        <div class="mx-auto col-xl-2ths col-lg-2ths col-md-2ths col-sm-2ths row">
+                                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 h-100 grupoRojo">
+                                                        
+                                                </div>
+                                                <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 h-100">
+                                                        
+                                                </div>
+
+                                        </div>
+                                </div>
+
+                        
+                        </div>
+                        <div class="row filaAbajo">
+
+                                        <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths cosa"></div>
+
+                                        <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths colum cosa">
+                                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 h-25 grupoVerde"></div>
+                                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 h-75"></div>
+                                        </div>
+
+                                        <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths colum cosa"></div>
+
+                                        <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths colum cosa">
+                                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 h-25 grupoVerde"></div>
+                                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 h-75"></div>
+                                        </div>
+
+                                        <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths colum cosa">
+                                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 h-25 grupoVerde"></div>
+                                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 h-75"></div>
+                                        </div>
+
+                                        <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths cosa"></div>
+                                </div>
+
+                        </div>
+                <div class="container col-xl-1 col-lg-1 col-md-1 col-sm-1">
+
+                        <div class="row">
+                                <div class="col">adsfadsf</div>
+                        </div>
+                        <div class="row">
+                                <div class="col">adsfadsf</div>
+                        </div>
+                        <div class="row">
+                                <div class="col">adsfadsf</div>
+                        </div>
+                        <div class="row">
+                                <div class="col">adsfadsf</div>
+                        </div>
+
+                </div>
+        
+        </div>
+        
+        
+
+        {# <div class="container tablero"> #}
 
 
-                <div class="row filaArriba">
+                {# <div class="row filaArriba">
                         <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths cosa"></div>
                         
                         <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths cosa"></div>
@@ -67,11 +245,11 @@
                         </div>
 
                         <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths cosa"></div>
-                </div>
+                </div> #}
 
 
 
-                <div class="row filaCentral">
+                {# <div class="row filaCentral">
 
                         <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths cosa column">
                                 <div class="mx-auto col-xl-2ths col-lg-2ths col-md-2ths col-sm-2ths row"></div>
@@ -164,9 +342,9 @@
                         </div>
 
                         <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths cosa"></div>
-                </div>
-        </div>
-        <div id="controlesJuego" class="container mx-auto row">
+                </div> #}
+        {# </div> #}
+        {# <div id="controlesJuego" class="container mx-auto row">
 
                 <div id="informacion" class="colum">
                         <div id="saldo">
@@ -219,16 +397,9 @@
                                 </ul>
                         </div>
                         
-                </div>
+                </div> #}
             
-        </div> -->
-        <!-- Nuevos añadidos -->
-        <form method="POST" action="/logeoAjax" id="Jugador2" onsubmit="return logeo_tablero();">
-
-            <input type="text" name="nombre_jugador2" id="email1">
-            <input type="password" name="pass_jugador2" id="pass1">
-            <input type="submit" name="enviar_logeo" value="Enviar">
-                    
-        </form>
+        </div>
+        
     </body>
 </html>
