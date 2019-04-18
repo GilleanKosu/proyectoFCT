@@ -29,17 +29,14 @@ div.tablero {
   background-color: white; 
   border: 1px solid black;
 }
+.cosa2 {
+  border-top: 1px solid black;
+}
 .col-xl-4ths, .col-lg-4ths, .col-md-4ths, .col-sm-4ths {
   width: 20%;
 }
 .col-xl-1ths, .col-lg-1ths, .col-md-1ths,.col-sm-1ths {
   width: 12.5%;
-}
-.col-xl-8ths, .col-lg-8ths, .col-md-8ths, .col-sm-8ths {
-  width: 50%;
-}
-.col-xl-2ths, .col-lg-2ths, .col-md-2ths, .col-sm-2ths {
-  height: 25%;
 }
 .grupoAzul {
   background-color: #677db8;
@@ -53,6 +50,7 @@ div.tablero {
 .grupoAmarillo{
   background-color: #f8fd0f;
   border-left: 1px solid black;
+  /* border-bottom: 1px solid black; */
 }
 .grupoRojo{
   background-color: #fc3b22;
