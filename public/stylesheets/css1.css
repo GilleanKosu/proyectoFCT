@@ -12,15 +12,8 @@ body {
 #infojuego #numeroTurno{
   background-color: red;
 }
-div.tablero {
-  border: 1px solid greenyellow;
-  background-color: red;
-  /* margin-left: 10%;
-  margin-right: 10%; */
-  /* width: 50%; */
-}
 .filaArriba, .filaAbajo{
-  height: 15%;
+  height: 17%;
 }
 .filaCentral {
   height: 45%;
@@ -33,29 +26,12 @@ div.tablero {
   border-top: 1px solid black;
 }
 .col-xl-4ths, .col-lg-4ths, .col-md-4ths, .col-sm-4ths {
-  width: 20%;
+  width: 25%;
 }
 .col-xl-1ths, .col-lg-1ths, .col-md-1ths,.col-sm-1ths {
   width: 12.5%;
 }
-.grupoAzul {
-  background-color: #677db8;
-  border-top: 1px solid black;
-}
-.grupoVerde{
-  background-color: #43c42c;
-  border-bottom: 1px solid black;
-  
-}
-.grupoAmarillo{
-  background-color: #f8fd0f;
-  border-left: 1px solid black;
-  /* border-bottom: 1px solid black; */
-}
-.grupoRojo{
-  background-color: #fc3b22;
-  border-right: 1px solid black;
-}
+
 
 
 

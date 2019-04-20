@@ -31,7 +31,7 @@ class DefaultController extends AbstractController
         $usuario = $repository->findUserByEmailPass($_POST['email'], $_POST['password']);
 
         if(isset($_POST['email'])) {
-            return $this->json(['username' => $usuario -> getEmail(), 'id' => $usuario -> getId()]);
+            return $this->json(['username' => $usuario -> getEmail(), 'id' => $usuario -> getId(), 'nickname' => $usuario -> getNickname()]);
         } else {
             return $this->render('tableBoots.html.twig');
         }

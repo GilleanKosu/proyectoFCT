@@ -35,6 +35,16 @@ class User implements UserInterface
      */
     private $password;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $nickname;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Dado", inversedBy="jugador")
+     */
+    private $dado;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -115,5 +125,29 @@ class User implements UserInterface
     public function __toString()
     {
         return $this->email;
+    }
+
+    public function getNickname(): ?string
+    {
+        return $this->nickname;
+    }
+
+    public function setNickname(string $nickname): self
+    {
+        $this->nickname = $nickname;
+
+        return $this;
+    }
+
+    public function getDado(): ?Dado
+    {
+        return $this->dado;
+    }
+
+    public function setDado(?Dado $dado): self
+    {
+        $this->dado = $dado;
+
+        return $this;
     }
 }

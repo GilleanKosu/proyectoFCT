@@ -9,12 +9,41 @@
             <link rel="stylesheet" type="text/css" href="stylesheets/css1.css">
             <title>Tablero Monopoly</title>
 
-            <!-- Añadidos nuevos -->
             <script type="text/javascript">
-                
+                var jugadores_partida = [];
+                var aux_jugadores = [];
+                var turnos = 0;
+
+                //Cada vez que se pase de turno o se inicie la partida el numero aumentará
+                function sumar_Turno () {
+                        turnos = turnos + 1;
+                        $('#numeroTurno p').text('Turno nº '+ turnos);
+                }
+                //Metodo para mezclar los jugadores al inicio de la partida
+                function mezclar_Jugadores () {
+
+                        var jugadores_mezclados = [];
+                        
+                        //Esta es la unica forma de clonar relativamente buena en javascript, se guardan los jugadores en un array auxiliar
+                                //para posteriormente mezclarlos en otro
+                        for (i = 0; i < jugadores_partida.length; i++){
+
+                                aux_jugadores [i] = jugadores_partida [i];
+                        }
+                        
+                        for (i = 0; i < jugadores_partida.length; i++) {
+                                var orden_aleatorio = (Math.floor(Math.random() * aux_jugadores.length));
+                                jugadores_mezclados[i]=aux_jugadores[orden_aleatorio];
+                                aux_jugadores.splice(orden_aleatorio, 1);
+                        }
+                        console.log(jugadores_mezclados);
+                        
+                }
                 $(function() {
                         $('.logueoJugador').submit(function(evento){
                                evento.preventDefault();
+                               var padre = $(this);
+                               var padre_del_padre = $(this).parent();
                                var hijosFormulario = $(this).children();
                                var email=hijosFormulario.eq(0).val();
                                var pass=hijosFormulario.eq(1).val();
@@ -25,10 +54,18 @@
                                         email:email,
                                         password:pass
                                 },success:function(response) {
-                                        console.log(response.username);
+                                        padre.remove();
+                                        jugadores_partida.push(response.nickname);
+                                        //console.log(aux_jugadores);
+                                        padre_del_padre.append('<p>'+response.nickname+'</p>');
                                 }
                                 });
 
+                        });
+
+                        $('#start_button').click(function(evento) {
+                                sumar_Turno();
+                                mezclar_Jugadores();
                         });
                 });
                 
@@ -36,22 +73,6 @@
             </script>
     </head>
     <body>
-        {# Formularios de prueba #}
-
-        {# <form method="POST" action="/logeoAjax" id="jugador1" class="logueoJugador">
-
-            <input type="text" name="nombre_jugador1" id="email1">
-            <input type="password" name="pass_jugador1" id="pass1">
-            <input type="submit" name="enviar_logeo" value="Enviar">
-                    
-        </form>
-        <form method="POST" action="/logeoAjax" id="jugador2" class="logueoJugador">
-
-            <input type="text" name="nombre_jugador2" id="email2">
-            <input type="password" name="pass_jugador2" id="pass2">
-            <input type="submit" name="enviar_logeo" value="Enviar">
-                    
-        </form> #}
     
         <div id="infoJuego" class="container row mx-auto">
                 
@@ -66,23 +87,53 @@
 
         <div class="container row mt-5 mb-5 mx-auto principal">
 
-                <div class="container col-xl-1 col-lg-1 col-md-1 col-sm-1 bg-danger">
+                <div class="container col-xl-2 col-lg-1 col-md-1 col-sm-1 bg-danger">
 
                         <div class="row">
-                                <div class="col">adsfadsf</div>
+                                <div id="jugador1" class="col w-100 rounded bg-primary m-1 p-2">
+                                        <form method="POST" action="/logeoAjax" id="form_jugador1" class="logueoJugador">
+                                                <input type="text" name="nombre_jugador1" id="email1">
+                                                <input type="password" name="pass_jugador1" id="pass1">
+                                                <input type="submit" name="enviar_logeo" value="Enviar">
+                                        </form>
+                                </div>
                         </div>
                         <div class="row">
-                                <div class="col">adsfadsf</div>
+                                <div id="jugador2" class="col w-100 rounded bg-primary m-1 p-2">
+                                        <form method="POST" action="/logeoAjax" id="form_jugador2" class="logueoJugador">
+                                                <input type="text" name="nombre_jugador2" id="email2">
+                                                <input type="password" name="pass_jugador2" id="pass2">
+                                                <input type="submit" name="enviar_logeo" value="Enviar">
+                                        </form>
+                                </div>
                         </div>
                         <div class="row">
-                                <div class="col">adsfadsf</div>
+                                <div id="jugador3" class="col w-100 rounded bg-primary m-1 p-2">
+                                        <form method="POST" action="/logeoAjax" id="form_jugador3" class="logueoJugador">
+                                                <input type="text" name="nombre_jugador3" id="email3">
+                                                <input type="password" name="pass_jugador3" id="pass3">
+                                                <input type="submit" name="enviar_logeo" value="Enviar">
+                                        </form>
+                                </div>
                         </div>
                         <div class="row">
-                                <div class="col">adsfadsf</div>
+                                <div id="jugador4" class="col w-100 rounded bg-primary m-1 p-2">
+                                        <form method="POST" action="/logeoAjax" id="form_jugador4" class="logueoJugador">
+                                                <input type="text" name="nombre_jugador4" id="email4">
+                                                <input type="password" name="pass_jugador4" id="pass4">
+                                                <input type="submit" name="enviar_logeo" value="Enviar">
+                                        </form>
+                                </div>
+                        </div>
+                        <div class="row">
+                                <div id="start" class="col w-100 rounded bg-primary m-1 p-2">
+                                        <button type="button" id="start_button" class="w-100 btn btn-success">Empezar</button>
+                                </div>
                         </div>
 
                 </div>
-                <div class="container col-xl-9 col-lg-9 col-md-10 col-sm-10">
+
+                <div class="container col-xl-8 col-lg-10 col-md-10 col-sm-10">
 
                         <div class="row filaArriba">
                                 <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths border border-dark bg-light"></div>
@@ -169,11 +220,14 @@
                                                 <div class="w-100 h-75"></div>
                                         </div>
 
-                                        <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths border border-dark bg-light"></div>
+                                        <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths border border-dark bg-light">
+                                                <p>Salida</p>
+                                        </div>
                                 </div>
 
                         </div>
-                <div class="container col-xl-1 col-lg-1 col-md-1 col-sm-1">
+                        
+                <div class="container col-xl-2 col-lg-1 col-md-1 col-sm-1 bg-primary">
 
                         <div class="row">
                                 <div class="col">adsfadsf</div>
@@ -192,184 +246,6 @@
         
         </div>
         
-        
-
-        {# <div class="container tablero"> #}
-
-
-                {# <div class="row filaArriba">
-                        <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths cosa"></div>
-                        
-                        <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths cosa"></div>
-
-                        <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths cosa">
-                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 h-75"></div>
-                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 h-25 grupoAzul"></div>
-                        </div>
-                        <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths cosa">
-                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 h-75"></div>
-                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 h-25 grupoAzul"></div>
-                        </div>
-                        <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths cosa">
-                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 h-75 cosa"></div>
-                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 h-25 grupoAzul"></div>
-                        </div>
-
-                        <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths cosa"></div>
-                </div> #}
-
-
-
-                {# <div class="row filaCentral">
-
-                        <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths cosa column">
-                                <div class="mx-auto col-xl-2ths col-lg-2ths col-md-2ths col-sm-2ths row"></div>
-                                
-                                <div class="mx-auto col-xl-2ths col-lg-2ths col-md-2ths col-sm-2ths row">
-                                        <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 h-100">
-                                                
-                                        </div>
-                                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 h-100 grupoAmarillo">
-                                                
-                                        </div>
-                                </div>
-                                <div class="mx-auto col-xl-2ths col-lg-2ths col-md-2ths col-sm-2ths row">
-                                                <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 h-100">
-                                                        
-                                                </div>
-                                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 h-100 grupoAmarillo">
-                                                        
-                                                </div>
-                                </div>
-                                <div class="mx-auto col-xl-2ths col-lg-2ths col-md-2ths col-sm-2ths row">
-                                        <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 h-100">
-                                                
-                                        </div>
-                                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 h-100 grupoAmarillo">
-                                                
-                                        </div>
-                                </div>
-                        </div>
-                        
-                        <div class="col-xl-8ths col-lg-8ths col-md-8ths col-sm-8ths cosa"></div>
-
-                        <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths cosa column">
-                                <div class="mx-auto col-xl-2ths col-lg-2ths col-md-2ths col-sm-2ths row">
-                                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 h-100 grupoRojo">
-                                                
-                                        </div>
-                                        <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 h-100 ">
-                                                
-                                        </div>
-                                </div>
-                                <div class="mx-auto col-xl-2ths col-lg-2ths col-md-2ths col-sm-2ths row">
-                                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 h-100 grupoRojo">
-                                                
-                                        </div>
-                                        <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 h-100">
-                                                
-                                        </div>
-
-                                </div>
-                                <div class="mx-auto col-xl-2ths col-lg-2ths col-md-2ths col-sm-2ths row">
-                                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 h-100 grupoRojo">
-                                                
-                                        </div>
-                                        <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 h-100">
-                                                
-                                        </div>
-
-                                </div>
-                                <div class="mx-auto col-xl-2ths col-lg-2ths col-md-2ths col-sm-2ths row">
-                                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 h-100 grupoRojo">
-                                                
-                                        </div>
-                                        <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 h-100">
-                                                
-                                        </div>
-
-                                </div>
-                        </div>
-                </div>
-                <div class="row filaAbajo">
-
-                        <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths cosa"></div>
-
-                        <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths colum cosa">
-                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 h-25 grupoVerde"></div>
-                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 h-75"></div>
-                        </div>
-
-                        <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths colum cosa"></div>
-
-                        <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths colum cosa">
-                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 h-25 grupoVerde"></div>
-                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 h-75"></div>
-                        </div>
-
-                        <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths colum cosa">
-                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 h-25 grupoVerde"></div>
-                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 h-75"></div>
-                        </div>
-
-                        <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths cosa"></div>
-                </div> #}
-        {# </div> #}
-        {# <div id="controlesJuego" class="container mx-auto row">
-
-                <div id="informacion" class="colum">
-                        <div id="saldo">
-                                <textarea>Saldo:</textarea>
-                        </div>
-                        <div id="dado">
-                                <p>Dado:</p>
-                                <button>Tirar</button>
-                        </div>
-                </div>
-                
-                <div id="compraVentaEdificacion" class="colum">
-
-                        <div>
-                                <button>Comprar</button>
-                        </div>
-
-                        <div>
-                                <button>Vender</button>   
-                        </div>
-                        <div>
-                                <button>Edificar Casa</button>
-                        </div>
-
-                        <div>
-                                <button>Edificar Hotel</button>
-                        </div>
- 
-                        
-                </div>
-
-                <div id="cartasYPropiedades" class="colum">
-
-                        <div id="cartas">
-                                Lista de cartas: 
-                                <select>
-                                        <option value="">Carta1</option>
-                                        <option value="">Carta2</option>
-                                        <option value="">Carta3</option>                                                
-                                        <option value="">Carta4</option>
-                                </select>
-                                
-                        </div>
-                        <div id="propiedades">
-                                <ul>
-                                        <li>Propiedad1</li>
-                                        <li>Propiedad2</li>
-                                        <li>Propiedad3</li>
-                                        <li>Propiedad4</li>
-                                </ul>
-                        </div>
-                        
-                </div> #}
-            
         </div>
         
     </body>
