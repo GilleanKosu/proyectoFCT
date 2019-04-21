@@ -37,4 +37,17 @@ class DefaultController extends AbstractController
         }
         
     }
+    /**
+     * @Route("/crearPartida", name="crearPartda")
+     */
+    public function crear_partida(){
+        
+        if(isset($_POST['email'])) {
+            return $this->json(['username' => $usuario -> getEmail(), 'id' => $usuario -> getId(), 'nickname' => $usuario -> getNickname()]);
+        } else {
+            return $this->render('tableBoots.html.twig');
+        }
+        
+    }
+
 }

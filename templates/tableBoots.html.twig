@@ -71,7 +71,13 @@
 
                         });
 
-                        $('#start_button').click(function(evento) {
+                        $('#start_button').click(function() {
+                                $.ajax({
+                                type: 'POST',
+                                url:'/crearPartida',
+                                success:function(response) {
+                                        
+                                }
                                 sumar_Turno();
                                 mezclar_Jugadores();
                                 siguiente_jugador();

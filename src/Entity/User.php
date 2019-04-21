@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -44,6 +46,16 @@ class User implements UserInterface
      * @ORM\ManyToOne(targetEntity="App\Entity\Dado", inversedBy="jugador")
      */
     private $dado;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Partida", mappedBy="jugadores")
+     */
+    private $partidas;
+
+    public function __construct()
+    {
+        $this->partidas = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -147,6 +159,34 @@ class User implements UserInterface
     public function setDado(?Dado $dado): self
     {
         $this->dado = $dado;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Partida[]
+     */
+    public function getPartidas(): Collection
+    {
+        return $this->partidas;
+    }
+
+    public function addPartida(Partida $partida): self
+    {
+        if (!$this->partidas->contains($partida)) {
+            $this->partidas[] = $partida;
+            $partida->addJugadore($this);
+        }
+
+        return $this;
+    }
+
+    public function removePartida(Partida $partida): self
+    {
+        if ($this->partidas->contains($partida)) {
+            $this->partidas->removeElement($partida);
+            $partida->removeJugadore($this);
+        }
 
         return $this;
     }
