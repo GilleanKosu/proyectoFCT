@@ -11,8 +11,10 @@
 
             <script type="text/javascript">
                 var jugadores_partida = [];
+                var jugadores_mezclados = [];
                 var aux_jugadores = [];
                 var turnos = 0;
+                var turno_jugador = -1;
 
                 //Cada vez que se pase de turno o se inicie la partida el numero aumentará
                 function sumar_Turno () {
@@ -21,8 +23,6 @@
                 }
                 //Metodo para mezclar los jugadores al inicio de la partida
                 function mezclar_Jugadores () {
-
-                        var jugadores_mezclados = [];
                         
                         //Esta es la unica forma de clonar relativamente buena en javascript, se guardan los jugadores en un array auxiliar
                                 //para posteriormente mezclarlos en otro
@@ -38,6 +38,14 @@
                         }
                         console.log(jugadores_mezclados);
                         
+                }
+                function siguiente_jugador() {
+                        if(turno_jugador<(jugadores_partida.length-1)) {
+                                turno_jugador += 1;
+                        } else {
+                                turno_jugador = 0;
+                        }
+                        $('#jugadorTurno').text('Turno del jugador: ' + jugadores_mezclados[turno_jugador]);
                 }
                 $(function() {
                         $('.logueoJugador').submit(function(evento){
@@ -66,7 +74,16 @@
                         $('#start_button').click(function(evento) {
                                 sumar_Turno();
                                 mezclar_Jugadores();
+                                siguiente_jugador();
+                                $(this).parent().append('<button type="button" id="end_turn_button" class="w-100 btn btn-success">Fin turno</button>');
+                                $(this).remove();
                         });
+
+                        $(document).on('click', '#end_turn_button', function(){ //Es necesario usar la delegacion de eventos para elementos creados
+                                sumar_Turno();
+                                siguiente_jugador();
+                        }); 
+
                 });
                 
                
