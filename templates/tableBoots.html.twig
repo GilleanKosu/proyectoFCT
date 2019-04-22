@@ -72,12 +72,6 @@
                         });
 
                         $('#start_button').click(function() {
-                                $.ajax({
-                                type: 'POST',
-                                url:'/crearPartida',
-                                success:function(response) {
-                                        
-                                }
                                 sumar_Turno();
                                 mezclar_Jugadores();
                                 siguiente_jugador();
@@ -159,41 +153,44 @@
                 <div class="container col-xl-8 col-lg-10 col-md-10 col-sm-10">
 
                         <div class="row filaArriba">
-                                <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths border border-dark bg-light"></div>
+                                <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths border border-dark bg-light" id="parking"></div>
                                 
-                                <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths border border-dark bg-light"></div>
-
-                                <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths border border-dark bg-light">
-                                        <div class="w-100 h-75"></div>
-                                        <div class="w-100 h-25 bg-primary border-top border-dark"></div>
-                                </div>
-                                <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths border border-dark bg-light">
-                                        <div class="w-100 h-75"></div>
-                                        <div class="w-100 h-25 bg-primary border-top border-dark"></div>
-                                </div>
-                                <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths border border-dark bg-light">
-                                        <div class="w-100 h-75"></div>
-                                        <div class="w-100 h-25 bg-primary border-top border-dark"></div>
+                                <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths border border-dark">
+                                        <div class="w-100 h-25"><p>Suerte</p></div>
+                                        <div class="w-100 h-75 suerte"></div>
                                 </div>
 
-                                <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths cosa"></div>
+                                <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths border border-dark bg-light casilla_filla_arriba">
+                                        <div class="w-100 h-25 bg-primary border-top border-dark"></div>
+                                        <div class="w-100 h-75"><p>Gran via</p></div>
+                                </div>
+                                <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths border border-dark bg-light casilla_filla_arriba">               
+                                        <div class="w-100 h-25 bg-primary border-top border-dark"></div>
+                                        <div class="w-100 h-75"><p>Paseo de la Castellana</p></div>
+                                </div>
+                                <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths border border-dark bg-light casilla_filla_arriba">
+                                        <div class="w-100 h-25 bg-primary border-top border-dark"></div>
+                                        <div class="w-100 h-75"><p>Paseo del prado</p></div>
+                                </div>
+
+                                <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths cosa" id="carcel"></div>
                         </div>
                         <div class="row filaCentral">
 
                                 <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths bg-light column">
 
-                                        <div class="mx-auto h-25 row border border-dark bg-light"></div>
+                                        <div class="mx-auto h-25 row border border-dark bg-light"><p>Impuesto</p></div>
                                         
                                         <div class="mx-auto h-25 row border border-dark bg-light">
-                                                <div class="w-75 h-100"></div>
+                                                <div class="w-75 h-100"><p>Puerta del sol</p></div>
                                                 <div class="w-25 h-100 bg-warning border-left border-dark"></div>
                                         </div>
                                         <div class="mx-auto h-25 row border border-dark bg-light">
-                                                <div class="w-75 h-100"></div>
+                                                <div class="w-75 h-100"><p>Plaza España</p></div>
                                                 <div class="w-25 h-100 bg-warning border-left border-dark"></div>
                                         </div>
                                         <div class="mx-auto h-25 row border border-dark bg-light">
-                                                <div class="w-75 h-100"></div>
+                                                <div class="w-75 h-100"><p>Calle Bailen</p></div>
                                                 <div class="w-25 h-100 bg-warning border-left border-dark"></div>
                                         </div>
                                 </div>
@@ -204,19 +201,19 @@
                                         
                                         <div class="mx-auto h-25 row border border-dark bg-light">
                                                 <div class="w-25 h-100 border-right border-dark bg-danger"></div>
-                                                <div class="w-75 h-100"></div>
+                                                <div class="w-75 h-100"><p>Reyes Catolicos</p></div>
                                         </div>
                                         <div class="mx-auto h-25 row border border-dark bg-light">
                                                 <div class="w-25 h-100 border-right border-dark bg-danger"></div>
-                                                <div class="w-75 h-100"></div>
+                                                <div class="w-75 h-100"><p>Cea Bermudez</p></div>
                                         </div>
                                         <div class="mx-auto h-25 row border border-dark bg-light">
                                                 <div class="w-25 h-100 border-right border-dark bg-danger"></div>
-                                                <div class="w-75 h-100"></div>
+                                                <div class="w-75 h-100"><p>Maria Molina</p></div>
                                         </div>
                                         <div class="mx-auto h-25 row border border-dark bg-light">
                                                 <div class="w-25 h-100 border-right border-dark bg-danger"></div>
-                                                <div class="w-75 h-100"></div>
+                                                <div class="w-75 h-100"><p>Avenida America</p></div>
                                         </div>
                                 </div>
 
@@ -224,28 +221,29 @@
                         </div>
                         <div class="row filaAbajo">
 
-                                        <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths border border-dark bg-light"></div>
+                                        <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths border border-dark bg-light" id="injail"></div>
 
                                         <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths colum border border-dark bg-light">
                                                 <div class="w-100 h-25 bg-success border-bottom border-dark"></div>
-                                                <div class="w-100 h-75"></div>
+                                                <div class="w-100 h-75"><p>Glorieta Bilbao</p></div>
                                         </div>
 
-                                        <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths colum border border-dark bg-light"></div>
+                                        <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths colum border border-dark">
+                                                <div class="w-100 h-25"><p>Suerte</p></div>
+                                                <div class="w-100 h-75 suerte"></div>
+                                        </div>
 
                                         <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths colum border border-dark bg-light">
                                                 <div class="w-100 h-25 bg-success border-bottom border-dark"></div>
-                                                <div class="w-100 h-75"></div>
+                                                <div class="w-100 h-75"><p>Alberto Aguilera</p></div>
                                         </div>
 
                                         <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths colum border border-dark bg-light">
                                                 <div class="w-100 h-25 bg-success border-bottom border-dark"></div>
-                                                <div class="w-100 h-75"></div>
+                                                <div class="w-100 h-75"><p>Fuencarral</p></div>
                                         </div>
 
-                                        <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths border border-dark bg-light">
-                                                <p>Salida</p>
-                                        </div>
+                                        <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths border border-dark bg-light" id="inicio"></div>
                                 </div>
 
                         </div>

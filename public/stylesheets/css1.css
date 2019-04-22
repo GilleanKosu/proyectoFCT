@@ -3,8 +3,12 @@
   padding: 0px;
 }
 body {
-  background-color: grey;
+  background-color: white;
   font-family: 'Roboto', sans-serif;
+}
+.principal p{
+  font-weight: bold;
+  text-align: center;
 }
 #infojuego p {
   font-size: 30px;
@@ -27,6 +31,30 @@ body {
 }
 .col-xl-1ths, .col-lg-1ths, .col-md-1ths,.col-sm-1ths {
   width: 12.5%;
+}
+.filaAbajo div.suerte, .filaArriba div.suerte {
+  background: url(../imagenes/interrogacion.png) no-repeat center;
+  background-size: 100% 80%;
+}
+.filaAbajo div p, .filaArriba div p{
+  text-align: center;
+  margin-top: 5%;
+}
+#parking {
+  background: url(../imagenes/freeParking.png) no-repeat center;
+  background-size: 90% 90%;
+}
+#carcel {
+  background: url(../imagenes/jail.png) no-repeat center;
+  background-size: 90% 90%;
+}
+#injail {
+  background: url(../imagenes/injail.png) no-repeat center;
+  background-size: 90% 90%;
+}
+#inicio {
+  background: url(../imagenes/goto.png) no-repeat center;
+  background-size: 100% 100%;
 }
 
 
