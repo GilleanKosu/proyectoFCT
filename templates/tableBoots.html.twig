@@ -21,7 +21,7 @@
                         turnos = turnos + 1;
                         $('#numeroTurno p').text('Turno nº '+ turnos);
                 }
-                
+
                 //Metodo para mezclar los jugadores al inicio de la partida
                 function mezclar_Jugadores () {
                         
@@ -73,6 +73,13 @@
                         });
 
                         $('#start_button').click(function() {
+                                $.ajax({
+                                type: 'POST',
+                                url:'/crearPartida',
+                                success:function(response) {
+                                        console.log(response);
+                                }
+                                });
                                 sumar_Turno();
                                 mezclar_Jugadores();
                                 siguiente_jugador();

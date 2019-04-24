@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use App\Entity\User;
+use App\Entity\Partida;
 
 class DefaultController extends AbstractController
 {
@@ -41,12 +42,16 @@ class DefaultController extends AbstractController
      * @Route("/crearPartida", name="crearPartda")
      */
     public function crear_partida(){
+        $random_number = mt_rand(1,9999999);
+
+        $nueva_partida = new Partida();
+        $entityManager = $this->getDoctrine()->getManager();
+        $nueva_partida->setId($random_number);
+        $entityManager->persist($nueva_partida);
+        $entityManager->flush();
         
-        if(isset($_POST['email'])) {
-            return $this->json(['username' => $usuario -> getEmail(), 'id' => $usuario -> getId(), 'nickname' => $usuario -> getNickname()]);
-        } else {
-            return $this->render('tableBoots.html.twig');
-        }
+        return $this->json(['id' => $nueva_partida -> getId(), 'ganador' => $nueva_partida -> getGanador(), 'total_turnos' => $nueva_partida -> getTotalTurnos()]);
+        
         
     }
 

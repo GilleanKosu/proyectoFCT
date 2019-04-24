@@ -13,7 +13,6 @@ class Partida
 {
     /**
      * @ORM\Id()
-     * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
     private $id;
@@ -33,9 +32,15 @@ class Partida
      */
     private $total_turnos;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Casilla", inversedBy="partidas")
+     */
+    private $casilla;
+
     public function __construct()
     {
         $this->jugadores = new ArrayCollection();
+        $this->casilla = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -80,6 +85,12 @@ class Partida
 
         return $this;
     }
+    public function setId(?int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
+    }
 
     public function getTotalTurnos(): ?int
     {
@@ -89,6 +100,32 @@ class Partida
     public function setTotalTurnos(?int $total_turnos): self
     {
         $this->total_turnos = $total_turnos;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Casilla[]
+     */
+    public function getCasilla(): Collection
+    {
+        return $this->casilla;
+    }
+
+    public function addCasilla(Casilla $casilla): self
+    {
+        if (!$this->casilla->contains($casilla)) {
+            $this->casilla[] = $casilla;
+        }
+
+        return $this;
+    }
+
+    public function removeCasilla(Casilla $casilla): self
+    {
+        if ($this->casilla->contains($casilla)) {
+            $this->casilla->removeElement($casilla);
+        }
 
         return $this;
     }

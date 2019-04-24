@@ -52,6 +52,11 @@ class User implements UserInterface
      */
     private $partidas;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Casilla", inversedBy="jugadores")
+     */
+    private $casilla;
+
     public function __construct()
     {
         $this->partidas = new ArrayCollection();
@@ -187,6 +192,18 @@ class User implements UserInterface
             $this->partidas->removeElement($partida);
             $partida->removeJugadore($this);
         }
+
+        return $this;
+    }
+
+    public function getCasilla(): ?Casilla
+    {
+        return $this->casilla;
+    }
+
+    public function setCasilla(?Casilla $casilla): self
+    {
+        $this->casilla = $casilla;
 
         return $this;
     }
