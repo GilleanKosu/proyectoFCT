@@ -13,7 +13,6 @@ class Partida
 {
     /**
      * @ORM\Id()
-     * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
     private $id;
@@ -24,14 +23,19 @@ class Partida
     private $jugadores;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $ganador;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $total_turnos;
+    private $num_turnos;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Dado", inversedBy="partidas")
+     */
+    private $dado;
 
     public function __construct()
     {
@@ -41,6 +45,12 @@ class Partida
     public function getId(): ?int
     {
         return $this->id;
+    }
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     /**
@@ -74,21 +84,33 @@ class Partida
         return $this->ganador;
     }
 
-    public function setGanador(?string $ganador): self
+    public function setGanador(string $ganador): self
     {
         $this->ganador = $ganador;
 
         return $this;
     }
 
-    public function getTotalTurnos(): ?int
+    public function getNumTurnos(): ?int
     {
-        return $this->total_turnos;
+        return $this->num_turnos;
     }
 
-    public function setTotalTurnos(?int $total_turnos): self
+    public function setNumTurnos(?int $num_turnos): self
     {
-        $this->total_turnos = $total_turnos;
+        $this->num_turnos = $num_turnos;
+
+        return $this;
+    }
+
+    public function getDado(): ?Dado
+    {
+        return $this->dado;
+    }
+
+    public function setDado(?Dado $dado): self
+    {
+        $this->dado = $dado;
 
         return $this;
     }
