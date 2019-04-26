@@ -19,18 +19,18 @@ class Dado
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $caras;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="dado")
+     * @ORM\OneToMany(targetEntity="App\Entity\Partida", mappedBy="dado")
      */
-    private $jugador;
+    private $partidas;
 
     public function __construct()
     {
-        $this->jugador = new ArrayCollection();
+        $this->partidas = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -43,7 +43,7 @@ class Dado
         return $this->caras;
     }
 
-    public function setCaras(int $caras): self
+    public function setCaras(?int $caras): self
     {
         $this->caras = $caras;
 
@@ -51,30 +51,30 @@ class Dado
     }
 
     /**
-     * @return Collection|User[]
+     * @return Collection|Partida[]
      */
-    public function getJugador(): Collection
+    public function getPartidas(): Collection
     {
-        return $this->jugador;
+        return $this->partidas;
     }
 
-    public function addJugador(User $jugador): self
+    public function addPartida(Partida $partida): self
     {
-        if (!$this->jugador->contains($jugador)) {
-            $this->jugador[] = $jugador;
-            $jugador->setDado($this);
+        if (!$this->partidas->contains($partida)) {
+            $this->partidas[] = $partida;
+            $partida->setDado($this);
         }
 
         return $this;
     }
 
-    public function removeJugador(User $jugador): self
+    public function removePartida(Partida $partida): self
     {
-        if ($this->jugador->contains($jugador)) {
-            $this->jugador->removeElement($jugador);
+        if ($this->partidas->contains($partida)) {
+            $this->partidas->removeElement($partida);
             // set the owning side to null (unless already changed)
-            if ($jugador->getDado() === $this) {
-                $jugador->setDado(null);
+            if ($partida->getDado() === $this) {
+                $partida->setDado(null);
             }
         }
 

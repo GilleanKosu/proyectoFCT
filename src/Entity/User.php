@@ -43,11 +43,6 @@ class User implements UserInterface
     private $nickname;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Dado", inversedBy="jugador")
-     */
-    private $dado;
-
-    /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Partida", mappedBy="jugadores")
      */
     private $partidas;
@@ -147,18 +142,6 @@ class User implements UserInterface
     public function setNickname(string $nickname): self
     {
         $this->nickname = $nickname;
-
-        return $this;
-    }
-
-    public function getDado(): ?Dado
-    {
-        return $this->dado;
-    }
-
-    public function setDado(?Dado $dado): self
-    {
-        $this->dado = $dado;
 
         return $this;
     }

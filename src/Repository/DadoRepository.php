@@ -47,4 +47,13 @@ class DadoRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function findOneById($id): ?Dado
+    {
+        return $this->createQueryBuilder('d')
+            ->andWhere('d.id = :val')
+            ->setParameter('val', $id)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
 }
