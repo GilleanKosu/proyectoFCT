@@ -37,6 +37,11 @@ class Partida
      */
     private $dado;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $fecha;
+
     public function __construct()
     {
         $this->jugadores = new ArrayCollection();
@@ -111,6 +116,18 @@ class Partida
     public function setDado(?Dado $dado): self
     {
         $this->dado = $dado;
+
+        return $this;
+    }
+
+    public function getFecha(): ?\DateTimeInterface
+    {
+        return $this->fecha;
+    }
+
+    public function setFecha(\DateTimeInterface $fecha): self
+    {
+        $this->fecha = $fecha;
 
         return $this;
     }

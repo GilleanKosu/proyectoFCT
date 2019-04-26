@@ -53,6 +53,9 @@ class DefaultController extends AbstractController
         $nueva_partida->setId($random_number);
         $nueva_partida->setGanador("");
         $nueva_partida->setNumTurnos(0);
+        $nueva_partida->setDado($dado);
+        $date = new \DateTime('@'.strtotime('now'));
+        $nueva_partida->setFecha($date);
         $entityManager->persist($nueva_partida);
         $entityManager->flush();
 
@@ -70,8 +73,6 @@ class DefaultController extends AbstractController
             $entityManager->persist($nueva_partida);
             $entityManager->flush();
         }
-
-        
 
         return $this->json(['id_partida' => $nueva_partida->getId(), 'ganador' => $nueva_partida -> getGanador(), 'caras_dado' => $dado->getCaras()]);
         
