@@ -47,4 +47,14 @@ class PartidaRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findOneById($value): ?Partida
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.id = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
 }
