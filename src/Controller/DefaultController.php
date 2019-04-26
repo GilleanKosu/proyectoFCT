@@ -38,25 +38,43 @@ class DefaultController extends AbstractController
         }
         
     }
+
     /**
-     * @Route("/crearPartida", name="crearPartda")
+     * @Route("/crearPartida", name="crearPartida")
      */
-    public function crear_partida(){
+     public function crear_Partida(){
+        $repository = $this->getDoctrine()->getRepository(User::class);
+        $repository2 = $this->getDoctrine()->getRepository(Dado::class);
+        $dado = $repository2 ->findOneById(1);
+
         $random_number = mt_rand(1,9999999);
         $nueva_partida = new Partida();
         $entityManager = $this->getDoctrine()->getManager();
         $nueva_partida->setId($random_number);
-        $nueva_partida->setGanador("hola");
+        $nueva_partida->setGanador("");
         $nueva_partida->setNumTurnos(0);
         $entityManager->persist($nueva_partida);
         $entityManager->flush();
 
-        $repository = $this -> getDoctrine() -> getRepository(Dado::class);
-        $dado = $repository ->findOneById(1);
-        
-        return $this->json(['id' => $nueva_partida -> getId(), 'ganador' => $nueva_partida -> getGanador(), 'total_turnos' => $nueva_partida -> getNumTurnos(), 'caras_dado' => $dado->getCaras()]);
-        
-        
-    }
+        //Creamos los objetos Usuarios con los datos de los usuarios que se ha logueado para añadirlos a la partida en cuestion
 
+
+        // $repository2 = $this->getDoctrine()->getRepository(Partida::class);
+        //Por si quisiera sacar los jugadores, necesita un for each
+        // $nueva2_partida2 = $repository2->findOneById(7337246);
+        // var_dump($nueva2_partida2->getJugadores()[0]->getEmail());
+        // die();
+        foreach ($_POST['array_jugadores'] as $key => $value) {
+            $usuario = $repository->findOneById($value['id']);
+            $nueva_partida->addJugadore($usuario);
+            $entityManager->persist($nueva_partida);
+            $entityManager->flush();
+        }
+
+        
+
+        return $this->json(['id_partida' => $nueva_partida->getId(), 'ganador' => $nueva_partida -> getGanador(), 'caras_dado' => $dado->getCaras()]);
+        
+
+    }
 }

@@ -16,6 +16,7 @@
                 var turnos = 0;
                 var turno_jugador = -1;
                 var caras_dado = 0;
+                var partida;
 
                 //Cada vez que se pase de turno o se inicie la partida el numero aumentará
                 function sumar_Turno () {
@@ -68,7 +69,7 @@
                                         password:pass
                                 },success:function(response) {
                                         padre.remove();
-                                        jugadores_partida.push(response.nickname);
+                                        jugadores_partida.push(response);
                                         //console.log(aux_jugadores);
                                         padre_del_padre.append('<p>'+response.nickname+'</p>');
                                 }
@@ -80,9 +81,12 @@
                                 $.ajax({
                                 type: 'POST',
                                 url:'/crearPartida',
-                                success:function(response) {
-                                        console.log(response);
+                                data: {
+                                    array_jugadores:jugadores_partida
+                                },success:function(response) {
+                                        partida=response;
                                         caras_dado = response.caras_dado;
+                                        console.log(response);
                                 }
                                 });
                                 sumar_Turno();
@@ -91,7 +95,8 @@
                                 $(this).remove();
                         });
 
-                        $(document).on('click', '#end_turn_button', function(){ //Es necesario usar la delegacion de eventos para elementos creados
+                        //Es necesario usar la delegacion de eventos para elementos creados
+                        $(document).on('click', '#end_turn_button', function(){ 
                                 sumar_Turno();
                                 siguiente_jugador();
                         }); 
