@@ -106,7 +106,7 @@ class DefaultController extends AbstractController
 
            $entityManager->merge($jugador_actualizado);
            $entityManager->flush();
-           return $this->json(['actualizar_jugador' => 'asdf']);
+           return $this->json(['casilla_actualizada' => $casilla_nueva->getId()]);
         }
     }
 }
