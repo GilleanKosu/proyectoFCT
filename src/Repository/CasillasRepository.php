@@ -47,4 +47,13 @@ class CasillasRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function findCasillaById($value): ?Casillas
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.id = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
 }

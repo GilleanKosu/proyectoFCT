@@ -60,30 +60,53 @@ class DefaultController extends AbstractController
         $entityManager->persist($nueva_partida);
         $entityManager->flush();
 
-        //Creamos los objetos Usuarios con los datos de los usuarios que se ha logueado para añadirlos a la partida en cuestion, de manera que todos los jugadores que esten logueados serán los que jueguen
+        $casillas = $repository3 -> findAll();
 
-
-        // $repository2 = $this->getDoctrine()->getRepository(Partida::class);
-        //Por si quisiera sacar los jugadores, necesita un for each
-        // $nueva2_partida2 = $repository2->findOneById(7337246);
-        // var_dump($nueva2_partida2->getJugadores()[0]->getEmail());
-        // die();
-        
-        foreach ($_POST['array_jugadores'] as $key => $value) {
-            $usuario = $repository->findOneById($value);
-            $nueva_partida->addJugadore($usuario);//Añadimos cada jugador a la partida
+        foreach ($casillas as $key => $value) {
+            $lista_casillas[]=$value->getId();//De momento no parece necesario
+            $nueva_partida->addCasilla($value);
             $entityManager->persist($nueva_partida);
             $entityManager->flush();
         }
 
-        $casillas = $repository3 -> findAll();
-        foreach ($casillas as $key => $value) {
-            $lista_casillas[]=$value->getId();
+        //Creamos los objetos Usuarios con los datos de los usuarios que se ha logueado para añadirlos a la partida en cuestion, de manera que todos los jugadores que esten logueados serán los que jueguen
+        
+        foreach ($_POST['array_jugadores'] as $key => $value) {
+            $usuario = $repository->findOneById($value);
+            $nueva_partida->addJugadore($usuario);//Añadimos cada jugador a la partid
+            $casillas[0]->addUser($usuario);
+            $entityManager->persist($nueva_partida);
+            $entityManager->flush();
         }
 
         //Devolvemos los valores que nos interesan de la partida
         return $this->json(['id_partida' => $nueva_partida->getId(), 'ganador' => $nueva_partida -> getGanador(), 'caras_dado' => $dado->getCaras(), 'lista_casillas' =>  $lista_casillas]);
         
 
+    }
+
+    /**
+     * @Route("/actualizar_movimiento", name="actualizarMovimiento")
+     */
+
+    public function actualizar_movimiento(){
+        if (isset($_POST['jugador'])) {
+           $repository = $this->getDoctrine()->getRepository(User::class);
+           $repository2 = $this->getDoctrine()->getRepository(Casillas::class);
+
+           $jugador_actualizado = $repository -> findOneById($_POST['jugador']);
+
+           $entityManager = $this->getDoctrine()->getManager();
+
+           $casilla_nueva = $jugador_actualizado->getCasillas()->getId();
+
+           $casilla_nueva = $repository2 -> findCasillaById($casilla_nueva + $_POST['dado']);
+
+           $jugador_actualizado->setCasillas($casilla_nueva);
+
+           $entityManager->merge($jugador_actualizado);
+           $entityManager->flush();
+           return $this->json(['actualizar_jugador' => 'asdf']);
+        }
     }
 }

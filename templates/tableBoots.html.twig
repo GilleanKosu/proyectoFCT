@@ -17,6 +17,8 @@
                 var turnos = 0;
                 var turno_jugador = -1;
                 var casillas_tablero= [];
+                var caras_dado = 0;
+                var tirada_dado= 0;
                 //Cada vez que se pase de turno o se inicie la partida el numero aumentará
                 function sumar_Turno () {
                         turnos = turnos + 1;
@@ -37,7 +39,7 @@
                                 jugadores_mezclados[i]=aux_jugadores[orden_aleatorio];
                                 aux_jugadores.splice(orden_aleatorio, 1);
                         }
-                        console.log(jugadores_mezclados);
+                        // console.log(jugadores_mezclados);
                         
                 }
                 function siguiente_jugador() {
@@ -48,7 +50,41 @@
                         }
                         $('#jugadorTurno').text('Turno del jugador: ' + jugadores_mezclados[turno_jugador]);
                 }
+                function lanzar_dado () {
+                   
+                    tirada_dado = Math.floor((Math.random()*caras_dado) +1);
+
+                }
+                function mover_jugador(valor_cara) {
+
+                    for (var i = 0; i < jugadores_partida.length; i++) {
+                        if (jugadores_mezclados[turno_jugador] == jugadores_partida [i]) {
+                            $.ajax({
+                                type: 'POST',
+                                url:'/actualizar_movimiento',
+                                data: {
+                                    jugador: id_jugadores_partida[i],
+                                    dado: tirada_dado,
+                                },success:function(response) {
+                                    console.log(response);
+                                }
+                            });
+                        }
+                    }
+
+                    // $.ajax({
+                    //     type: 'POST',
+                    //     url:'/actualizar_movimiento',
+                    //     data: {
+                    //         // jugador: jugadores_mezclados[turno_jugador]),
+                    //     },success:function(response) {
+                    //         console.log(response);
+                    //     }
+                    // });
+                }
+
                 $(function() {
+                        $('#end_turn_button, #roll_dice_button, #buy_button, #sell_button').hide();
                         $('.logueoJugador').submit(function(evento){
                                evento.preventDefault();
                                var padre = $(this);
@@ -70,7 +106,7 @@
                                         jugadores_partida.push(aux_log['nickname']);
                                         id_jugadores_partida.push(aux_log['id']);
                                         console.log(jugadores_partida);
-                                        console.log(id_jugadores_partida);
+                                        // console.log(id_jugadores_partida);
                                         //console.log(aux_jugadores);
                                         padre_del_padre.append('<p>'+response.nickname+'</p>');
                                 }
@@ -86,22 +122,28 @@
                                     array_jugadores: id_jugadores_partida,
                                 },
                                 success:function(response) {
-                                        // console.log(response);
+                                        console.log(response);
                                         casillas_tablero=response.lista_casillas;
-                                        console.log(casillas_tablero);
+                                        caras_dado=response.caras_dado;
+                                        // console.log(casillas_tablero);
                                 }
                                 });
                                 sumar_Turno();
                                 mezclar_Jugadores();
                                 siguiente_jugador();
-                                $(this).parent().append('<button type="button" id="end_turn_button" class="w-100 btn btn-success">Fin turno</button>');
-                                $(this).remove();
+                                $(this).hide();
+                                $('#end_turn_button, #roll_dice_button').show();
                         });
 
-                        $(document).on('click', '#end_turn_button', function(){ //Es necesario usar la delegacion de eventos para elementos creados
-                                sumar_Turno();
-                                siguiente_jugador();
-                        }); 
+                        $('#end_turn_button').click(function() {
+                            sumar_Turno();
+                            siguiente_jugador();
+                        });
+                        $('#roll_dice_button').click(function() {
+                            lanzar_dado();
+                            mover_jugador();
+                        });
+
 
                 });
                 
@@ -164,12 +206,21 @@
                         <div class="row">
                                 <div id="start" class="col w-100 rounded bg-primary m-1 p-2">
                                         <button type="button" id="start_button" class="w-100 btn btn-success">Empezar</button>
+
+                                        <button type="button" id="end_turn_button" class="w-100 btn btn-success">Fin turno</button>
+
+                                        <button type="button" id="roll_dice_button" class="w-100 btn btn-success">Tirar dado</button>
+
+                                        <button type="button" id="buy_button" class="w-100 btn btn-success">Comprar</button>
+
+                                        <button type="button" id="sell_button" class="w-100 btn btn-success">Vender</button>
+
                                 </div>
                         </div>
 
                 </div>
 
-                <div class="container col-xl-8 col-lg-10 col-md-10 col-sm-10">
+                <!--<div class="container col-xl-8 col-lg-10 col-md-10 col-sm-10">
 
                         <div class="row filaArriba">
                                 <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths border border-dark bg-light" id="parking"></div>
@@ -286,7 +337,7 @@
         
         </div>
         
-        </div>
+        </div>-->
         
     </body>
 </html>
