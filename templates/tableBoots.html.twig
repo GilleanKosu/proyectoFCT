@@ -16,7 +16,7 @@
                 var aux_jugadores = [];
                 var turnos = 0;
                 var turno_jugador = -1;
-
+                var casillas_tablero= [];
                 //Cada vez que se pase de turno o se inicie la partida el numero aumentará
                 function sumar_Turno () {
                         turnos = turnos + 1;
@@ -86,7 +86,9 @@
                                     array_jugadores: id_jugadores_partida,
                                 },
                                 success:function(response) {
-                                        console.log(response);
+                                        // console.log(response);
+                                        casillas_tablero=response.lista_casillas;
+                                        console.log(casillas_tablero);
                                 }
                                 });
                                 sumar_Turno();

@@ -77,9 +77,12 @@ class DefaultController extends AbstractController
         }
 
         $casillas = $repository3 -> findAll();
+        foreach ($casillas as $key => $value) {
+            $lista_casillas[]=$value->getId();
+        }
 
         //Devolvemos los valores que nos interesan de la partida
-        return $this->json(['id_partida' => $nueva_partida->getId(), 'ganador' => $nueva_partida -> getGanador(), 'caras_dado' => $dado->getCaras(), 'lista_casillas' =>  $casillas]);
+        return $this->json(['id_partida' => $nueva_partida->getId(), 'ganador' => $nueva_partida -> getGanador(), 'caras_dado' => $dado->getCaras(), 'lista_casillas' =>  $lista_casillas]);
         
 
     }
