@@ -11,6 +11,7 @@
 
             <script type="text/javascript">
                 var jugadores_partida = [];
+                var id_jugadores_partida = [];
                 var jugadores_mezclados = [];
                 var aux_jugadores = [];
                 var turnos = 0;
@@ -63,7 +64,13 @@
                                         password:pass
                                 },success:function(response) {
                                         padre.remove();
-                                        jugadores_partida.push(response.nickname);
+                                        var aux_log = [];
+                                        aux_log['nickname'] = response.nickname;
+                                        aux_log['id'] = response.id;
+                                        jugadores_partida.push(aux_log['nickname']);
+                                        id_jugadores_partida.push(aux_log['id']);
+                                        console.log(jugadores_partida);
+                                        console.log(id_jugadores_partida);
                                         //console.log(aux_jugadores);
                                         padre_del_padre.append('<p>'+response.nickname+'</p>');
                                 }
@@ -75,6 +82,9 @@
                                 $.ajax({
                                 type: 'POST',
                                 url:'/crearPartida',
+                                data: {
+                                    array_jugadores: id_jugadores_partida,
+                                },
                                 success:function(response) {
                                         console.log(response);
                                 }

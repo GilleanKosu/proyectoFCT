@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Entity\User;
 use App\Entity\Partida;
 use App\Entity\Dado;
+use App\Entity\Casillas;
 class DefaultController extends AbstractController
 {
     /**
@@ -31,7 +32,7 @@ class DefaultController extends AbstractController
             $repository = $this->getDoctrine()->getRepository(User::class);
             // $encriptedPass=password_hash($_POST['password'], PASSWORD_ARGON2I);
             $usuario = $repository->findUserByEmailPass($_POST['email'], $_POST['password']);
-            return $this->json(['username' => $usuario -> getEmail(), 'id' => $usuario -> getId(), 'nickname' => $usuario -> getNickname()]);
+            return $this->json(['username' => $usuario -> getEmail(), 'id' => $usuario -> getId(), 'nickname' => $usuario -> getNickname(), 'id' => $usuario -> getId()]);
         } else {
             return $this->render('tableBoots.html.twig');
         }
@@ -44,6 +45,7 @@ class DefaultController extends AbstractController
      public function crear_Partida(){//Crearemos la partida introduciendole los datos que necesitamos y devolveremos un json para ir trabajando con el en la vista
         $repository = $this->getDoctrine()->getRepository(User::class);
         $repository2 = $this->getDoctrine()->getRepository(Dado::class);
+        $repository3 = $this->getDoctrine()->getRepository(Casillas::class);
         $dado = $repository2 ->findOneById(1);//Este es el dado de 6 caras que usaremos normalmente
 
         $random_number = mt_rand(1,9999999);
@@ -66,15 +68,18 @@ class DefaultController extends AbstractController
         // $nueva2_partida2 = $repository2->findOneById(7337246);
         // var_dump($nueva2_partida2->getJugadores()[0]->getEmail());
         // die();
+        
         foreach ($_POST['array_jugadores'] as $key => $value) {
-            $usuario = $repository->findOneById($value['id']);
+            $usuario = $repository->findOneById($value);
             $nueva_partida->addJugadore($usuario);//Añadimos cada jugador a la partida
             $entityManager->persist($nueva_partida);
             $entityManager->flush();
         }
 
+        $casillas = $repository3 -> findAll();
+
         //Devolvemos los valores que nos interesan de la partida
-        return $this->json(['id_partida' => $nueva_partida->getId(), 'ganador' => $nueva_partida -> getGanador(), 'caras_dado' => $dado->getCaras()]);
+        return $this->json(['id_partida' => $nueva_partida->getId(), 'ganador' => $nueva_partida -> getGanador(), 'caras_dado' => $dado->getCaras(), 'lista_casillas' =>  $casillas]);
         
 
     }
