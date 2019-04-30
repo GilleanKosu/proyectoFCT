@@ -99,23 +99,23 @@ class DefaultController extends AbstractController
 
            $entityManager = $this->getDoctrine()->getManager();
 
-           $casilla_nueva = $jugador_actualizado->getCasillas()->getId();
-
-           if ($casilla_nueva + $_POST['dado']>20) {
+           $casilla_vieja = $jugador_actualizado->getCasillas()->getId();
+           $casilla_nueva=0;
+           if ($casilla_vieja + $_POST['dado']>20) {
                 $dado = $_POST['dado'];
-               $resultado_vuelta_completa =(20 - $casilla_nueva);
+               $resultado_vuelta_completa =(20 - $casilla_vieja);
                $casilla_nueva = $dado - $resultado_vuelta_completa;
 
                $casilla_nueva = $repository2 -> findCasillaById($casilla_nueva - 1);
            } else {
-                $casilla_nueva = $repository2 -> findCasillaById($casilla_nueva + $_POST['dado']);
+                $casilla_nueva = $repository2 -> findCasillaById($casilla_vieja + $_POST['dado']);
            }
 
            $jugador_actualizado->setCasillas($casilla_nueva);
 
            $entityManager->merge($jugador_actualizado);
            $entityManager->flush();
-           return $this->json(['casilla_actualizada' => $casilla_nueva->getId()]);
+           return $this->json(['casilla_antigua' => $casilla_vieja, 'casilla_actualizada' => $casilla_nueva->getId()]);
         }
     }
 }
