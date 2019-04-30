@@ -53,7 +53,7 @@ function mover_jugador(valor_cara) {
                 data: {
                     jugador: id_jugadores_partida[i],
                     dado: tirada_dado,
-                },success:function(response) {
+                },success:function(response) {//Movimiento en la casilla
                     console.log(response.casilla_actualizada);//Casilla despues del movimiento
                     console.log(casillas_tablero[response.casilla_actualizada]);//Nombre de esa casilla
                     $('#'+casillas_tablero[response.casilla_actualizada]).addClass( "bg-primary" );
@@ -90,7 +90,7 @@ function mover_jugador(valor_cara) {
                     aux_log['id'] = response.id;
                     jugadores_partida.push(aux_log['nickname']);
                     id_jugadores_partida.push(aux_log['id']);
-                    console.log(jugadores_partida);
+                    // console.log(jugadores_partida);
                     // console.log(id_jugadores_partida);
                     //console.log(aux_jugadores);
                     padre_del_padre.append('<p>'+response.nickname+'</p>');

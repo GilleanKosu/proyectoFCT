@@ -101,7 +101,15 @@ class DefaultController extends AbstractController
 
            $casilla_nueva = $jugador_actualizado->getCasillas()->getId();
 
-           $casilla_nueva = $repository2 -> findCasillaById($casilla_nueva + $_POST['dado']);
+           if ($casilla_nueva + $_POST['dado']>20) {
+                $dado = $_POST['dado'];
+               $resultado_vuelta_completa =(20 - $casilla_nueva);
+               $casilla_nueva = $dado - $resultado_vuelta_completa;
+
+               $casilla_nueva = $repository2 -> findCasillaById($casilla_nueva - 1);
+           } else {
+                $casilla_nueva = $repository2 -> findCasillaById($casilla_nueva + $_POST['dado']);
+           }
 
            $jugador_actualizado->setCasillas($casilla_nueva);
 
