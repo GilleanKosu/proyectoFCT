@@ -63,7 +63,7 @@ class DefaultController extends AbstractController
         $casillas = $repository3 -> findAll();
 
         foreach ($casillas as $key => $value) {
-            $lista_casillas[]=$value->getId();//De momento no parece necesario
+            $lista_casillas[$value->getId()]=$value->getNombre();//De momento no parece necesario
             $nueva_partida->addCasilla($value);
             $entityManager->persist($nueva_partida);
             $entityManager->flush();
@@ -78,6 +78,7 @@ class DefaultController extends AbstractController
             $entityManager->persist($nueva_partida);
             $entityManager->flush();
         }
+
 
         //Devolvemos los valores que nos interesan de la partida
         return $this->json(['id_partida' => $nueva_partida->getId(), 'ganador' => $nueva_partida -> getGanador(), 'caras_dado' => $dado->getCaras(), 'lista_casillas' =>  $lista_casillas]);

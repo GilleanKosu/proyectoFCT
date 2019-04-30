@@ -8,141 +8,8 @@
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
             <link rel="stylesheet" type="text/css" href="stylesheets/css1.css">
             <script type="text/javascript" src="librerias/funciones.js"></script>
-
             <title>Tablero Monopoly</title>
 
-            <script type="text/javascript">
-                // var jugadores_partida = [];
-                // var id_jugadores_partida = [];
-                // var jugadores_mezclados = [];
-                // var aux_jugadores = [];
-                // var turnos = 0;
-                // var turno_jugador = -1;
-                // var casillas_tablero= [];
-                // var caras_dado = 0;
-                // var tirada_dado= 0;
-                // //Cada vez que se pase de turno o se inicie la partida el numero aumentará
-                // function sumar_Turno () {
-                //         turnos = turnos + 1;
-                //         $('#numeroTurno p').text('Turno nº '+ turnos);
-                // }
-                // //Metodo para mezclar los jugadores al inicio de la partida
-                // function mezclar_Jugadores () {
-                        
-                //         //Esta es la unica forma de clonar relativamente buena en javascript, se guardan los jugadores en un array auxiliar
-                //                 //para posteriormente mezclarlos en otro
-                //         for (i = 0; i < jugadores_partida.length; i++){
-
-                //                 aux_jugadores [i] = jugadores_partida [i];
-                //         }
-                        
-                //         for (i = 0; i < jugadores_partida.length; i++) {
-                //                 var orden_aleatorio = (Math.floor(Math.random() * aux_jugadores.length));
-                //                 jugadores_mezclados[i]=aux_jugadores[orden_aleatorio];
-                //                 aux_jugadores.splice(orden_aleatorio, 1);
-                //         }
-                //         // console.log(jugadores_mezclados);
-                        
-                // }
-                // function siguiente_jugador() {
-                //         if(turno_jugador<(jugadores_partida.length-1)) {
-                //                 turno_jugador += 1;
-                //         } else {
-                //                 turno_jugador = 0;
-                //         }
-                //         $('#jugadorTurno').text('Turno del jugador: ' + jugadores_mezclados[turno_jugador]);
-                // }
-                // function lanzar_dado () {
-                   
-                //     tirada_dado = Math.floor((Math.random()*caras_dado) +1);
-
-                // }
-                // function mover_jugador(valor_cara) {
-
-                //     for (var i = 0; i < jugadores_partida.length; i++) {
-                //         if (jugadores_mezclados[turno_jugador] == jugadores_partida [i]) {
-                //             $.ajax({
-                //                 type: 'POST',
-                //                 url:'/actualizar_movimiento',
-                //                 data: {
-                //                     jugador: id_jugadores_partida[i],
-                //                     dado: tirada_dado,
-                //                 },success:function(response) {
-                //                     console.log(response);
-                //                 }
-                //             });
-                //         }
-                //     }
-
-                    
-                // }
-
-                // $(function() {
-                        // $('#end_turn_button, #roll_dice_button, #buy_button, #sell_button').hide();
-                        // $('.logueoJugador').submit(function(evento){
-                        //        evento.preventDefault();
-                        //        var padre = $(this);
-                        //        var padre_del_padre = $(this).parent();
-                        //        var hijosFormulario = $(this).children();
-                        //        var email=hijosFormulario.eq(0).val();
-                        //        var pass=hijosFormulario.eq(1).val();
-                        //        $.ajax({
-                        //         type: 'POST',
-                        //         url:'/logeoAjax',
-                        //         data: {
-                        //                 email:email,
-                        //                 password:pass
-                        //         },success:function(response) {
-                        //                 padre.remove();
-                        //                 var aux_log = [];
-                        //                 aux_log['nickname'] = response.nickname;
-                        //                 aux_log['id'] = response.id;
-                        //                 jugadores_partida.push(aux_log['nickname']);
-                        //                 id_jugadores_partida.push(aux_log['id']);
-                        //                 console.log(jugadores_partida);
-                        //                 // console.log(id_jugadores_partida);
-                        //                 //console.log(aux_jugadores);
-                        //                 padre_del_padre.append('<p>'+response.nickname+'</p>');
-                        //         }
-                        //         });
-
-                        // });
-
-                       // $('#start_button').click(function() {
-                       //          $.ajax({
-                       //          type: 'POST',
-                       //          url:'/crearPartida',
-                       //          data: {
-                       //              array_jugadores: id_jugadores_partida,
-                       //          },
-                       //          success:function(response) {
-                       //                  console.log(response);
-                       //                  casillas_tablero=response.lista_casillas;
-                       //                  caras_dado=response.caras_dado;
-                       //                  // console.log(casillas_tablero);
-                       //          }
-                       //          });
-                       //          sumar_Turno();
-                       //          mezclar_Jugadores();
-                       //          siguiente_jugador();
-                       //          $(this).hide();
-                       //          $('#end_turn_button, #roll_dice_button').show();
-                       //  });
-
-                        // $('#end_turn_button').click(function() {
-                        //     sumar_Turno();
-                        //     siguiente_jugador();
-                        // });
-                        // $('#roll_dice_button').click(function() {
-                        //     lanzar_dado();
-                        //     mover_jugador();
-                        // });
-
-
-                // });
-                
-               
-            </script>
     </head>
     <body>
     
@@ -217,44 +84,44 @@
                 <div class="container col-xl-8 col-lg-10 col-md-10 col-sm-10 float-left">
 
                         <div class="row filaArriba">
-                                <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths border border-dark bg-light" id="parking"></div>
+                                <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths border border-dark" id="parking"></div>
                                 
                                 <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths border border-dark">
-                                        <div class="w-100 h-25"><p>Suerte</p></div>
+                                        <div id="suerte2" class="w-100 h-25"><p>Suerte</p></div>
                                         <div class="w-100 h-75 suerte"></div>
                                 </div>
 
-                                <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths border border-dark bg-light casilla_filla_arriba">
+                                <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths border border-dark casilla_filla_arriba">
                                         <div class="w-100 h-25 bg-primary border-top border-dark"></div>
-                                        <div class="w-100 h-75"><p>Gran via</p></div>
+                                        <div id="gran_via" class="w-100 h-75"><p>Gran via</p></div>
                                 </div>
-                                <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths border border-dark bg-light casilla_filla_arriba">               
+                                <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths border border-dark  casilla_filla_arriba">               
                                         <div class="w-100 h-25 bg-primary border-top border-dark"></div>
-                                        <div class="w-100 h-75"><p>Paseo de la Castellana</p></div>
+                                        <div id="paseo_de_la_castellana" class="w-100 h-75"><p>Paseo de la Castellana</p></div>
                                 </div>
-                                <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths border border-dark bg-light casilla_filla_arriba">
+                                <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths border border-dark casilla_filla_arriba">
                                         <div class="w-100 h-25 bg-primary border-top border-dark"></div>
-                                        <div class="w-100 h-75"><p>Paseo del prado</p></div>
+                                        <div id="paseo_del_prado" class="w-100 h-75"><p>Paseo del prado</p></div>
                                 </div>
 
-                                <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths cosa" id="carcel"></div>
+                                <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths cosa" id="ve_carcel"></div>
                         </div>
                         <div class="row filaCentral">
 
                                 <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths bg-light column">
 
-                                        <div class="mx-auto h-25 row border border-dark bg-light"><p>Impuesto</p></div>
+                                        <div id="impuesto" class="mx-auto h-25 row border border-dark"><p>Impuesto</p></div>
                                         
-                                        <div class="mx-auto h-25 row border border-dark bg-light">
-                                                <div class="w-75 h-100"><p>Puerta del sol</p></div>
+                                        <div class="mx-auto h-25 row border border-dark ">
+                                                <div id="puerta_del_sol" class="w-75 h-100"><p>Puerta del sol</p></div>
                                                 <div class="w-25 h-100 bg-warning border-left border-dark"></div>
                                         </div>
-                                        <div class="mx-auto h-25 row border border-dark bg-light">
-                                                <div class="w-75 h-100"><p>Plaza España</p></div>
+                                        <div class="mx-auto h-25 row border border-dark ">
+                                                <div id="plaza_españa" class="w-75 h-100"><p>Plaza España</p></div>
                                                 <div class="w-25 h-100 bg-warning border-left border-dark"></div>
                                         </div>
-                                        <div class="mx-auto h-25 row border border-dark bg-light">
-                                                <div class="w-75 h-100"><p>Calle Bailen</p></div>
+                                        <div class="mx-auto h-25 row border border-dark ">
+                                                <div id="calle_bailen" class="w-75 h-100"><p>Calle Bailen</p></div>
                                                 <div class="w-25 h-100 bg-warning border-left border-dark"></div>
                                         </div>
                                 </div>
@@ -263,21 +130,21 @@
 
                                 <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths bg-light column">
                                         
-                                        <div class="mx-auto h-25 row border border-dark bg-light">
+                                        <div class="mx-auto h-25 row border border-dark ">
                                                 <div class="w-25 h-100 border-right border-dark bg-danger"></div>
-                                                <div class="w-75 h-100"><p>Reyes Catolicos</p></div>
+                                                <div id="reyes_catolicos" class="w-75 h-100"><p>Reyes Catolicos</p></div>
                                         </div>
-                                        <div class="mx-auto h-25 row border border-dark bg-light">
+                                        <div class="mx-auto h-25 row border border-dark ">
                                                 <div class="w-25 h-100 border-right border-dark bg-danger"></div>
-                                                <div class="w-75 h-100"><p>Cea Bermudez</p></div>
+                                                <div id="cea_bermudez" class="w-75 h-100"><p>Cea Bermudez</p></div>
                                         </div>
-                                        <div class="mx-auto h-25 row border border-dark bg-light">
+                                        <div class="mx-auto h-25 row border border-dark ">
                                                 <div class="w-25 h-100 border-right border-dark bg-danger"></div>
-                                                <div class="w-75 h-100"><p>Maria Molina</p></div>
+                                                <div id="maria_molina" class="w-75 h-100"><p>Maria Molina</p></div>
                                         </div>
-                                        <div class="mx-auto h-25 row border border-dark bg-light">
+                                        <div class="mx-auto h-25 row border border-dark ">
                                                 <div class="w-25 h-100 border-right border-dark bg-danger"></div>
-                                                <div class="w-75 h-100"><p>Avenida America</p></div>
+                                                <div id="avenida_america" class="w-75 h-100"><p>Avenida America</p></div>
                                         </div>
                                 </div>
 
@@ -285,34 +152,34 @@
                         </div>
                         <div class="row filaAbajo">
 
-                                        <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths border border-dark bg-light" id="injail"></div>
+                                        <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths border border-dark " id="injail"></div>
 
-                                        <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths colum border border-dark bg-light">
+                                        <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths colum border border-dark ">
                                                 <div class="w-100 h-25 bg-success border-bottom border-dark"></div>
-                                                <div class="w-100 h-75"><p>Glorieta Bilbao</p></div>
+                                                <div id="glorieta_bilbao" class="w-100 h-75"><p>Glorieta Bilbao</p></div>
                                         </div>
 
                                         <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths colum border border-dark">
-                                                <div class="w-100 h-25"><p>Suerte</p></div>
-                                                <div class="w-100 h-75 suerte"></div>
+                                                <div id="suerte" class="w-100 h-25"><p>Suerte</p></div>
+                                                <div id="suerte1" class="w-100 h-75 suerte"></div>
                                         </div>
 
-                                        <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths colum border border-dark bg-light">
+                                        <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths colum border border-dark ">
                                                 <div class="w-100 h-25 bg-success border-bottom border-dark"></div>
-                                                <div class="w-100 h-75"><p>Alberto Aguilera</p></div>
+                                                <div id="alberto_aguilera" class="w-100 h-75"><p>Alberto Aguilera</p></div>
                                         </div>
 
-                                        <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths colum border border-dark bg-light">
+                                        <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths colum border border-dark ">
                                                 <div class="w-100 h-25 bg-success border-bottom border-dark"></div>
-                                                <div class="w-100 h-75"><p>Fuencarral</p></div>
+                                                <div id="fuencarral" class="w-100 h-75"><p>Fuencarral</p></div>
                                         </div>
 
-                                        <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths border border-dark bg-light" id="inicio"></div>
+                                        <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths border border-dark" id="inicio"></div>
                                 </div>
 
                         </div>
                         
-                <div class="container col-xl-1 col-lg-1 col-md-1 col-sm-1 bg-primary float-left">
+                <!-- <div class="container col-xl-1 col-lg-1 col-md-1 col-sm-1 bg-primary float-left">
 
                         <div class="row">
                                 <div class="col">adsfadsf</div>
@@ -327,11 +194,11 @@
                                 <div class="col">adsfadsf</div>
                         </div>
 
-                </div>
-        
+                </div> -->
+            
         </div>
         
         </div>
-        
+        <script type="text/javascript" id="cookieinfo" src="//cookieinfoscript.com/js/cookieinfo.min.js"></script>
     </body>
 </html>
