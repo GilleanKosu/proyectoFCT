@@ -54,17 +54,29 @@ function mover_jugador(valor_cara) {
                     jugador: id_jugadores_partida[i],
                     dado: tirada_dado,
                 },success:function(response) {//Movimiento en la casilla
-                    console.log(response.casilla_antigua);//Casilla antes del movimiento
-                    console.log(response.casilla_actualizada);//Casilla despues del movimiento
-                    console.log(casillas_tablero[response.casilla_actualizada]);//Nombre de esa casilla
+                    // console.log(response.casilla_antigua);//Casilla antes del movimiento
+                    // console.log(response.casilla_actualizada);//Casilla despues del movimiento
+                    // console.log(casillas_tablero[response.casilla_actualizada]);//Nombre de esa casilla
                     $('#'+casillas_tablero[response.casilla_actualizada]).addClass( "bg-primary" ); 
+                    comprobar_casilla(response.casilla_actualizada);
                 }
             });
         }
     }
 
                     
-                }
+}
+function comprobar_casilla(casilla_actual) {
+    $.ajax ({
+        type: 'POST',
+        url:'/devolver_tipo_casilla',
+        data: {
+            id_casilla: casilla_actual
+        },success:function(response) {
+            console.log(response);
+        }
+    });
+}
 
 (function () {
     $(function() {

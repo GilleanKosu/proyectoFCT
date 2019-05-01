@@ -33,6 +33,11 @@ class Casillas
      */
     private $user;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $tipo;
+
     public function __construct()
     {
         $this->partida = new ArrayCollection();
@@ -109,6 +114,18 @@ class Casillas
                 $user->setCasillas(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTipo(): ?string
+    {
+        return $this->tipo;
+    }
+
+    public function setTipo(?string $tipo): self
+    {
+        $this->tipo = $tipo;
 
         return $this;
     }

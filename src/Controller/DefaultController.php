@@ -103,7 +103,7 @@ class DefaultController extends AbstractController
            $casilla_nueva=0;
            if ($casilla_vieja + $_POST['dado']>20) {
                 $dado = $_POST['dado'];
-               $resultado_vuelta_completa =(20 - $casilla_vieja);
+               $resultado_vuelta_completa = (20 - $casilla_vieja);
                $casilla_nueva = $dado - $resultado_vuelta_completa;
 
                $casilla_nueva = $repository2 -> findCasillaById($casilla_nueva - 1);
@@ -118,4 +118,15 @@ class DefaultController extends AbstractController
            return $this->json(['casilla_antigua' => $casilla_vieja, 'casilla_actualizada' => $casilla_nueva->getId()]);
         }
     }
+    /**
+     * @Route("/devolver_tipo_casilla", name="devolverTipoCasilla")
+     */
+    public function devolver_tipo_casilla()
+    {
+        $repository = $this->getDoctrine()->getRepository(Casillas::class);
+        $tipo_casilla = $repository ->findCasillaById($_POST['id_casilla']);
+        
+        return $this->json(['tipo_casilla' => $tipo_casilla->getTipo()]);
+    }
+
 }
