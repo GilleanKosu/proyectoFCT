@@ -9,6 +9,7 @@ use App\Entity\User;
 use App\Entity\Partida;
 use App\Entity\Dado;
 use App\Entity\Casillas;
+use App\Entity\Carta;
 class DefaultController extends AbstractController
 {
     /**
@@ -46,6 +47,8 @@ class DefaultController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(User::class);
         $repository2 = $this->getDoctrine()->getRepository(Dado::class);
         $repository3 = $this->getDoctrine()->getRepository(Casillas::class);
+        $repository4 = $this->getDoctrine()->getRepository(Carta::class);
+
         $dado = $repository2 ->findOneById(1);//Este es el dado de 6 caras que usaremos normalmente
 
         $random_number = mt_rand(1,9999999);
@@ -62,9 +65,17 @@ class DefaultController extends AbstractController
 
         $casillas = $repository3 -> findAll();
 
-        foreach ($casillas as $key => $value) {
+        foreach ($casillas as $key => $value) {//Añadimos las casillas que tendrá el tablero a la partida
             $lista_casillas[$value->getId()]=$value->getNombre();//De momento no parece necesario
             $nueva_partida->addCasilla($value);
+            $entityManager->persist($nueva_partida);
+            $entityManager->flush();
+        }
+
+        $cartas = $repository4 -> findAll();
+
+        foreach ($cartas as $key => $value) {//Añadimos las cartas que tendrá el tablero a la partida
+            $nueva_partida->addCarta($value);
             $entityManager->persist($nueva_partida);
             $entityManager->flush();
         }
