@@ -66,7 +66,7 @@ class DefaultController extends AbstractController
         $casillas = $repository3 -> findAll();
 
         foreach ($casillas as $key => $value) {//Añadimos las casillas que tendrá el tablero a la partida
-            $lista_casillas[$value->getId()]=$value->getNombre();//De momento no parece necesario
+            $lista_casillas[$value->getId()]=$value->getNombre();//De momento no parece necesario, lo pasamos a la vista por si fuera necesario en un futuro
             $nueva_partida->addCasilla($value);
             $entityManager->persist($nueva_partida);
             $entityManager->flush();
@@ -75,6 +75,7 @@ class DefaultController extends AbstractController
         $cartas = $repository4 -> findAll();
 
         foreach ($cartas as $key => $value) {//Añadimos las cartas que tendrá el tablero a la partida
+            $lista_cartas[$value->getId()]=[$value->getNombre(),$value->getEfecto()];
             $nueva_partida->addCarta($value);
             $entityManager->persist($nueva_partida);
             $entityManager->flush();
@@ -92,7 +93,7 @@ class DefaultController extends AbstractController
 
 
         //Devolvemos los valores que nos interesan de la partida
-        return $this->json(['id_partida' => $nueva_partida->getId(), 'ganador' => $nueva_partida -> getGanador(), 'caras_dado' => $dado->getCaras(), 'lista_casillas' =>  $lista_casillas]);
+        return $this->json(['id_partida' => $nueva_partida->getId(), 'ganador' => $nueva_partida -> getGanador(), 'caras_dado' => $dado->getCaras(), 'lista_casillas' =>  $lista_casillas, 'lista_cartas' => $lista_cartas]);
         
 
     }
