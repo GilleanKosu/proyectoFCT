@@ -62,6 +62,11 @@ class User implements UserInterface
      */
     private $cartas;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $saldo_partida;
+
     public function __construct()
     {
         $this->partidas = new ArrayCollection();
@@ -267,6 +272,18 @@ class User implements UserInterface
                 $carta->setUsuario(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSaldoPartida(): ?int
+    {
+        return $this->saldo_partida;
+    }
+
+    public function setSaldoPartida(?int $saldo_partida): self
+    {
+        $this->saldo_partida = $saldo_partida;
 
         return $this;
     }
