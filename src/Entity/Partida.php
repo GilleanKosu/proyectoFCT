@@ -37,9 +37,20 @@ class Partida
      */
     private $dado;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $fecha;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Casillas", mappedBy="partida")
+     */
+    private $casillas;
+
     public function __construct()
     {
         $this->jugadores = new ArrayCollection();
+        $this->casillas = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -114,4 +125,45 @@ class Partida
 
         return $this;
     }
+
+    public function getFecha(): ?\DateTimeInterface
+    {
+        return $this->fecha;
+    }
+
+    public function setFecha(\DateTimeInterface $fecha): self
+    {
+        $this->fecha = $fecha;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Casillas[]
+     */
+    public function getCasillas(): Collection
+    {
+        return $this->casillas;
+    }
+
+    public function addCasilla(Casillas $casilla): self
+    {
+        if (!$this->casillas->contains($casilla)) {
+            $this->casillas[] = $casilla;
+            $casilla->addPartida($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCasilla(Casillas $casilla): self
+    {
+        if ($this->casillas->contains($casilla)) {
+            $this->casillas->removeElement($casilla);
+            $casilla->removePartida($this);
+        }
+
+        return $this;
+    }
+   
 }

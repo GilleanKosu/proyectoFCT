@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Entity\User;
 use App\Entity\Partida;
 use App\Entity\Dado;
+use App\Entity\Casillas;
 class DefaultController extends AbstractController
 {
     /**
@@ -26,37 +27,106 @@ class DefaultController extends AbstractController
     /**
      * @Route("/logeoAjax", name="logeoAjax")
      */
-    public function logeoAjax(){
-        $repository = $this->getDoctrine()->getRepository(User::class);
-        // $encriptedPass=password_hash($_POST['password'], PASSWORD_ARGON2I);
-        $usuario = $repository->findUserByEmailPass($_POST['email'], $_POST['password']);
-
-        if(isset($_POST['email'])) {
-            return $this->json(['username' => $usuario -> getEmail(), 'id' => $usuario -> getId(), 'nickname' => $usuario -> getNickname()]);
+    public function logeoAjax(){ //Obtenemos el usuario con el email y la contraseña que nos introduce el usuario en cada formulario
+        if(isset($_POST['email'])) {//Comprobamos si se han pasado ciertos datos por POST
+            $repository = $this->getDoctrine()->getRepository(User::class);
+            // $encriptedPass=password_hash($_POST['password'], PASSWORD_ARGON2I);
+            $usuario = $repository->findUserByEmailPass($_POST['email'], $_POST['password']);
+            return $this->json(['username' => $usuario -> getEmail(), 'id' => $usuario -> getId(), 'nickname' => $usuario -> getNickname(), 'id' => $usuario -> getId()]);
         } else {
             return $this->render('tableBoots.html.twig');
         }
         
     }
+
     /**
-     * @Route("/crearPartida", name="crearPartda")
+     * @Route("/crearPartida", name="crearPartida")
      */
-    public function crear_partida(){
+     public function crear_Partida(){//Crearemos la partida introduciendole los datos que necesitamos y devolveremos un json para ir trabajando con el en la vista
+        $repository = $this->getDoctrine()->getRepository(User::class);
+        $repository2 = $this->getDoctrine()->getRepository(Dado::class);
+        $repository3 = $this->getDoctrine()->getRepository(Casillas::class);
+        $dado = $repository2 ->findOneById(1);//Este es el dado de 6 caras que usaremos normalmente
+
         $random_number = mt_rand(1,9999999);
         $nueva_partida = new Partida();
         $entityManager = $this->getDoctrine()->getManager();
         $nueva_partida->setId($random_number);
-        $nueva_partida->setGanador("hola");
+        $nueva_partida->setGanador("");
         $nueva_partida->setNumTurnos(0);
+        $nueva_partida->setDado($dado);//Guardamos el dato en la partida
+        $date = new \DateTime('@'.strtotime('now'));//Este es el formato que tendrá la fecha segun el tipo DATETIME
+        $nueva_partida->setFecha($date);
         $entityManager->persist($nueva_partida);
         $entityManager->flush();
 
-        $repository = $this -> getDoctrine() -> getRepository(Dado::class);
-        $dado = $repository ->findOneById(1);
+        $casillas = $repository3 -> findAll();
+
+        foreach ($casillas as $key => $value) {
+            $lista_casillas[$value->getId()]=$value->getNombre();//De momento no parece necesario
+            $nueva_partida->addCasilla($value);
+            $entityManager->persist($nueva_partida);
+            $entityManager->flush();
+        }
+
+        //Creamos los objetos Usuarios con los datos de los usuarios que se ha logueado para añadirlos a la partida en cuestion, de manera que todos los jugadores que esten logueados serán los que jueguen
         
-        return $this->json(['id' => $nueva_partida -> getId(), 'ganador' => $nueva_partida -> getGanador(), 'total_turnos' => $nueva_partida -> getNumTurnos(), 'caras_dado' => $dado->getCaras()]);
+        foreach ($_POST['array_jugadores'] as $key => $value) {
+            $usuario = $repository->findOneById($value);
+            $nueva_partida->addJugadore($usuario);//Añadimos cada jugador a la partid
+            $casillas[0]->addUser($usuario);
+            $entityManager->persist($nueva_partida);
+            $entityManager->flush();
+        }
+
+
+        //Devolvemos los valores que nos interesan de la partida
+        return $this->json(['id_partida' => $nueva_partida->getId(), 'ganador' => $nueva_partida -> getGanador(), 'caras_dado' => $dado->getCaras(), 'lista_casillas' =>  $lista_casillas]);
         
+
+    }
+
+    /**
+     * @Route("/actualizar_movimiento", name="actualizarMovimiento")
+     */
+
+    public function actualizar_movimiento(){
+        if (isset($_POST['jugador'])) {
+           $repository = $this->getDoctrine()->getRepository(User::class);
+           $repository2 = $this->getDoctrine()->getRepository(Casillas::class);
+
+           $jugador_actualizado = $repository -> findOneById($_POST['jugador']);
+
+           $entityManager = $this->getDoctrine()->getManager();
+
+           $casilla_vieja = $jugador_actualizado->getCasillas()->getId();
+           $casilla_nueva=0;
+           if ($casilla_vieja + $_POST['dado']>20) {
+                $dado = $_POST['dado'];
+               $resultado_vuelta_completa = (20 - $casilla_vieja);
+               $casilla_nueva = $dado - $resultado_vuelta_completa;
+
+               $casilla_nueva = $repository2 -> findCasillaById($casilla_nueva - 1);
+           } else {
+                $casilla_nueva = $repository2 -> findCasillaById($casilla_vieja + $_POST['dado']);
+           }
+
+           $jugador_actualizado->setCasillas($casilla_nueva);
+
+           $entityManager->merge($jugador_actualizado);
+           $entityManager->flush();
+           return $this->json(['casilla_antigua' => $casilla_vieja, 'casilla_actualizada' => $casilla_nueva->getId()]);
+        }
+    }
+    /**
+     * @Route("/devolver_tipo_casilla", name="devolverTipoCasilla")
+     */
+    public function devolver_tipo_casilla()
+    {
+        $repository = $this->getDoctrine()->getRepository(Casillas::class);
+        $tipo_casilla = $repository ->findCasillaById($_POST['id_casilla']);
         
+        return $this->json(['tipo_casilla' => $tipo_casilla->getTipo()]);
     }
 
 }
