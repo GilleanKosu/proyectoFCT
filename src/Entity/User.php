@@ -52,9 +52,26 @@ class User implements UserInterface
      */
     private $casillas;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\TituloPropiedad", mappedBy="usuario")
+     */
+    private $tituloPropiedads;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Carta", mappedBy="usuario")
+     */
+    private $cartas;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $saldo_partida;
+
     public function __construct()
     {
         $this->partidas = new ArrayCollection();
+        $this->tituloPropiedads = new ArrayCollection();
+        $this->cartas = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -193,6 +210,80 @@ class User implements UserInterface
     public function setCasillas(?Casillas $casillas): self
     {
         $this->casillas = $casillas;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|TituloPropiedad[]
+     */
+    public function getTituloPropiedads(): Collection
+    {
+        return $this->tituloPropiedads;
+    }
+
+    public function addTituloPropiedad(TituloPropiedad $tituloPropiedad): self
+    {
+        if (!$this->tituloPropiedads->contains($tituloPropiedad)) {
+            $this->tituloPropiedads[] = $tituloPropiedad;
+            $tituloPropiedad->setUsuario($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTituloPropiedad(TituloPropiedad $tituloPropiedad): self
+    {
+        if ($this->tituloPropiedads->contains($tituloPropiedad)) {
+            $this->tituloPropiedads->removeElement($tituloPropiedad);
+            // set the owning side to null (unless already changed)
+            if ($tituloPropiedad->getUsuario() === $this) {
+                $tituloPropiedad->setUsuario(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Carta[]
+     */
+    public function getCartas(): Collection
+    {
+        return $this->cartas;
+    }
+
+    public function addCarta(Carta $carta): self
+    {
+        if (!$this->cartas->contains($carta)) {
+            $this->cartas[] = $carta;
+            $carta->setUsuario($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCarta(Carta $carta): self
+    {
+        if ($this->cartas->contains($carta)) {
+            $this->cartas->removeElement($carta);
+            // set the owning side to null (unless already changed)
+            if ($carta->getUsuario() === $this) {
+                $carta->setUsuario(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getSaldoPartida(): ?int
+    {
+        return $this->saldo_partida;
+    }
+
+    public function setSaldoPartida(?int $saldo_partida): self
+    {
+        $this->saldo_partida = $saldo_partida;
 
         return $this;
     }

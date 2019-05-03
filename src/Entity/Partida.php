@@ -47,10 +47,16 @@ class Partida
      */
     private $casillas;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Carta", mappedBy="partida")
+     */
+    private $cartas;
+
     public function __construct()
     {
         $this->jugadores = new ArrayCollection();
         $this->casillas = new ArrayCollection();
+        $this->cartas = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -161,6 +167,34 @@ class Partida
         if ($this->casillas->contains($casilla)) {
             $this->casillas->removeElement($casilla);
             $casilla->removePartida($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Carta[]
+     */
+    public function getCartas(): Collection
+    {
+        return $this->cartas;
+    }
+
+    public function addCarta(Carta $carta): self
+    {
+        if (!$this->cartas->contains($carta)) {
+            $this->cartas[] = $carta;
+            $carta->addPartida($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCarta(Carta $carta): self
+    {
+        if ($this->cartas->contains($carta)) {
+            $this->cartas->removeElement($carta);
+            $carta->removePartida($this);
         }
 
         return $this;

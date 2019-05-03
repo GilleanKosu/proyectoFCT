@@ -9,6 +9,7 @@ use App\Entity\User;
 use App\Entity\Partida;
 use App\Entity\Dado;
 use App\Entity\Casillas;
+use App\Entity\Carta;
 class DefaultController extends AbstractController
 {
     /**
@@ -46,9 +47,11 @@ class DefaultController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(User::class);
         $repository2 = $this->getDoctrine()->getRepository(Dado::class);
         $repository3 = $this->getDoctrine()->getRepository(Casillas::class);
+        $repository4 = $this->getDoctrine()->getRepository(Carta::class);
+
         $dado = $repository2 ->findOneById(1);//Este es el dado de 6 caras que usaremos normalmente
 
-        $random_number = mt_rand(1,9999999);
+        $random_number = mt_rand(1,9999999);//Generamos el id de la partida
         $nueva_partida = new Partida();
         $entityManager = $this->getDoctrine()->getManager();
         $nueva_partida->setId($random_number);
@@ -62,26 +65,46 @@ class DefaultController extends AbstractController
 
         $casillas = $repository3 -> findAll();
 
-        foreach ($casillas as $key => $value) {
-            $lista_casillas[$value->getId()]=$value->getNombre();//De momento no parece necesario
+        foreach ($casillas as $key => $value) {//Añadimos las casillas que tendrá el tablero a la partida
+            $lista_casillas[$value->getId()]=$value->getNombre();//De momento no parece necesario, lo pasamos a la vista por si fuera necesario en un futuro
             $nueva_partida->addCasilla($value);
             $entityManager->persist($nueva_partida);
             $entityManager->flush();
         }
 
+        $cartas = $repository4 -> findAll();
+
+        foreach ($cartas as $key => $value) {//Añadimos las cartas que tendrá el tablero a la partida
+            $lista_cartas[$value->getId()]=[$value->getNombre(),$value->getEfecto()];
+            $nueva_partida->addCarta($value);
+            $entityManager->persist($nueva_partida);
+            $entityManager->flush();
+        }
+        shuffle($lista_cartas);//Barajamos las cartas
+
+
         //Creamos los objetos Usuarios con los datos de los usuarios que se ha logueado para añadirlos a la partida en cuestion, de manera que todos los jugadores que esten logueados serán los que jueguen
         
         foreach ($_POST['array_jugadores'] as $key => $value) {
+
             $usuario = $repository->findOneById($value);
-            $nueva_partida->addJugadore($usuario);//Añadimos cada jugador a la partid
-            $casillas[0]->addUser($usuario);
+            $usuario->setSaldoPartida(7500);
+
+            //Obtenemos los datos que nos interesan de los jugadores para trabajar con ellos mas adelante
+            $datos_jugadores[$key]['id']=$usuario->getId();
+            $datos_jugadores[$key]['nickName']=$usuario->getNickname();
+            $datos_jugadores[$key]['Saldo']=$usuario->getSaldoPartida();
+
+            
+            $nueva_partida->addJugadore($usuario);//Añadimos cada jugador que va a jugar a la partida
+            $casillas[0]->addUser($usuario);//Ponemos a cada jugador en la casilla inicial
             $entityManager->persist($nueva_partida);
             $entityManager->flush();
         }
 
 
         //Devolvemos los valores que nos interesan de la partida
-        return $this->json(['id_partida' => $nueva_partida->getId(), 'ganador' => $nueva_partida -> getGanador(), 'caras_dado' => $dado->getCaras(), 'lista_casillas' =>  $lista_casillas]);
+        return $this->json(['id_partida' => $nueva_partida->getId(), 'ganador' => $nueva_partida -> getGanador(), 'caras_dado' => $dado->getCaras(), 'lista_casillas' =>  $lista_casillas, 'lista_cartas' => $lista_cartas, 'info_jugadores' => $datos_jugadores]);
         
 
     }
@@ -91,7 +114,9 @@ class DefaultController extends AbstractController
      */
 
     public function actualizar_movimiento(){
+
         if (isset($_POST['jugador'])) {
+
            $repository = $this->getDoctrine()->getRepository(User::class);
            $repository2 = $this->getDoctrine()->getRepository(Casillas::class);
 
@@ -127,6 +152,22 @@ class DefaultController extends AbstractController
         $tipo_casilla = $repository ->findCasillaById($_POST['id_casilla']);
         
         return $this->json(['tipo_casilla' => $tipo_casilla->getTipo()]);
+    }
+    /**
+     * @Route("/recargar_baraja", name="recargarBaraja")
+     */
+    public function recargar_baraja()
+    {
+        $repository = $this->getDoctrine()->getRepository(Carta::class);
+        $cartas = $repository -> findAll();
+
+        foreach ($cartas as $key => $value) {//Añadimos las cartas que tendrá el tablero a la partida
+            $lista_cartas[$value->getId()]=[$value->getNombre(),$value->getEfecto()];
+        }
+        shuffle($lista_cartas);
+
+        return $this->json(['lista_cartas' => $lista_cartas]);
+
     }
 
 }

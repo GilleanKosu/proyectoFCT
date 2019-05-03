@@ -4,7 +4,8 @@ var jugadores_mezclados = [];
 var aux_jugadores = [];
 var turnos = 0;
 var turno_jugador = -1;
-var casillas_tablero= [];
+var casillas_tablero = [];
+var baraja_cartas = [];
 var caras_dado = 0;
 var tirada_dado= 0;
 //Cada vez que se pase de turno o se inicie la partida el numero aumentará
@@ -31,11 +32,17 @@ function mezclar_Jugadores () {
                         
 }
 function siguiente_jugador() {
+
         if(turno_jugador<(jugadores_partida.length-1)) {
+
                 turno_jugador += 1;
+
         } else {
+
                 turno_jugador = 0;
+
         }
+        
         $('#jugadorTurno').text('Turno del jugador: ' + jugadores_mezclados[turno_jugador]);
 }
 function lanzar_dado () {
@@ -58,6 +65,8 @@ function mover_jugador(valor_cara) {
                     // console.log(response.casilla_actualizada);//Casilla despues del movimiento
                     // console.log(casillas_tablero[response.casilla_actualizada]);//Nombre de esa casilla
                     $('#'+casillas_tablero[response.casilla_actualizada]).addClass( "bg-primary" ); 
+                    console.log(response.casilla_antigua);
+                    console.log(response.casilla_actualizada);
                     comprobar_casilla(response.casilla_actualizada);
                 }
             });
@@ -66,14 +75,58 @@ function mover_jugador(valor_cara) {
 
                     
 }
-function comprobar_casilla(casilla_actual) {
+
+function comprobar_casilla(casilla_actual) {//Con este metodo una vez tiremos el dado, comprobaremos el tipo de la casilla en la que vamos a caer y 
+                                                //realizaremos ciertas acciones segun cada tipo
     $.ajax ({
+
         type: 'POST',
+
         url:'/devolver_tipo_casilla',
+
         data: {
+
             id_casilla: casilla_actual
+
         },success:function(response) {
-            console.log(response);
+
+            //Comprobamos el tipo de la casilla
+            switch (response.tipo_casilla) {
+
+            case 'Sorpresa': 
+
+                if (baraja_cartas.length==0) {//Comprobamos que si la baraja de cartas esta vacia
+
+                    $.ajax({ //En el caso de que lo esté, tendremos que obtener todas las cartas y rebarajar
+                       
+                        type: 'POST',
+
+                        url:'/recargar_baraja',
+
+                        success:function(response){
+
+                            console.log('Rebarajando');
+
+                            baraja_cartas = response.lista_cartas;
+
+                            console.log(baraja_cartas);
+
+                        }
+                    });
+
+                    baraja_cartas.splice(-1,1);//Sacamos la ultima carta
+                    console.log(baraja_cartas);
+
+                } else {//Si siguen quedando cartas
+
+                    baraja_cartas.splice(-1,1);//Sacamos la ultima carta
+                    console.log(baraja_cartas);
+
+                }
+
+                break;
+            }
+
         }
     });
 }
@@ -121,7 +174,8 @@ function comprobar_casilla(casilla_actual) {
                 },
                 success:function(response) {
                         console.log(response);
-                        casillas_tablero=response.lista_casillas;
+                        casillas_tablero = response.lista_casillas;
+                        baraja_cartas = response.lista_cartas;
                         caras_dado=response.caras_dado;
                         // console.log(casillas_tablero);
                 }
