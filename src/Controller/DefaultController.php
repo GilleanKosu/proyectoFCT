@@ -86,13 +86,18 @@ class DefaultController extends AbstractController
         //Creamos los objetos Usuarios con los datos de los usuarios que se ha logueado para añadirlos a la partida en cuestion, de manera que todos los jugadores que esten logueados serán los que jueguen
         
         foreach ($_POST['array_jugadores'] as $key => $value) {
+
             $usuario = $repository->findOneById($value);
             $usuario->setSaldoPartida(7500);
+
+            //Obtenemos los datos que nos interesan de los jugadores para trabajar con ellos mas adelante
             $datos_jugadores[$key]['id']=$usuario->getId();
             $datos_jugadores[$key]['nickName']=$usuario->getNickname();
             $datos_jugadores[$key]['Saldo']=$usuario->getSaldoPartida();
-            $nueva_partida->addJugadore($usuario);//Añadimos cada jugador a la partid
-            $casillas[0]->addUser($usuario);
+
+            
+            $nueva_partida->addJugadore($usuario);//Añadimos cada jugador que va a jugar a la partida
+            $casillas[0]->addUser($usuario);//Ponemos a cada jugador en la casilla inicial
             $entityManager->persist($nueva_partida);
             $entityManager->flush();
         }
@@ -109,7 +114,9 @@ class DefaultController extends AbstractController
      */
 
     public function actualizar_movimiento(){
+
         if (isset($_POST['jugador'])) {
+
            $repository = $this->getDoctrine()->getRepository(User::class);
            $repository2 = $this->getDoctrine()->getRepository(Casillas::class);
 
