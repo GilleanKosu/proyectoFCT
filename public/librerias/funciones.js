@@ -136,6 +136,7 @@ function comprobar_casilla(casilla_actual) {//Con este metodo una vez tiremos el
         $('#end_turn_button, #roll_dice_button, #buy_button, #sell_button').hide();
         
         $('.logueoJugador').submit(function(evento){
+            alert("adsfadsf");
             evento.preventDefault();
             var padre = $(this);
             var padre_del_padre = $(this).parent();
@@ -149,6 +150,7 @@ function comprobar_casilla(casilla_actual) {//Con este metodo una vez tiremos el
                     email:email,
                     password:pass
             },success:function(response) {
+                    console.log(response);
                     padre.remove();
                     var aux_log = [];
                     aux_log['nickname'] = response.nickname;

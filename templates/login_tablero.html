@@ -1,0 +1,177 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="stylesheets/login.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script type="text/javascript" src="librerias/funciones.js"></script>
+        <script type="text/javascript">
+            var contador = 0;
+            var fichas = ['sombrero.png', 'perro.png', 'cat.png', 'bota.png'];
+             $(function() {
+                $('#jugador1, #jugador2,#jugador3,#jugador4').hide();
+                $('#sumar_jugador').click(function(){ 
+                    
+                    if (contador==4) {
+                        $('#num_jug').text(contador);
+                    } else {
+                        contador++;
+                        $('#num_jug').text(contador);
+                        $('#jugador'+contador).show();
+                    }
+                    
+                });
+                $('#restar_jugador').click(function(){ 
+                    if (contador==0) {
+                        $('#num_jug').text(contador);
+                    } else {
+                        $('#jugador'+contador).hide();
+                        contador--;
+                        $('#num_jug').text(contador);
+
+                    }
+                });
+             });
+        </script>
+    </head>
+    <body>
+        <div class="container w-50 mx-auto">
+            <div class="row">
+                <div class="mx-auto mt-5 mb-5">
+                    <h1>¿Cuantos jugadores van a participar?</h1>
+                    <div class="row texto">
+                        <label id="num_jug">0</label>
+                        <ul>
+                            <li class="titulo border-left-0 border-right-0 d-flex pl-2 pb-4 mt-5"><span id="sumar_jugador" class="glyphicon glyphicon-plus"></span></li>
+                            <li class="titulo border-left-0 border-right-0 d-flex pl-2"><span id="restar_jugador" class="glyphicon glyphicon-minus"></span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div id="jugador1" class="mx-auto col-xl-3 col-md-6 col-sm-8 col-xs-8">
+                    <div id="jugador1_fondo" class="panel panel-default border-0">
+                        <div class="panel-heading bg-danger border-0">
+                            <h3 class="panel-title">Please sign in</h3>
+                        </div>
+                        <div class="row panel-body">
+                            <div class="col-xl-12 col-md-12 col-sm-12 col-xs-12">
+                                <form method="POST" action="/logeoAjax" id="form_jugador1" class="logueoJugador">
+                                    <fieldset>
+                                        <div class="form-group">
+                                            <input class="form-control" placeholder="E-mail" name="nombre_jugador2" type="text" id="email1">
+                                        </div>
+                                        <div class="form-group">
+                                            <input class="form-control" placeholder="Password" name="pass_jugador2" type="password" id="pass1">
+                                        </div>
+                                        <input class="logueoJugador btn btn-lg btn-success btn-block" type="submit" name="enviar_logeo" value="Enviar">
+                                    </fieldset>
+                                </form>
+                            </div>
+
+                            <!-- <div class="col-xl-7 col-md-8 col-sm-8 col-xs-8">
+                                <img src='sombrero.png' class="mx-auto img-responsive">
+                            </div>
+                            <div class="col-xl-5 col-md-4 col-sm-4 col-xs-4">
+                                <li class="border-left-0 border-right-0 d-flex pl-1 pb-1 mt-5"><span class="glyphicon glyphicon-chevron-up w-100"></span></li>
+                                <li class="border-left-0 border-right-0 d-flex pl-1 pb-1 mb-2"><span class="glyphicon glyphicon-chevron-down"></span></li>
+                            </div> -->
+                        </div> 
+                    </div>
+                </div>
+                <div id="jugador2" class="mx-auto col-xl-3 col-md-6 col-sm-8 col-xs-8">
+                    <div id="jugador2_fondo" class="panel panel-default border-0">
+                        <div class="panel-heading bg-danger border-0">
+                            <h3 class="panel-title">Please sign in</h3>
+                        </div>
+                        <div class="row panel-body">
+                            <div class="col-xl-12 col-md-12 col-sm-12 col-xs-12">
+                                <form accept-charset="UTF-8" role="form">
+                                    <fieldset>
+                                        <div class="form-group">
+                                            <input class="form-control" placeholder="E-mail" name="email" type="text">
+                                        </div>
+                                        <div class="form-group">
+                                            <input class="form-control" placeholder="Password" name="password" type="password" value="">
+                                        </div>
+                                        <input class="btn btn-lg btn-success btn-block" type="submit" value="Login">
+                                    </fieldset>
+                                </form>
+                            </div>
+
+                            <!-- <div class="col-xl-7 col-md-8 col-sm-8 col-xs-8">
+                                <img src="sombrero.png" class="mx-auto img-responsive">
+                            </div>
+                            <div class="col-xl-5 col-md-4 col-sm-4 col-xs-4">
+                                <li class="border-left-0 border-right-0 d-flex pl-1 pb-1 mt-5"><span class="glyphicon glyphicon-chevron-up w-100"></span></li>
+                                <li class="border-left-0 border-right-0 d-flex pl-1 pb-1 mb-2"><span class="glyphicon glyphicon-chevron-down"></span></li>
+                            </div> -->
+                        </div> 
+                    </div>
+                </div>
+                <div id="jugador3" class="mx-auto col-xl-3 col-md-6 col-sm-8 col-xs-8">
+                    <div id="jugador3_fondo" class="panel panel-default border-0">
+                        <div class="panel-heading bg-danger border-0">
+                            <h3 class="panel-title">Please sign in</h3>
+                        </div>
+                        <div class="row panel-body">
+                            <div class="col-xl-12 col-md-12 col-sm-12 col-xs-12">
+                                <form accept-charset="UTF-8" role="form">
+                                    <fieldset>
+                                        <div class="form-group">
+                                            <input class="form-control" placeholder="E-mail" name="email" type="text">
+                                        </div>
+                                        <div class="form-group">
+                                            <input class="form-control" placeholder="Password" name="password" type="password" value="">
+                                        </div>
+                                        <input class="btn btn-lg btn-success btn-block" type="submit" value="Login">
+                                    </fieldset>
+                                </form>
+                            </div>
+
+                            <!-- <div class="col-xl-7 col-md-8 col-sm-8 col-xs-8">
+                                <img src="sombrero.png" class="mx-auto img-responsive">
+                            </div>
+                            <div class="col-xl-5 col-md-4 col-sm-4 col-xs-4">
+                                <li class="border-left-0 border-right-0 d-flex pl-1 pb-1 mt-5"><span class="glyphicon glyphicon-chevron-up w-100"></span></li>
+                                <li class="border-left-0 border-right-0 d-flex pl-1 pb-1 mb-2"><span class="glyphicon glyphicon-chevron-down"></span></li>
+                            </div> -->
+                        </div> 
+                    </div>
+                </div>
+                <div id="jugador4" class="mx-auto col-xl-3 col-md-6 col-sm-8 col-xs-8">
+                    <div id="jugador4_fondo" class="panel panel-default border-0">
+                        <div class="panel-heading bg-danger border-0">
+                            <h3 class="panel-title">Please sign in</h3>
+                        </div>
+                        <div class="row panel-body">
+                            <div class="col-xl-12 col-md-12 col-sm-12 col-xs-12">
+                                <form accept-charset="UTF-8" role="form">
+                                    <fieldset>
+                                        <div class="form-group">
+                                            <input class="form-control" placeholder="E-mail" name="email" type="text">
+                                        </div>
+                                        <div class="form-group">
+                                            <input class="form-control" placeholder="Password" name="password" type="password" value="">
+                                        </div>
+                                        <input class="btn btn-lg btn-success btn-block" type="submit" value="Login">
+                                    </fieldset>
+                                </form>
+                            </div>
+
+                            <!-- <div class="col-xl-7 col-md-8 col-sm-8 col-xs-8">
+                                <img src="sombrero.png" class="mx-auto img-responsive">
+                            </div>
+                            <div class="col-xl-5 col-md-4 col-sm-4 col-xs-4">
+                                <li class="border-left-0 border-right-0 d-flex pl-1 pb-1 mt-5"><span class="glyphicon glyphicon-chevron-up w-100"></span></li>
+                                <li class="border-left-0 border-right-0 d-flex pl-1 pb-1 mb-2"><span class="glyphicon glyphicon-chevron-down"></span></li>
+                            </div> -->
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

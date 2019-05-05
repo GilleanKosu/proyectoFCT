@@ -29,13 +29,14 @@ class DefaultController extends AbstractController
      * @Route("/logeoAjax", name="logeoAjax")
      */
     public function logeoAjax(){ //Obtenemos el usuario con el email y la contraseña que nos introduce el usuario en cada formulario
+        
         if(isset($_POST['email'])) {//Comprobamos si se han pasado ciertos datos por POST
             $repository = $this->getDoctrine()->getRepository(User::class);
             // $encriptedPass=password_hash($_POST['password'], PASSWORD_ARGON2I);
             $usuario = $repository->findUserByEmailPass($_POST['email'], $_POST['password']);
             return $this->json(['username' => $usuario -> getEmail(), 'id' => $usuario -> getId(), 'nickname' => $usuario -> getNickname(), 'id' => $usuario -> getId()]);
         } else {
-            return $this->render('tableBoots.html.twig');
+            return $this->render('login_tablero.html');
         }
         
     }
