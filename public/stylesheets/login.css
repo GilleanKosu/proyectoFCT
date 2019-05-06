@@ -1,5 +1,6 @@
 body {
-	background: url(../imagenes/fondo_logeo.jpg);
+	/*background: url(../imagenes/fondo_logeo.jpg);*/
+	background-color: black;
   	background-size: cover;  
 }
 h1 {
@@ -38,6 +39,9 @@ ul .titulo span{
 #jugador4_fondo {
 	background: url(../imagenes/yellow_player.jpg);
   	background-size: cover; 
+}
+p{
+	color: white;
 }
 /*#cosa2 {
 	display: none;

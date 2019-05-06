@@ -22,8 +22,11 @@ class DefaultController extends AbstractController
      * @Route("/tablero", name="tablero")
      */
     public function tablero()
-    {
-        return $this->render('tableBoots.html.twig');
+    {   
+        // var_dump($_POST);
+        // var_dump(json_decode(stripslashes($_POST['hidden_jugadores'])));
+        // die();
+        return $this->render('tableBoots.html.twig', ['jugadores_partida_tablero' => json_decode(stripslashes($_POST['hidden_jugadores'])), 'id_jugadores_partida' => json_decode(stripslashes($_POST['hidden_id_jugadores']))]);
     }
     /**
      * @Route("/logeoAjax", name="logeoAjax")

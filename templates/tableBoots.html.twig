@@ -9,10 +9,10 @@
             <link rel="stylesheet" type="text/css" href="stylesheets/css1.css">
             <script type="text/javascript" src="librerias/funciones.js"></script>
             <title>Tablero Monopoly</title>
+            
 
     </head>
-    <body>
-    
+    <body>    
         <!--<div id="infoJuego" class="container row mx-auto">
                 
                 <div id="jugadorTurno" class="col-xl-6 col-lg-6 col-sm-6">
@@ -199,6 +199,23 @@
         </div>-->
         
         </div>
+        
+        <script>
+            function myFunc() {
+                var myJsVar = [];
+                {% for key,value in jugadores_partida_tablero %}
+                    myJsVar.push("{{ value }}");
+                {% endfor %}
+                return myJsVar;
+            }
+            function myFunc2() {
+                var myJsVar2 = [];
+                {% for key,value in id_jugadores_partida %}
+                    myJsVar2.push("{{ value }}");
+                {% endfor %}
+                return myJsVar2;
+            }
+        </script>
         <script type="text/javascript" id="cookieinfo" src="//cookieinfoscript.com/js/cookieinfo.min.js"></script>
     </body>
 </html>

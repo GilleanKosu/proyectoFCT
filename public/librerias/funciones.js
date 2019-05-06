@@ -8,6 +8,7 @@ var casillas_tablero = [];
 var baraja_cartas = [];
 var caras_dado = 0;
 var tirada_dado= 0;
+
 //Cada vez que se pase de turno o se inicie la partida el numero aumentará
 function sumar_Turno () {
         turnos = turnos + 1;
@@ -136,13 +137,13 @@ function comprobar_casilla(casilla_actual) {//Con este metodo una vez tiremos el
         $('#end_turn_button, #roll_dice_button, #buy_button, #sell_button').hide();
         
         $('.logueoJugador').submit(function(evento){
-            alert("adsfadsf");
             evento.preventDefault();
+            var contenedor_principal = $('#contenedor_principal');
             var padre = $(this);
             var padre_del_padre = $(this).parent();
-            var hijosFormulario = $(this).children();
-            var email=hijosFormulario.eq(0).val();
-            var pass=hijosFormulario.eq(1).val();
+            var hijosFormulario = $(this).children().first().children();
+            var email=hijosFormulario.children().eq(0).val();
+            var pass=hijosFormulario.children().eq(1).val();
             $.ajax({
             type: 'POST',
             url:'/logeoAjax',
@@ -161,13 +162,25 @@ function comprobar_casilla(casilla_actual) {//Con este metodo una vez tiremos el
                     // console.log(id_jugadores_partida);
                     //console.log(aux_jugadores);
                     padre_del_padre.append('<p>'+response.nickname+'</p>');
+                    // contenedor_principal.append('<input id="comenzar_partida" class="logueoJugador btn btn-lg btn-success btn-block" type="submit" name="empezar_partida" value="Ir a la partida">');
+                    $("#comenzar_partida").prop('disabled', false);
+                    
+                    // contenedor_principal.append('<button type="button" id="comenzar_partida" class="logueoJugador w-100 btn btn-success">Ir a la partida</button>');
             }
 
             });
 
         });
 
+        $('#comenzar_partida').click(function(){
+            $('#hidden_jugadores').val(JSON.stringify( jugadores_partida ));
+            $('#hidden_id_jugadores').val(JSON.stringify( id_jugadores_partida ));
+        });
+
+
+
         $('#start_button').click(function() {
+            var id_jugadores_partida = myFunc2();
             $.ajax({
                 type: 'POST',
                 url:'/crearPartida',
@@ -181,13 +194,13 @@ function comprobar_casilla(casilla_actual) {//Con este metodo una vez tiremos el
                         caras_dado=response.caras_dado;
                         // console.log(casillas_tablero);
                 }
-                });
-                sumar_Turno();
-                mezclar_Jugadores();
-                siguiente_jugador();
-                $(this).hide();
-                $('#end_turn_button, #roll_dice_button').show();
             });
+            sumar_Turno();
+            mezclar_Jugadores();
+            siguiente_jugador();
+            $(this).hide();
+            $('#end_turn_button, #roll_dice_button').show();
+        });
 
         $('#end_turn_button').click(function() {
             sumar_Turno();

@@ -8,9 +8,8 @@
         <script type="text/javascript" src="librerias/funciones.js"></script>
         <script type="text/javascript">
             var contador = 0;
-            var fichas = ['sombrero.png', 'perro.png', 'cat.png', 'bota.png'];
              $(function() {
-                $('#jugador1, #jugador2,#jugador3,#jugador4').hide();
+
                 $('#sumar_jugador').click(function(){ 
                     
                     if (contador==4) {
@@ -25,21 +24,27 @@
                 $('#restar_jugador').click(function(){ 
                     if (contador==0) {
                         $('#num_jug').text(contador);
+                        $('#comenzar_partida').remove();
                     } else {
                         $('#jugador'+contador).hide();
                         contador--;
                         $('#num_jug').text(contador);
-
                     }
                 });
+                $('#restar_jugador').click(function(){ //Si quitamos todos los formularios queremos que quite tambien el boton de unicio, hay que añadirle otro evento al boton porque si no cuando el contador llega a 0 por algun motivo debes de volver a pulsarlo para que elimine el boton 
+                    if (contador==0) {
+                        $('#comenzar_partida').remove();
+                    }
+                });
+
              });
         </script>
     </head>
     <body>
-        <div class="container w-50 mx-auto">
+        <div id="contenedor_principal" class="container w-50 mx-auto">
             <div class="row">
                 <div class="mx-auto mt-5 mb-5">
-                    <h1>¿Cuantos jugadores van a participar?</h1>
+                    <!-- <h1>¿Cuantos jugadores van a participar?</h1> -->
                     <div class="row texto">
                         <label id="num_jug">0</label>
                         <ul>
@@ -51,7 +56,7 @@
             </div>
 
             <div class="row">
-                <div id="jugador1" class="mx-auto col-xl-3 col-md-6 col-sm-8 col-xs-8">
+                <div id="jugador1" class="mx-auto col-xl-3 col-md-6 col-sm-8 col-xs-8" style="display: none">
                     <div id="jugador1_fondo" class="panel panel-default border-0">
                         <div class="panel-heading bg-danger border-0">
                             <h3 class="panel-title">Please sign in</h3>
@@ -81,14 +86,14 @@
                         </div> 
                     </div>
                 </div>
-                <div id="jugador2" class="mx-auto col-xl-3 col-md-6 col-sm-8 col-xs-8">
+                <div id="jugador2" class="mx-auto col-xl-3 col-md-6 col-sm-8 col-xs-8" style="display: none">
                     <div id="jugador2_fondo" class="panel panel-default border-0">
                         <div class="panel-heading bg-danger border-0">
                             <h3 class="panel-title">Please sign in</h3>
                         </div>
                         <div class="row panel-body">
                             <div class="col-xl-12 col-md-12 col-sm-12 col-xs-12">
-                                <form accept-charset="UTF-8" role="form">
+                                <form method="POST" action="/logeoAjax" id="form_jugador2" class="logueoJugador">
                                     <fieldset>
                                         <div class="form-group">
                                             <input class="form-control" placeholder="E-mail" name="email" type="text">
@@ -111,14 +116,14 @@
                         </div> 
                     </div>
                 </div>
-                <div id="jugador3" class="mx-auto col-xl-3 col-md-6 col-sm-8 col-xs-8">
+                <div id="jugador3" class="mx-auto col-xl-3 col-md-6 col-sm-8 col-xs-8" style="display: none">
                     <div id="jugador3_fondo" class="panel panel-default border-0">
                         <div class="panel-heading bg-danger border-0">
                             <h3 class="panel-title">Please sign in</h3>
                         </div>
                         <div class="row panel-body">
                             <div class="col-xl-12 col-md-12 col-sm-12 col-xs-12">
-                                <form accept-charset="UTF-8" role="form">
+                                <form method="POST" action="/logeoAjax" id="form_jugador3" class="logueoJugador">
                                     <fieldset>
                                         <div class="form-group">
                                             <input class="form-control" placeholder="E-mail" name="email" type="text">
@@ -141,14 +146,14 @@
                         </div> 
                     </div>
                 </div>
-                <div id="jugador4" class="mx-auto col-xl-3 col-md-6 col-sm-8 col-xs-8">
+                <div id="jugador4" class="mx-auto col-xl-3 col-md-6 col-sm-8 col-xs-8" style="display: none">
                     <div id="jugador4_fondo" class="panel panel-default border-0">
                         <div class="panel-heading bg-danger border-0">
                             <h3 class="panel-title">Please sign in</h3>
                         </div>
                         <div class="row panel-body">
                             <div class="col-xl-12 col-md-12 col-sm-12 col-xs-12">
-                                <form accept-charset="UTF-8" role="form">
+                                <form method="POST" action="/logeoAjax" id="form_jugador4" class="logueoJugador">
                                     <fieldset>
                                         <div class="form-group">
                                             <input class="form-control" placeholder="E-mail" name="email" type="text">
@@ -172,6 +177,12 @@
                     </div>
                 </div>
             </div>
+            <form method="post" action="/tablero">
+                <input type="hidden" id="hidden_jugadores" name="hidden_jugadores" value="">
+                <input type="hidden" id="hidden_id_jugadores" name="hidden_id_jugadores" value="">
+                <input type="submit" id="comenzar_partida" class="logueoJugador w-100 btn btn-success" value="Ir a la partida" name="submit_partida" disabled>
+            </form>
+            
         </div>
     </body>
 </html>
