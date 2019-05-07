@@ -9,6 +9,7 @@ var baraja_cartas = [];
 var caras_dado = 0;
 var tirada_dado= 0;
 
+
 //Cada vez que se pase de turno o se inicie la partida el numero aumentará
 function sumar_Turno () {
         turnos = turnos + 1;
@@ -16,7 +17,7 @@ function sumar_Turno () {
 }
 //Metodo para mezclar los jugadores al inicio de la partida
 function mezclar_Jugadores () {
-                        
+        // console.log(jugadores_partida);
         //Esta es la unica forma de clonar relativamente buena en javascript, se guardan los jugadores en un array auxiliar
                 //para posteriormente mezclarlos en otro
         for (i = 0; i < jugadores_partida.length; i++){
@@ -180,7 +181,8 @@ function comprobar_casilla(casilla_actual) {//Con este metodo una vez tiremos el
 
 
         $('#start_button').click(function() {
-            var id_jugadores_partida = myFunc2();
+            jugadores_partida = myFunc();
+            id_jugadores_partida = myFunc2();
             $.ajax({
                 type: 'POST',
                 url:'/crearPartida',
