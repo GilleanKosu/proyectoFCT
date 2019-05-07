@@ -196,10 +196,10 @@ function comprobar_casilla(casilla_actual) {//Con este metodo una vez tiremos el
                 }
             });
             sumar_Turno();
-            mezclar_Jugadores();
-            siguiente_jugador();
-            $(this).hide();
-            $('#end_turn_button, #roll_dice_button').show();
+            // mezclar_Jugadores();
+            // siguiente_jugador();
+            // $(this).hide();
+            // $('#end_turn_button, #roll_dice_button').show();
         });
 
         $('#end_turn_button').click(function() {
