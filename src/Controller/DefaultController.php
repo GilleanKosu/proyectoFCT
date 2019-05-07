@@ -11,6 +11,7 @@ use App\Entity\Partida;
 use App\Entity\Dado;
 use App\Entity\Casillas;
 use App\Entity\Carta;
+use App\Entity\Mensaje;
 class DefaultController extends AbstractController
 {
     /**
@@ -61,6 +62,11 @@ class DefaultController extends AbstractController
         // var_dump($_POST);
         // var_dump(json_decode(stripslashes($_POST['hidden_jugadores'])));
         // die();
+        if (isset($_POST['nombre_contacto']) && isset($_POST['email_contacto']) && isset($_POST['txtMsg'])) {
+            
+            $mensaje = new mensaje();
+            
+        }
         return $this->render('contacto.html');
     }
     /**
