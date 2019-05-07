@@ -54,6 +54,16 @@ class DefaultController extends AbstractController
         return $this->render('tableBoots.html.twig', ['jugadores_partida_tablero' => json_decode(stripslashes($_POST['hidden_jugadores'])), 'id_jugadores_partida' => json_decode(stripslashes($_POST['hidden_id_jugadores']))]);
     }
     /**
+     * @Route("/contacto", name="contacto")
+     */
+    public function contacto()
+    {   
+        // var_dump($_POST);
+        // var_dump(json_decode(stripslashes($_POST['hidden_jugadores'])));
+        // die();
+        return $this->render('contacto.html');
+    }
+    /**
      * @Route("/logeoAjax", name="logeoAjax")
      */
     public function logeoAjax(){ //Obtenemos el usuario con el email y la contraseña que nos introduce el usuario en cada formulario

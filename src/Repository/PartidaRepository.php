@@ -48,6 +48,16 @@ class PartidaRepository extends ServiceEntityRepository
     }
     */
 
+    public function findAllGames($value): ?Partida
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.id = :val')
+            ->addSelect("COUNT(p.id) numero_partidas")
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
     public function findOneById($value): ?Partida
     {
         return $this->createQueryBuilder('p')
