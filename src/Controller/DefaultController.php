@@ -5,6 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
+use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\User;
 use App\Entity\Partida;
 use App\Entity\Dado;
@@ -17,6 +18,30 @@ class DefaultController extends AbstractController
      */
     public function index(){
         return $this->render('index.html');
+    }
+    /**
+     * @Route("/registro_usuarios", name="registroUsuarios")
+     */
+    public function registro_usuarios(){
+        if (isset($_POST['email'])) {
+            $entityManager = $this->getDoctrine()->getManager();
+           $usuario = new User ();
+           // $usuario ->setId();
+           $usuario ->setEmail($_POST['email']);
+           // $usuario ->setRoles('');
+           $usuario ->setNickname($_POST['nickname']);
+           $usuario ->setPassword(md5($_POST['password']));
+           $usuario ->setSaldoPartida(NULL);
+           $usuario ->setCasillas(NULL);
+
+           $entityManager->persist($usuario);
+           $entityManager->flush();
+
+           return new Response('registro_usuarios.html');
+
+        } else {
+            return $this->render('registro_usuarios.html'); 
+        }
     }
     /**
      * @Route("/tablero", name="tablero")
@@ -33,10 +58,10 @@ class DefaultController extends AbstractController
      */
     public function logeoAjax(){ //Obtenemos el usuario con el email y la contraseña que nos introduce el usuario en cada formulario
         
-        if(isset($_POST['email'])) {//Comprobamos si se han pasado ciertos datos por POST
+        if(isset($_POST['email']) && isset($_POST['password'])) {//Comprobamos si se han pasado ciertos datos por POST
             $repository = $this->getDoctrine()->getRepository(User::class);
             // $encriptedPass=password_hash($_POST['password'], PASSWORD_ARGON2I);
-            $usuario = $repository->findUserByEmailPass($_POST['email'], $_POST['password']);
+            $usuario = $repository->findUserByEmailPass($_POST['email'], md5($_POST['password']));
             return $this->json(['username' => $usuario -> getEmail(), 'id' => $usuario -> getId(), 'nickname' => $usuario -> getNickname(), 'id' => $usuario -> getId()]);
         } else {
             return $this->render('login_tablero.html');

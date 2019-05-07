@@ -1,0 +1,80 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<!-- <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> -->
+<script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+<link rel="stylesheet" href="stylesheets/css_registro.css">
+<script type="text/javascript">
+	$(function() {
+
+        $('#registro_users').submit(function(form) {
+        	form.preventDefault();
+        	$.ajax({
+            type: 'POST',
+            url:'/registro_usuarios',
+            data: {
+                    email:$('#email').val(),
+                    nickname:$('#nickname').val(),
+                    password:$('#nueva_pass').val(),
+            },success:function(response) {
+                    window.location = '/';
+                    
+            }
+
+            });
+        });
+
+    });
+</script>
+
+
+<body>
+
+	<div class="card bg-light">
+	<article class="card-body mx-auto" style="max-width: 400px;">
+		<h4 class="card-title mt-3 text-center">Crear Cuenta</h4>
+		<p class="text-center">Empieza tu cuenta gratuita!</p>
+		
+		<form method="post" action="/registro_usuarios" id="registro_users">
+		<div class="form-group input-group">
+			<div class="input-group-prepend">
+			    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+			 </div>
+	        <input name="nickname_usuario" class="form-control" placeholder="Nombre de Usuario" type="text" id="nickname">
+	    </div> 
+	    <div class="form-group input-group">
+	    	<div class="input-group-prepend">
+			    <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+			 </div>
+	        <input name="email_usuario" class="form-control" placeholder="Direccion Email" type="email" id="email" pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}" title="No es una direccion email correcta">
+	    </div> 
+	    <div class="form-group input-group">
+	    	<div class="input-group-prepend">
+			    <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
+			</div>
+	    	<input name="telefono_usuario" class="form-control" placeholder="Numero telefono" type="text">
+	    </div> 
+	    <div class="form-group input-group">
+	    	<div class="input-group-prepend">
+			    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+			</div>
+	        <input class="form-control" placeholder="Nueva contraseña" type="password" name="nueva_pass" id="nueva_pass">
+	    </div> 
+	    <div class="form-group input-group">
+	    	<div class="input-group-prepend">
+			    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+			</div>
+	        <input class="form-control" placeholder="Repetir contraseña" type="password" name="repetir_pass" id="repetir_pass">
+	    </div>                                       
+	    <div class="form-group">
+	        <button type="submit" class="btn btn-primary btn-block" name="enviar_registro"> Crear cuenta  </button>
+	    </div>     
+	    <p class="text-center">Ya tienes una cuenta? <a href="/login_usuario">Log In</a> </p>                                                                 
+	</form>
+	</article>
+	</div>
+
+	</div> 
+
+</body>
