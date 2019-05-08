@@ -5,6 +5,7 @@
   integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
   crossorigin="anonymous"></script>
 <link rel="stylesheet" href="stylesheets/css_registro.css">
+<link rel="stylesheet" type="text/css" href="stylesheets/cssIndex.css">
 <script type="text/javascript">
 	$(function() {
 
@@ -30,6 +31,63 @@
 
 
 <body>
+	<!-- Barra de navegacion -->
+	<nav class="navbar navbar-expand-xl navbar-dark bg-dark">
+			<div class="navbar-collapse collapse w-100 px-5 collapse-ambos order-1 order-md-0">
+			  <ul class="navbar-nav ml-auto text-center">
+				<!-- Opcion1 -->
+				<li class="nav-item px-5">
+				  <article id="opcion1">
+					<img class="fichas" src="imagenes/sombrero.png" id="sombrero">
+					<a class="nav-link" href="/logeoAjax">Log In</a>
+				  </article>
+				</li>
+		
+				<!-- Opcion2 -->
+				<li class="nav-item px-5">
+				  <article id="opcion2">
+					<img class="fichas" src="imagenes/perro.png" id="perro">
+					<a class="nav-link" href="/registro_usuarios">Registro</a>
+				  </article>
+		
+				</li>
+			  </ul>
+			</div>
+		
+			<!-- Logo central-->
+			<div class="mx-auto order-0 order-md-1 px-3 position-relative">
+			  <a class="mx-auto" href="index.html">
+				<img src="imagenes/Monopoly_pack_logo.png">
+			  </a>
+			  <!-- Boton para cuando colapse -->
+			  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".collapse-ambos">
+				<span class="navbar-toggler-icon"></span>
+			  </button>
+			</div>
+		
+			<!-- Opciones 3 y 4 del menu-->
+			<div class="navbar-collapse collapse w-100 px-5 collapse-ambos order-2 order-md-2">
+			  <ul class="navbar-nav mr-auto text-center">
+		
+				<!-- Opcion 3 -->
+				<li class="nav-item px-5">
+				  <article id="opcion3">
+					<img class="fichas" src="imagenes/bota.png" id="zapato">
+					<a class="nav-link" href="/logeoAjax">Jugar</a>
+				  </article>
+				</li>
+		
+				<!-- Opcion 4-->
+				<li class="nav-item px-5">
+				  <article id="opcion4">
+					<img class="fichas" src="imagenes/dedal.png" id="dedal">
+					<a class="nav-link" href="/contacto">Contacto</a>
+				  </article>
+				</li>
+		
+			  </ul>
+			</div>
+		  </nav>
 
 	<div class="card bg-light">
 	<article class="card-body mx-auto" style="max-width: 400px;">
@@ -76,5 +134,9 @@
 	</div>
 
 	</div> 
+
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> 
 
 </body>
