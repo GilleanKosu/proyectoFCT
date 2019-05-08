@@ -74,7 +74,7 @@ section#ComoJugar div article#textJugar p{
   margin-left: 15%;
 }
 article#imagenJugar {
-  background: url(../imagenes/Monopoly-3.jpg);
+  background: url(../imagenes/fondowall.jpg);
   background-size: cover;
 }
 #carouselExampleControls{
@@ -123,15 +123,15 @@ article#imagenJugar {
 }
 
 .clavesJuego #imagenClave1 {
-  background: url(../imagenes/barrio.jpg);
+  background: url(../imagenes/fondowall2.jpg);
   background-size: cover;
 }
 .clavesJuego #imagenClave2 {
-  background: url(../imagenes/conservador.jpg);
+  background: url(../imagenes/fondowall3.jpg);
   background-size: cover;
 }
 .clavesJuego #imagenClave3 {
-  background: url(../imagenes/lluviaBilletes.jpg);
+  background: url(../imagenes/fondowall4.jpg);
   background-size: cover;
 }
 

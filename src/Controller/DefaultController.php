@@ -64,10 +64,21 @@ class DefaultController extends AbstractController
         // die();
         if (isset($_POST['nombre_contacto']) && isset($_POST['email_contacto']) && isset($_POST['txtMsg'])) {
             
-            $mensaje = new mensaje();
-            
+            $mensaje = new Mensaje();
+            $mensaje->setNombreRemitente($_POST['nombre_contacto']);
+            $mensaje->setEmailRemitente($_POST['email_contacto']);
+            $mensaje->setMensajeRemitente($_POST['txtMsg']);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($mensaje);
+            $entityManager->flush();
+
+            return $this->render('contacto.html');
+
+        } else {
+            return $this->render('contacto.html');
         }
-        return $this->render('contacto.html');
+        
     }
     /**
      * @Route("/logeoAjax", name="logeoAjax")
