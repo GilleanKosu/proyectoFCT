@@ -66,7 +66,8 @@ function mover_jugador(valor_cara) {
                     // console.log(response.casilla_antigua);//Casilla antes del movimiento
                     // console.log(response.casilla_actualizada);//Casilla despues del movimiento
                     // console.log(casillas_tablero[response.casilla_actualizada]);//Nombre de esa casilla
-                    $('#'+casillas_tablero[response.casilla_actualizada]).addClass( "bg-primary" ); 
+                    // $('#'+casillas_tablero[response.casilla_actualizada]).addClass( "bg-primary" ); 
+                    console.log($('#'+casillas_tablero[response.casilla_actualizada]).children().eq(1).append('<img class="ficha" src="imagenes/sombrero.png">')); 
                     console.log(response.casilla_antigua);
                     console.log(response.casilla_actualizada);
                     comprobar_casilla(response.casilla_actualizada);
