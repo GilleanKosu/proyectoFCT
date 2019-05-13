@@ -8,6 +8,7 @@ var casillas_tablero = [];
 var baraja_cartas = [];
 var caras_dado = 0;
 var tirada_dado= 0;
+var fichas = ['imagenes/sombrero.png', 'imagenes/cat.png', 'imagenes/perro.png' , 'imagenes/bota.png'];
 
 
 //Cada vez que se pase de turno o se inicie la partida el numero aumentará
@@ -67,7 +68,28 @@ function mover_jugador(valor_cara) {
                     // console.log(response.casilla_actualizada);//Casilla despues del movimiento
                     // console.log(casillas_tablero[response.casilla_actualizada]);//Nombre de esa casilla
                     // $('#'+casillas_tablero[response.casilla_actualizada]).addClass( "bg-primary" ); 
-                    console.log($('#'+casillas_tablero[response.casilla_actualizada]).children().eq(1).append('<img class="ficha" src="imagenes/sombrero.png">')); 
+                    switch (turno_jugador) {
+                        case 0:
+                            $('#ficha_jugador1').remove();
+                            $('#'+casillas_tablero[response.casilla_actualizada]).children().eq(1).append('<img id="ficha_jugador1" class="ficha" src="'+fichas[0]+'">');
+                            break;
+                        case 1:
+
+                            $('#ficha_jugador2').remove();
+                            $('#'+casillas_tablero[response.casilla_actualizada]).children().eq(1).append('<img id="ficha_jugador2" class="w-50 ficha" src="'+fichas[1]+'">');
+                            break;
+                        case 2:
+                            console.log($('#ficha_jugador3').remove());
+                            console.log($('#'+casillas_tablero[response.casilla_actualizada]).children().eq(2).append('<img id="ficha_jugador3" class="ficha" src="'+fichas[2]+'">'));
+                            break;
+                        case 3:
+                            $('#ficha_jugador4').remove();
+                            $('#'+casillas_tablero[response.casilla_actualizada]).children().eq(2).append('<img id="ficha_jugador4" class="ficha" src="'+fichas[3]+'">');
+                            break;  
+                        default:
+                            break;
+                    }
+                     
                     console.log(response.casilla_antigua);
                     console.log(response.casilla_actualizada);
                     comprobar_casilla(response.casilla_actualizada);
@@ -196,6 +218,20 @@ function comprobar_casilla(casilla_actual) {//Con este metodo una vez tiremos el
                         baraja_cartas = response.lista_cartas;
                         caras_dado=response.caras_dado;
                         // console.log(casillas_tablero);
+                        if (jugadores_mezclados[0]) {
+                            $('#inicio').children().eq(1).append('<img id="ficha_jugador1" class="w-50 ficha" src="'+fichas[0]+'">');
+                        }
+                        if (jugadores_mezclados[1]) {
+                            $('#inicio').children().eq(1).append('<img id="ficha_jugador2" class="w-50 ficha" src="'+fichas[1]+'">');
+                        }
+                        if (jugadores_mezclados[2]) {
+                            $('#inicio').children().eq(2).append('<img id="ficha_jugador3" class="w-50 ficha" src="'+fichas[2]+'">');
+                        }
+                        if (jugadores_mezclados[3]) {
+                            $('#inicio').children().eq(2).append('<img id="ficha_jugador4" class="w-50 ficha" src="'+fichas[3]+'">');
+                        }
+                       
+                        
                 }
             });
             sumar_Turno();
