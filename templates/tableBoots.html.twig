@@ -28,7 +28,7 @@
 
                 <div class="container col-xl-2 col-lg-1 col-md-1 col-sm-1 bg-danger float-left">
 
-                        <div class="row">
+                        {# <div class="row">
                                 <div id="jugador1" class="col w-100 rounded bg-primary m-1 p-2">
                                         <form method="POST" action="/logeoAjax" id="form_jugador1" class="logueoJugador">
                                                 <input type="text" name="nombre_jugador1" id="email1" size="15">
@@ -63,7 +63,7 @@
                                                 <input type="submit" name="enviar_logeo" value="Enviar">
                                         </form>
                                 </div>
-                        </div>
+                        </div> #}
                         <div class="row">
                                 <div id="start" class="col w-100 rounded bg-primary m-1 p-2 ">
                                         <button type="button" id="start_button" class="w-100 btn btn-success">Empezar</button>
@@ -84,21 +84,29 @@
                 <div class="container col-xl-8 col-lg-10 col-md-10 col-sm-10 float-left">
 
                         <div class="row filaArriba">
-                                <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths border border-dark" id="parking"></div>
-                                
-                                <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths border border-dark">
-                                        <div id="suerte2" class="w-100 h-25"><p>Suerte</p></div>
-                                        <div class="w-100 h-75 suerte">
-                                        
-                                                <div class="row mt-2 ml-3">
+                                <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths border border-dark " id="parking">
+                                        <div></div>
+                                        <div class="row mt-2 ml-3">
                                                                 
-                                                </div>
-                                                <div class="row mt-2 mb-1 ml-3">
+                                        </div>
+                                        <div class="row mt-2 mb-1 ml-3">
                                                                
-                                                </div>
-                                        
                                         </div>
                                 </div>
+                                
+                                <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths colum border border-dark">
+                                                <div class="w-100 h-25"><p>Suerte</p></div>
+                                                <div id="suerte2" class="w-100 h-75 suerte">
+                                                        <p style="padding:0px; margin:0px;"></p>
+                                                        <div class="row mt-0 ml-3">
+                                                                
+                                                        </div>
+                                                        <div class="row mt-2 mb-1 ml-3">
+                                                               
+                                                        </div>
+                                                </div>
+                                                
+                                        </div>
 
                                 <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths border border-dark casilla_filla_arriba">
                                         <div class="w-100 h-25 bg-primary border-top border-dark"></div>
@@ -141,13 +149,37 @@
                                         </div>
                                 </div>
 
-                                <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths cosa" id="ve_carcel"></div>
+                                <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths border border-dark " id="ve_carcel">
+                                        <div></div>
+                                        <div class="row mt-2 ml-3">
+                                                                
+                                        </div>
+                                        <div class="row mt-2 mb-1 ml-3">
+                                                               
+                                        </div>
+                                </div>
+                                
                         </div>
                         <div class="row filaCentral">
 
                                 <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths bg-light column">
 
-                                        <div id="impuesto" class="mx-auto h-25 row border border-dark"><p>Impuesto</p></div>
+                                        <div class="mx-auto h-25 row border border-dark">
+
+                                                <div id="impuesto" class="w-75 h-100">
+                                                        <p></p>
+                                                        <div class="row mt-2 ml-3">
+                                                                
+                                                        </div>
+                                                        <div class="row mt-2 mb-1 ml-3">
+                                                               
+                                                        </div>
+                                                
+                                                
+                                                </div>
+                                                <div class="w-25 h-100 bg-warning border-left border-dark"><p>Impuesto</p></div>
+                                                
+                                        </div>
                                         
                                         <div class="mx-auto h-25 row border border-dark ">
                                                 <div id="puerta_del_sol" class="w-75 h-100"><p>Puerta del sol</p>
@@ -256,7 +288,15 @@
                         </div>
                         <div class="row filaAbajo">
 
-                                        <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths border border-dark " id="injail"></div>
+                                        <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths border border-dark " id="injail">
+                                                        <div></div>
+                                                        <div class="row mt-2 ml-3">
+                                                                
+                                                        </div>
+                                                        <div class="row mt-2 mb-1 ml-3">
+                                                               
+                                                        </div>
+                                        </div>
 
                                         <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths colum border border-dark ">
                                                 <div class="w-100 h-25 bg-success border-bottom border-dark"></div>
@@ -275,12 +315,15 @@
                                         <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths colum border border-dark">
                                                 <div id="suerte" class="w-100 h-25"><p>Suerte</p></div>
                                                 <div id="suerte1" class="w-100 h-75 suerte">
+                                                        <p></p>
                                                         <div class="row mt-2 ml-3">
                                                                 
                                                         </div>
                                                         <div class="row mt-2 mb-1 ml-3">
                                                                
-                                                        </div></div>
+                                                        </div>
+                                                </div>
+                                                
                                         </div>
 
                                         <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths colum border border-dark ">
@@ -314,7 +357,16 @@
                                                 </div>
                                         </div>
 
-                                        <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths border border-dark" id="inicio"><div class="cas1"></div></div>
+                                        <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths border border-dark" id="inicio">
+                                        
+                                                        <div></div>
+                                                        <div class="row mt-2 ml-3">
+                                                                
+                                                        </div>
+                                                        <div class="row mt-2 mb-1 ml-3">
+                                                               
+                                                        </div>
+                                        </div>
                                 </div>
 
                         </div>
