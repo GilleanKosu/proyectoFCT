@@ -225,5 +225,24 @@ class DefaultController extends AbstractController
         return $this->json(['lista_cartas' => $lista_cartas]);
 
     }
+    /**
+     * @Route("/actualizar_posicion_tablero", name="actualizarPosicionTablero")
+     */
+    public function actualizar_posicion_tablero()
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $repository = $this->getDoctrine()->getRepository(Casillas::class);
+        $repository2 = $this->getDoctrine()->getRepository(User::class);
+
+        $casilla_nueva = $repository->findCasillaById($_POST['posicion']);
+        $nuevo_usuario = $repository2->findOneById($_POST['jugador']);
+        $nuevo_usuario->setCasillas($casilla_nueva);
+
+        $entityManager->merge($nuevo_usuario);
+        $entityManager->flush();
+
+        return $this->json(['resultado' => 'OK']);
+
+    }
 
 }

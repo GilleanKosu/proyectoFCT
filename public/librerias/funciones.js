@@ -8,7 +8,10 @@ var casillas_tablero = [];
 var baraja_cartas = [];
 var caras_dado = 0;
 var tirada_dado= 0;
-var fichas = ['imagenes/sombrero.png', 'imagenes/cat.png', 'imagenes/perro.png' , 'imagenes/bota.png'];
+var fichas = ['imagenes/sombrero-ficha.png', 'imagenes/perro.png', 'imagenes/coche-ficha.png' , 'imagenes/bota.png'];
+var casilla=1;
+var jugador_actual;//Este es el id del jugador que esta actuando en cada turno para futuros usos
+
 
 
 //Cada vez que se pase de turno o se inicie la partida el numero aumentará
@@ -57,6 +60,8 @@ function mover_jugador(valor_cara) {
 
     for (var i = 0; i < jugadores_partida.length; i++) {
         if (jugadores_mezclados[turno_jugador] == jugadores_partida [i]) {
+            jugador_actual=id_jugadores_partida[i];//Guardamos el id del jugador que esta actuando en cada turno para futuros usos
+            console.log('El jugador que se esta moviendo es: ' + jugador_actual);
             $.ajax({
                 type: 'POST',
                 url:'/actualizar_movimiento',
@@ -79,8 +84,8 @@ function mover_jugador(valor_cara) {
                             $('#'+casillas_tablero[response.casilla_actualizada]).children().eq(1).append('<img id="ficha_jugador2" class="w-50 ficha" src="'+fichas[1]+'">');
                             break;
                         case 2:
-                            console.log($('#ficha_jugador3').remove());
-                            console.log($('#'+casillas_tablero[response.casilla_actualizada]).children().eq(2).append('<img id="ficha_jugador3" class="ficha" src="'+fichas[2]+'">'));
+                            $('#ficha_jugador3').remove();
+                            $('#'+casillas_tablero[response.casilla_actualizada]).children().eq(2).append('<img id="ficha_jugador3" class="ficha" src="'+fichas[2]+'">');
                             break;
                         case 3:
                             $('#ficha_jugador4').remove();
@@ -114,11 +119,12 @@ function comprobar_casilla(casilla_actual) {//Con este metodo una vez tiremos el
             id_casilla: casilla_actual
 
         },success:function(response) {
-
+            
+            console.log(response);
             //Comprobamos el tipo de la casilla
             switch (response.tipo_casilla) {
 
-            case 'Sorpresa': 
+            case 'sorpresa': 
 
                 if (baraja_cartas.length==0) {//Comprobamos que si la baraja de cartas esta vacia
 
@@ -138,12 +144,77 @@ function comprobar_casilla(casilla_actual) {//Con este metodo una vez tiremos el
 
                         }
                     });
-
+                    
                     baraja_cartas.splice(-1,1);//Sacamos la ultima carta
                     console.log(baraja_cartas);
 
-                } else {//Si siguen quedando cartas
+                } else {//Si siguen quedando cartas en la baraja
+                    switch (baraja_cartas[(baraja_cartas.length-1)][1]) {
 
+                        case 'Te desplazas a la casilla de inicio':
+                            id_ficha = turno_jugador + 1;
+                            if (turno_jugador==0 || turno_jugador==1) {
+                                console.log($('#ficha_jugador'+(id_ficha)).remove());
+                                console.log($('#inicio').children().eq(1).append('<img id="ficha_jugador'+id_ficha+'" class="ficha" src="'+fichas[turno_jugador]+'">'));
+                            }else{
+                                console.log($('#ficha_jugador'+(id_ficha+1)).remove());
+                                console.log($('#inicio').children().eq(2).append('<img id="ficha_jugador'+id_ficha+'" class="ficha" src="'+fichas[turno_jugador]+'">'));
+                            }
+
+                            $.ajax({//Aqui se actualiza la posicion del usuario a la casilla de inicio en la base de datos para poder seguir moviendote
+                       
+                                type: 'POST',
+        
+                                url:'/actualizar_posicion_tablero',
+
+                                data: {
+                                    posicion: 1, //Esta es la posicion a la que se va a mover
+                                    jugador: jugador_actual//Este es el jugador que esta en cada turno
+                                },
+                            });
+                            break;
+
+                        case 'Recibes 1500 euros':
+                            
+                            break;
+
+                        case 'Le pagas a la banca 1500 euros':
+                            
+                            break;
+
+                        case 'Te desplazas a la casilla de inicio':
+                            
+                            break;
+
+                        case 'Vas a la cárcel':
+                            id_ficha = turno_jugador + 1;
+                            if (turno_jugador==0 || turno_jugador==1) {
+                                console.log($('#ficha_jugador'+(id_ficha)).remove());
+                                console.log($('#injail').children().eq(1).append('<img id="ficha_jugador'+id_ficha+'" class="ficha" src="'+fichas[turno_jugador]+'">'));
+                            }else{
+                                console.log($('#ficha_jugador'+(id_ficha+1)).remove());
+                                console.log($('#injail').children().eq(2).append('<img id="ficha_jugador'+id_ficha+'" class="ficha" src="'+fichas[turno_jugador]+'">'));
+                            }
+
+                            $.ajax({//Aqui se actualiza la posicion del usuario a la casilla de carce en la base de datos para poder seguir moviendote
+                       
+                                type: 'POST',
+        
+                                url:'/actualizar_posicion_tablero',
+
+                                data: {
+                                    posicion: 6,//Esta es la posicion a la que se va a mover
+                                    jugador: jugador_actual//Este es el jugador que esta en cada turno
+                                },
+                            });
+                            
+                            
+                            break;
+                    
+                        default:
+                            break;
+                    }
+                    console.log('Ha salido:'+baraja_cartas[(baraja_cartas.length-1)][1]);
                     baraja_cartas.splice(-1,1);//Sacamos la ultima carta
                     console.log(baraja_cartas);
 
@@ -219,16 +290,16 @@ function comprobar_casilla(casilla_actual) {//Con este metodo una vez tiremos el
                         caras_dado=response.caras_dado;
                         // console.log(casillas_tablero);
                         if (jugadores_mezclados[0]) {
-                            $('#inicio').children().eq(1).append('<img id="ficha_jugador1" class="w-50 ficha" src="'+fichas[0]+'">');
+                            $('#inicio').children().eq(1).append('<img id="ficha_jugador1" class="w-25 ficha" src="'+fichas[0]+'">');
                         }
                         if (jugadores_mezclados[1]) {
-                            $('#inicio').children().eq(1).append('<img id="ficha_jugador2" class="w-50 ficha" src="'+fichas[1]+'">');
+                            $('#inicio').children().eq(1).append('<img id="ficha_jugador2" class="w-25 ficha" src="'+fichas[1]+'">');
                         }
                         if (jugadores_mezclados[2]) {
                             $('#inicio').children().eq(2).append('<img id="ficha_jugador3" class="w-50 ficha" src="'+fichas[2]+'">');
                         }
                         if (jugadores_mezclados[3]) {
-                            $('#inicio').children().eq(2).append('<img id="ficha_jugador4" class="w-50 ficha" src="'+fichas[3]+'">');
+                            $('#inicio').children().eq(2).append('<img id="ficha_jugador4" class="w-25 ficha" src="'+fichas[3]+'">');
                         }
                        
                         
