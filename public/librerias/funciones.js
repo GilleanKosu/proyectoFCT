@@ -232,6 +232,69 @@ function comprobar_casilla(casilla_actual) {//Con este metodo una vez tiremos el
                             
                             
                             break;
+
+                        case 'El jugador paga 500 euros de cada jugador':
+                        
+                        $.ajax({
+                            
+                            type: 'POST',
+    
+                            url:'/actualizar_saldo_jugador',
+
+                            data: {
+                                actualizar:"restar",
+                                cantidad:1500,
+                                jugador: jugador_actual,
+                                id_jugadores_partida:id_jugadores_partida
+                            },success (response) {
+                                //Aqui actualizaremos el saldo en las casillas correspondientes
+                            }
+                        });
+
+                        
+                        break;
+
+                        case 'El jugador recibe 500 euros de cada jugador':
+                        
+                        $.ajax({
+                            
+                            type: 'POST',
+    
+                            url:'/actualizar_saldo_jugador',
+
+                            data: {
+                                actualizar:"sumar",
+                                cantidad:1500,
+                                jugador: jugador_actual,
+                                id_jugadores_partida:id_jugadores_partida
+                            },success (response) {
+                                //Aqui actualizaremos el saldo en las casillas correspondientes
+                            }
+                        });
+
+                        
+                        break;
+                        
+                        case 'Sal de la cárcel':
+                        
+                        $.ajax({
+                            
+                            type: 'POST',
+    
+                            url:'/actualizar_saldo_jugador',
+
+                            data: {
+                                actualizar:"sumar",
+                                cantidad:1500,
+                                jugador: jugador_actual,
+                                id_jugadores_partida:id_jugadores_partida
+                            },success (response) {
+                                //Aqui actualizaremos el saldo en las casillas correspondientes
+                            }
+                        });
+
+                        
+                        break;
                     
                         default:
                             break;

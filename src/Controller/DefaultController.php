@@ -248,20 +248,58 @@ class DefaultController extends AbstractController
     /**
      * @Route("/actualizar_saldo_jugador", name="actualizarsaldojugador")
      */
-    public function actualizar_saldo_jugador()
-    {
+    public function actualizar_saldo_jugador(){
         $entityManager = $this->getDoctrine()->getManager();
         $repository1 = $this->getDoctrine()->getRepository(User::class);
 
         $nuevo_usuario = $repository1->findOneById($_POST['jugador']);
         if ($_POST['actualizar']=="sumar") {
+
             $nuevo_usuario->setSaldoPartida($nuevo_usuario->getSaldoPartida() + $_POST['cantidad']);
+
+            if (isset($_POST['id_jugadores_partida'])) { //Si nos han pasado los jugadores de la partida es porque se va a hacer una transferencia de los demas jugadores
+
+                foreach ($_POST['id_jugadores_partida'] as $key => $value) {//Recorremos todos los jugadores de la partida
+
+                   if ($value!=$_POST['jugador']) {//Cada uno que no sea el jugador actual que ha caido en la casilla recibira o perdera una cantidad
+
+                    $usuario_traspaso = $repository1->findOneById($value);
+
+                    $usuario_traspaso->setSaldoPartida($usuario_traspaso->getSaldoPartida() - 500);
+
+                    $entityManager->merge($usuario_traspaso);
+
+                    $entityManager->flush();
+
+                   }
+
+                }
+
+            }
         }
         if ($_POST['actualizar']=="restar") {
             $nuevo_usuario->setSaldoPartida($nuevo_usuario->getSaldoPartida() - $_POST['cantidad']);
+
+            if (isset($_POST['id_jugadores_partida'])) {//Si nos han pasado los jugadores de la partida es porque se va a hacer una a los demas jugadores
+
+                foreach ($_POST['id_jugadores_partida'] as $key => $value) {//Recorremos todos los jugadores de la partida
+
+                   if ($value!=$_POST['jugador']) {//Cada uno que no sea el jugador actual que ha caido en la casilla recibira o perdera una cantidad
+
+                    $usuario_ingreso = $repository1->findOneById($value);
+
+                    $usuario_ingreso->setSaldoPartida($usuario_ingreso->getSaldoPartida() + 500);
+
+                    $entityManager->merge($usuario_ingreso);
+                    
+                    $entityManager->flush();
+                   }
+                }
+            }
         }
 
         $entityManager->merge($nuevo_usuario);
+
         $entityManager->flush();
 
         return $this->json(['saldo_actualizado' => $nuevo_usuario->getSaldoPartida()]);

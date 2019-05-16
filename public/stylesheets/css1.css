@@ -60,7 +60,22 @@ body {
   width: 30%;
   height: 15%;
 }
-
+#jugador_rojo {
+  background: url(../imagenes/billete_rojo.png) no-repeat center;
+  background-size: 100% 100%;
+}
+#jugador_verde {
+  background: url(../imagenes/billete_verde.png) no-repeat center;
+  background-size: 100% 100%;
+}
+#jugador_amarillo {
+  background: url(../imagenes/billete_amarillo.png) no-repeat center;
+  background-size: 100% 100%;
+}
+#jugador_azul {
+  background: url(../imagenes/billete_azul.png) no-repeat center;
+  background-size: 100% 100%;
+}
 
 
 
