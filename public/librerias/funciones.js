@@ -175,15 +175,35 @@ function comprobar_casilla(casilla_actual) {//Con este metodo una vez tiremos el
                             break;
 
                         case 'Recibes 1500 euros':
-                            
+                            $.ajax({
+                        
+                                type: 'POST',
+        
+                                url:'/actualizar_saldo_jugador',
+
+                                data: {
+                                    actualizar:"sumar",
+                                    cantidad:1500,
+                                    jugador: jugador_actual//Este es el jugador que esta en cada turno
+                                },
+                            });
                             break;
 
                         case 'Le pagas a la banca 1500 euros':
+                            $.ajax({
                             
-                            break;
+                                type: 'POST',
+        
+                                url:'/actualizar_saldo_jugador',
 
-                        case 'Te desplazas a la casilla de inicio':
-                            
+                                data: {
+                                    actualizar:"restar",
+                                    cantidad:1500,
+                                    jugador: jugador_actual//Este es el jugador que esta en cada turno
+                                },success (response) {
+                                    //Aqui actualizaremos el saldo en las casillas correspondientes
+                                }
+                            });
                             break;
 
                         case 'Vas a la cárcel':
@@ -205,7 +225,9 @@ function comprobar_casilla(casilla_actual) {//Con este metodo una vez tiremos el
                                 data: {
                                     posicion: 6,//Esta es la posicion a la que se va a mover
                                     jugador: jugador_actual//Este es el jugador que esta en cada turno
-                                },
+                                },success (response) {
+                                    //Aqui actualizaremos el saldo en las casillas correspondientes
+                                }
                             });
                             
                             

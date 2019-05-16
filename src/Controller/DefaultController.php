@@ -245,4 +245,27 @@ class DefaultController extends AbstractController
 
     }
 
+    /**
+     * @Route("/actualizar_saldo_jugador", name="actualizarsaldojugador")
+     */
+    public function actualizar_saldo_jugador()
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $repository1 = $this->getDoctrine()->getRepository(User::class);
+
+        $nuevo_usuario = $repository1->findOneById($_POST['jugador']);
+        if ($_POST['actualizar']=="sumar") {
+            $nuevo_usuario->setSaldoPartida($nuevo_usuario->getSaldoPartida() + $_POST['cantidad']);
+        }
+        if ($_POST['actualizar']=="restar") {
+            $nuevo_usuario->setSaldoPartida($nuevo_usuario->getSaldoPartida() - $_POST['cantidad']);
+        }
+
+        $entityManager->merge($nuevo_usuario);
+        $entityManager->flush();
+
+        return $this->json(['saldo_actualizado' => $nuevo_usuario->getSaldoPartida()]);
+
+    }
+
 }
