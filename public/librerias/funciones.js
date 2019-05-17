@@ -106,6 +106,21 @@ function mover_jugador(valor_cara) {
                     
 }
 
+function actualizar_saldo_jugador () {
+    $.ajax({
+                            
+        type: 'POST',
+        
+        url:'/actualizar_saldo_jugador',
+
+        data: {
+            jugadores: id_jugadores_partida
+        },success (response) {
+            //Aqui actualizaremos el saldo en las casillas correspondientes
+        }
+    });
+}
+
 function comprobar_casilla(casilla_actual) {//Con este metodo una vez tiremos el dado, comprobaremos el tipo de la casilla en la que vamos a caer y 
                                                 //realizaremos ciertas acciones segun cada tipo
     $.ajax ({
@@ -179,7 +194,7 @@ function comprobar_casilla(casilla_actual) {//Con este metodo una vez tiremos el
                         
                                 type: 'POST',
         
-                                url:'/actualizar_saldo_jugador',
+                                url:'/depositar_recibir_saldo',
 
                                 data: {
                                     actualizar:"sumar",
@@ -194,7 +209,7 @@ function comprobar_casilla(casilla_actual) {//Con este metodo una vez tiremos el
                             
                                 type: 'POST',
         
-                                url:'/actualizar_saldo_jugador',
+                                url:'/depositar_recibir_saldo',
 
                                 data: {
                                     actualizar:"restar",

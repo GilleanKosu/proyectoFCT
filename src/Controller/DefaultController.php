@@ -246,9 +246,9 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/actualizar_saldo_jugador", name="actualizarsaldojugador")
+     * @Route("/depositar_recibir_saldo", name="depositarRecibirSaldo")
      */
-    public function actualizar_saldo_jugador()
+    public function depositar_recibir_saldo()
     {
         $entityManager = $this->getDoctrine()->getManager();
         $repository1 = $this->getDoctrine()->getRepository(User::class);
@@ -264,8 +264,25 @@ class DefaultController extends AbstractController
         $entityManager->merge($nuevo_usuario);
         $entityManager->flush();
 
-        return $this->json(['saldo_actualizado' => $nuevo_usuario->getSaldoPartida()]);
+        return $this->json(['saldo_actualizado' => $nuevo_usuario->getSaldoPartida()]);//ESTO NO HACE FALTA
 
+    }
+    /**
+     * @Route("/actualizar_saldo_jugador", name="actualizarSaldojugador")
+     */
+    public function actualizar_saldo_jugador(){
+        $saldos_actualizados[];
+        $entityManager = $this->getDoctrine()->getManager();
+        $repository = $this->getDoctrine()->getRepository(User::class);
+        foreach ($_POST['jugadores'] as $key => $value) {
+            $usuario = $repository->findOneById($value);
+            $saldos_usuarios_actualizados = array($usuario->getUsername() => $usuario->getSaldo());
+            // array_push($saldos_actualizados, $key);
+            // array_push($saldos_actualizados, $value);
+        }
+
+
+        return $this->json(['saldos_actualizados' => $saldos_usuarios_actualizados]);
     }
 
 }
