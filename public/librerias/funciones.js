@@ -342,6 +342,7 @@ function actualizar_datos_usuario () {
 (function () {
     $(function() {
 
+
         $('#end_turn_button, #roll_dice_button, #buy_button, #sell_button').hide();
         
         $('.logueoJugador').submit(function(evento){

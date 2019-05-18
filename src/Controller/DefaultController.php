@@ -246,7 +246,7 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/actualizar_saldo_jugador", name="actualizarsaldojugador")
+     * @Route("/actualizar_saldo_jugador", name="actualizarSaldoJugador")
      */
     public function actualizar_saldo_jugador(){
         $entityManager = $this->getDoctrine()->getManager();
@@ -302,7 +302,7 @@ class DefaultController extends AbstractController
 
         $entityManager->flush();
 
-        return $this->json(['saldo_actualizado' => $nuevo_usuario->getSaldoPartida()]);
+        return $this->json(['saldo_actualizado' => $nuevo_usuario->getSaldoPartida()]);//ESTO NO HACE FALTA
 
     }
 
