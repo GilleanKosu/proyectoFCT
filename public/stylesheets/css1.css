@@ -3,7 +3,7 @@
   padding: 0px;
 }
 body {
-  background-color: white;
+  background: url(../imagenes/fondos/2.jpg) no-repeat center;
   font-family: 'Roboto', sans-serif;
 }
 .principal p{

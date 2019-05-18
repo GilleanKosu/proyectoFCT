@@ -15,10 +15,10 @@
     <body>    
         <div id="infoJuego" class="container row mx-auto">
                 
-                <div id="jugadorTurno" class="col-xl-6 col-lg-6 col-sm-6">
+                <div id="jugadorTurno" class="col-xl-6 col-lg-6 col-sm-6" style="color:white;">
                         <p>Turno del jugador: </p>
                 </div>
-                <div id="numeroTurno" class="col-xl-6 col-lg-6 col-sm-6">
+                <div id="numeroTurno" class="col-xl-6 col-lg-6 col-sm-6" style="color:white;">
                         <p>Turno nº</p>
                 </div>
                 
@@ -26,22 +26,31 @@
 
         <div class="container mt-5 mb-5 principal">
 
-                <div class="container col-xl-2 col-lg-1 col-md-1 col-sm-1 bg-danger float-left">
-
-                        <div id="jugador_rojo" class="row p-4">
-                                <p class="mx-auto">Red</p>
-                        </div>
+                <div class="container col-xl-2 col-lg-1 col-md-1 col-sm-1 float-left">
+                        <div id="datos_jugadores"></div>
+                        {# <div id="jugador_rojo" class="row p-4"><p class="mx-auto">Red</p></div>
+                        <div id="dinero_jugador_rojo" class="row"><p class="mx-auto">SALDO1</p></div>
                         <div id="jugador_amarillo" class="row p-4">
                                 <p class="mx-auto">Yellow</p>
+                        </div>
+                        <div id="dinero_jugador_amarillo" class="row">
+                                <p class="mx-auto">SALDO2</p>
                         </div>
                         <div id="jugador_verde" class="row p-4">
                                 <p class="mx-auto">Esmeral</p>
                         </div>
+                        <div id="dinero_jugador_verde" class="row">
+                                <p class="mx-auto">SALDO3</p>
+                        </div>
                         <div id="jugador_azul" class="row p-4">
                                 <p class="mx-auto">Azul</p>
                         </div>
+                        <div id="dinero_jugador_azul" class="row">
+                                <p class="mx-auto">SALDO4</p>
+                        </div> #}
                         <div class="row">
-                                <div id="start" class="col w-100 rounded bg-primary m-1 p-2 ">
+                                
+                                <div id="start" class="col w-100 rounded m-1 p-2 ">
                                         <button type="button" id="start_button" class="w-100 btn btn-success">Empezar</button>
 
                                         <button type="button" id="end_turn_button" class="w-100 btn btn-success">Fin turno</button>
@@ -60,7 +69,7 @@
                 <div class="container col-xl-8 col-lg-10 col-md-10 col-sm-10 float-left">
 
                         <div class="row filaArriba">
-                                <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths border border-dark " id="parking">
+                                <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths border border-dark bg-light" id="parking">
                                         <div></div>
                                         <div class="row mt-2 ml-3">
                                                                 
@@ -70,7 +79,7 @@
                                         </div>
                                 </div>
                                 
-                                <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths colum border border-dark">
+                                <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths colum border border-dark bg-light">
                                                 <div class="w-100 h-25"><p>Suerte</p></div>
                                                 <div id="suerte2" class="w-100 h-75 suerte">
                                                         <p style="padding:0px; margin:0px;"></p>
@@ -84,7 +93,7 @@
                                                 
                                         </div>
 
-                                <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths border border-dark casilla_filla_arriba">
+                                <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths border border-dark bg-light casilla_filla_arriba">
                                         <div class="w-100 h-25 bg-primary border-top border-dark"></div>
                                         <div id="gran_via" class="w-100 h-75"><p>Gran via</p>
                                         
@@ -97,7 +106,7 @@
                                         
                                         </div>
                                 </div>
-                                <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths border border-dark  casilla_filla_arriba">               
+                                <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths border border-dark bg-light casilla_filla_arriba">               
                                         <div class="w-100 h-25 bg-primary border-top border-dark"></div>
                                         <div id="paseo_de_la_castellana" class="w-100 h-75"><p>Paseo de la Castellana</p>
 
@@ -111,7 +120,7 @@
                                         
                                         </div>
                                 </div>
-                                <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths border border-dark casilla_filla_arriba">
+                                <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths border border-dark bg-light casilla_filla_arriba">
                                         <div class="w-100 h-25 bg-primary border-top border-dark"></div>
                                         <div id="paseo_del_prado" class="w-100 h-75"><p>Paseo del prado</p>
                                         
@@ -125,7 +134,7 @@
                                         </div>
                                 </div>
 
-                                <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths border border-dark " id="ve_carcel">
+                                <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths border border-dark bg-light " id="ve_carcel">
                                         <div></div>
                                         <div class="row mt-2 ml-3">
                                                                 
@@ -264,7 +273,7 @@
                         </div>
                         <div class="row filaAbajo">
 
-                                        <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths border border-dark " id="injail">
+                                        <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths border border-dark bg-light" id="injail">
                                                         <div></div>
                                                         <div class="row w-75 mt-2 ml-3">
                                                                 
@@ -274,7 +283,7 @@
                                                         </div>
                                         </div>
 
-                                        <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths colum border border-dark ">
+                                        <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths colum border border-dark bg-light">
                                                 <div class="w-100 h-25 bg-success border-bottom border-dark"></div>
                                                 <div id="glorieta_bilbao" class="w-100 h-75"><p>Glorieta Bilbao</p>
 
@@ -288,7 +297,7 @@
                                                 </div>
                                         </div>
 
-                                        <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths colum border border-dark">
+                                        <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths colum border border-dark bg-light">
                                                 <div id="suerte" class="w-100 h-25"><p>Suerte</p></div>
                                                 <div id="suerte1" class="w-100 h-75 suerte">
                                                         <p></p>
@@ -302,7 +311,7 @@
                                                 
                                         </div>
 
-                                        <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths colum border border-dark ">
+                                        <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths colum border border-dark bg-light">
                                                 <div class="w-100 h-25 bg-success border-bottom border-dark"></div>
                                                 <div id="alberto_aguilera" class="w-100 h-75">
                                                         <p>Alberto Aguilera</p>
@@ -315,7 +324,7 @@
                                                 </div>
                                         </div>
 
-                                        <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths colum border border-dark ">
+                                        <div class="col-xl-1ths col-lg-1ths col-md-1ths col-sm-1ths colum border border-dark bg-light">
                                                 <div class="w-100 h-25 bg-success border-bottom border-dark"></div>
                                                 <div id="fuencarral" class="w-100 h-75">
                                                         <p>Fuencarral</p>
@@ -333,7 +342,7 @@
                                                 </div>
                                         </div>
 
-                                        <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths border border-dark" id="inicio">
+                                        <div class="col-xl-4ths col-lg-4ths col-md-4ths col-sm-4ths border border-dark bg-light" id="inicio">
                                         
                                                         <div></div>
                                                         <div class="row mt-2 ml-5">
@@ -384,6 +393,5 @@
                 return myJsVar2;
             }
         </script>
-        <script type="text/javascript" id="cookieinfo" src="//cookieinfoscript.com/js/cookieinfo.min.js"></script>
     </body>
 </html>

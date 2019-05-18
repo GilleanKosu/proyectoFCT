@@ -306,4 +306,23 @@ class DefaultController extends AbstractController
 
     }
 
+    /**
+     * @Route("/actualizar_info_jugadores", name="actualizarInfoJugadores")
+     */
+    public function actualizar_info_jugadores(){//Metodo que obtiene los datos que nos interesan de todos los jugadores que esten en la partida y los devuelve ya actualizados
+        
+        $repository = $this->getDoctrine()->getRepository(User::class);
+        
+        foreach ($_POST['datos_jugadores'] as $key => $value) {
+            $usuario = $repository->findOneById($value['id']);
+            $datos_jugadores_actualizados[$key]['id'] = $usuario->getId();
+            $datos_jugadores_actualizados[$key]['nickName'] = $usuario->getNickname();
+            $datos_jugadores_actualizados[$key]['Saldo'] = $usuario->getSaldoPartida();
+        }
+ 
+        return $this->json(['info_jugadores' => $datos_jugadores_actualizados]);
+
+
+    }
+
 }

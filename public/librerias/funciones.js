@@ -1,6 +1,7 @@
 var jugadores_partida = [];
 var id_jugadores_partida = [];
 var jugadores_mezclados = [];
+var array_datos_jugadores;
 var aux_jugadores = [];
 var turnos = 0;
 var turno_jugador = -1;
@@ -299,6 +300,7 @@ function comprobar_casilla(casilla_actual) {//Con este metodo una vez tiremos el
                         default:
                             break;
                     }
+                    actualizar_datos_usuario();
                     console.log('Ha salido:'+baraja_cartas[(baraja_cartas.length-1)][1]);
                     baraja_cartas.splice(-1,1);//Sacamos la ultima carta
                     console.log(baraja_cartas);
@@ -312,8 +314,34 @@ function comprobar_casilla(casilla_actual) {//Con este metodo una vez tiremos el
     });
 }
 
+function actualizar_datos_usuario () {
+    $.ajax({
+        type: 'POST',
+        url:'/actualizar_info_jugadores',
+        data: {
+                datos_jugadores:array_datos_jugadores,
+        },success:function(response) {
+            array_datos_jugadores=response.info_jugadores;
+            if (response.info_jugadores[0]) {
+                $('#dinero_jugador_rojo').children().first().text('$ '+response.info_jugadores[0].Saldo);
+            }
+            if (response.info_jugadores[1]) {
+                $('#dinero_jugador_amarillo').children().first().text('$ '+response.info_jugadores[1].Saldo);
+            }
+            if (response.info_jugadores[2]) {
+                $('#dinero_jugador_verde').children().first().text('$ '+response.info_jugadores[2].Saldo);
+            }
+            if (response.info_jugadores[3]) {
+                $('#dinero_jugador_azul').children().first().text('$ '+response.info_jugadores[3].Saldo);
+            }
+        }
+
+    });
+}
+
 (function () {
     $(function() {
+
         $('#end_turn_button, #roll_dice_button, #buy_button, #sell_button').hide();
         
         $('.logueoJugador').submit(function(evento){
@@ -370,10 +398,27 @@ function comprobar_casilla(casilla_actual) {//Con este metodo una vez tiremos el
                 },
                 success:function(response) {
                         console.log(response);
+                        array_datos_jugadores = response.info_jugadores;
                         casillas_tablero = response.lista_casillas;
                         baraja_cartas = response.lista_cartas;
                         caras_dado=response.caras_dado;
-                        // console.log(casillas_tablero);
+
+                        //Meter los datos de los jugadores en los billetes
+                        if (response.info_jugadores[0]) {
+                            $('#datos_jugadores').append('<div id="jugador_rojo" class="row p-4"><p class="mx-auto">'+array_datos_jugadores[0].nickName+'</p></div><div id="dinero_jugador_rojo" class="row"><p class="mx-auto" style="color:white;">$ '+array_datos_jugadores[0].Saldo+'</p></div>');
+                        }
+                        if (response.info_jugadores[1]) {
+                            $('#datos_jugadores').append('<div id="jugador_amarillo" class="row p-4"><p class="mx-auto">'+array_datos_jugadores[1].nickName+'</p></div><div id="dinero_jugador_amarillo" class="row"><p class="mx-auto" style="color:white;">$ '+array_datos_jugadores[1].Saldo+'</p></div>');
+                        }
+                        if (response.info_jugadores[2]) {
+                            $('#datos_jugadores').append('<div id="jugador_verde" class="row p-4"><p class="mx-auto">'+array_datos_jugadores[2].nickName+'</p></div><div id="dinero_jugador_verde" class="row"><p class="mx-auto" style="color:white;">$ '+array_datos_jugadores[2].Saldo+'</p></div>');
+                        }
+                        if (response.info_jugadores[3]) {
+                            $('#datos_jugadores').append('<div id="jugador_azul" class="row p-4"><p class="mx-auto">'+array_datos_jugadores[3].nickName+'</p></div><div id="dinero_jugador_azul" class="row"><p class="mx-auto" style="color:white;">$ '+array_datos_jugadores[3].Saldo+'</p></div>');
+                        }
+
+
+                        //Añadir las fichas al tablero
                         if (jugadores_mezclados[0]) {
                             $('#inicio').children().eq(1).append('<img id="ficha_jugador1" class="w-25 ficha" src="'+fichas[0]+'">');
                         }
@@ -386,10 +431,11 @@ function comprobar_casilla(casilla_actual) {//Con este metodo una vez tiremos el
                         if (jugadores_mezclados[3]) {
                             $('#inicio').children().eq(2).append('<img id="ficha_jugador4" class="w-25 ficha" src="'+fichas[3]+'">');
                         }
-                       
                         
+
                 }
             });
+            
             sumar_Turno();
             mezclar_Jugadores();
             siguiente_jugador();
