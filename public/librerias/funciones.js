@@ -12,6 +12,7 @@ var tirada_dado= 0;
 var fichas = ['imagenes/sombrero-ficha.png', 'imagenes/perro.png', 'imagenes/coche-ficha.png' , 'imagenes/bota.png'];
 var casilla=1;
 var jugador_actual;//Este es el id del jugador que esta actuando en cada turno para futuros usos
+var casilla_actual_jugador;
 
 
 
@@ -70,6 +71,7 @@ function mover_jugador(valor_cara) {
                     jugador: id_jugadores_partida[i],
                     dado: tirada_dado,
                 },success:function(response) {//Movimiento en la casilla
+                    casilla_actual_jugador=response.casilla_actualizada;
                     // console.log(response.casilla_antigua);//Casilla antes del movimiento
                     // console.log(response.casilla_actualizada);//Casilla despues del movimiento
                     // console.log(casillas_tablero[response.casilla_actualizada]);//Nombre de esa casilla
@@ -147,7 +149,10 @@ function comprobar_casilla(casilla_actual) {//Con este metodo una vez tiremos el
                     });
                     
                     baraja_cartas.splice(-1,1);//Sacamos la ultima carta
+                    console.log('Ha salido:'+baraja_cartas[(baraja_cartas.length-1)][1]);
                     console.log(baraja_cartas);
+                    actualizar_datos_usuario();
+                    
 
                 } else {//Si siguen quedando cartas en la baraja
                     switch (baraja_cartas[(baraja_cartas.length-1)][1]) {
@@ -308,6 +313,35 @@ function comprobar_casilla(casilla_actual) {//Con este metodo una vez tiremos el
                 }
 
                 break;
+
+            case "calle":
+                    $.ajax({
+                        type: 'POST',
+                        url:'/comprobar_propietario',
+                        data: {
+                                id_casilla:casilla_actual,
+                                jugador: jugador_actual
+                        },success:function(response) {
+                            console.log(response);
+                            if (response.info_jugadores=="no") {//Si no tiene propietario
+
+                                $('#buy_button').show();
+
+                            } else {
+                                if (response.info_jugadores=="yes" && response.mismo_propietario==true) { //Si tiene propietario pero y es el jugador actual
+                                    $('#sell_button').show();
+                                }
+                                if (response.info_jugadores=="yes" && response.mismo_propietario==false) { //Si tiene propietario pero no es el jugador actual
+                                    
+                                    //PAGAR DINERO
+
+                                }
+                            }
+                            
+                        }
+                
+                    });
+                break;
             }
 
         }
@@ -338,6 +372,35 @@ function actualizar_datos_usuario () {
 
     });
 }
+
+function comprar_titulo_propiedad() {
+    $.ajax({
+        type: 'POST',
+        url:'/comprar_titulo_propiedad',
+        data: {
+                id_casilla:casilla_actual_jugador,
+                jugador: jugador_actual
+        },success:function(response) {
+            console.log(response);
+            $('#buy_button').hide();
+            if(response.grupo=="verde") {
+                $('#propiedades_jugador').append('<div class="row padreMierda"><div class="bg-success probandoMierda"></div><div class="h-100 bg-light probandoMierda2"><p>'+$c+'</p></div></div>');
+            }
+            if(response.grupo=="rojo") {
+                $('#propiedades_jugador').append('<div class="row padreMierda"><div class="bg-danger probandoMierda"></div><div class="h-100 bg-light probandoMierda2"><p>'+$c+'</p></div></div>');
+            }
+            if(response.grupo=="amarillo") {
+                $('#propiedades_jugador').append('<div class="row padreMierda"><div class="bg-warning probandoMierda"></div><div class="h-100 bg-light probandoMierda2"><p>'+$c+'</p></div></div>');
+            }
+            if(response.grupo=="azul") {
+                $('#propiedades_jugador').append('<div class="row padreMierda"><div class="bg-primary probandoMierda"></div><div class="h-100 bg-light probandoMierda2"><p>'+$c+'</p></div></div>');
+            }
+           
+        }
+
+    });
+}
+
 
 (function () {
     $(function() {
@@ -451,6 +514,9 @@ function actualizar_datos_usuario () {
         $('#roll_dice_button').click(function() {
             lanzar_dado();
             mover_jugador();
+        });
+        $('#buy_button').click(function(){
+            comprar_titulo_propiedad();
         });
 
 

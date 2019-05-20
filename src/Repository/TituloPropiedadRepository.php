@@ -47,4 +47,13 @@ class TituloPropiedadRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function findTituloById($value): ?TituloPropiedad
+    {
+        return $this->createQueryBuilder('t')
+            ->andWhere('t.casilla = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
 }

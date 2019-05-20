@@ -12,6 +12,7 @@ use App\Entity\Dado;
 use App\Entity\Casillas;
 use App\Entity\Carta;
 use App\Entity\Mensaje;
+use App\Entity\TituloPropiedad;
 class DefaultController extends AbstractController
 {
     /**
@@ -323,6 +324,56 @@ class DefaultController extends AbstractController
         return $this->json(['info_jugadores' => $datos_jugadores_actualizados]);
 
 
+    }
+    /**
+     * @Route("/comprobar_propietario", name="comprobarPropietario")
+     */
+    public function comprobar_propietario(){
+        
+        $repository = $this->getDoctrine()->getRepository(TituloPropiedad::class);
+        $repository2 = $this->getDoctrine()->getRepository(User::class);
+        
+        
+        $tituloPropiedad = $repository->findTituloById($_POST['id_casilla']);
+        $usuario_actual = $repository2->findOneById($_POST['jugador']);
+        
+            if ($tituloPropiedad->getUsuario()==NULL) {
+
+                return $this->json(['info_jugadores' => "no"]);
+
+            } else {
+
+                if ($usuario_actual->getId() == $tituloPropiedad->getUsuario()->getId()) {
+                    return $this->json(['info_jugadores' => 'yes', 'mismo_propietario' => true]);
+                } else {
+                    return $this->json(['info_jugadores' => 'yes', 'mismo_propietario' => false]);
+                }
+                
+            }
+        
+    }
+
+    /**
+     * @Route("/comprar_titulo_propiedad", name="comprarTituloPropiedad")
+     */
+    public function comprar_titulo_propiedad(){
+
+            $repository = $this->getDoctrine()->getRepository(TituloPropiedad::class);
+            $repository2 = $this->getDoctrine()->getRepository(User::class);
+        
+            $tituloPropiedad = $repository->findTituloById($_POST['id_casilla']);
+            $usuario_actual = $repository2->findOneById($_POST['jugador']);
+
+            $tituloPropiedad->setUsuario($usuario_actual);
+
+            $entityManager = $this->getDoctrine()->getManager();
+
+            $entityManager->merge($tituloPropiedad);
+                    
+            $entityManager->flush();
+            
+            return $this->json(['grupo' => $tituloPropiedad->getGrupo()]);
+        
     }
 
 }

@@ -36,6 +36,11 @@ class TituloPropiedad
      */
     private $usuario;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $grupo;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -85,6 +90,18 @@ class TituloPropiedad
     public function setUsuario(?User $usuario): self
     {
         $this->usuario = $usuario;
+
+        return $this;
+    }
+
+    public function getGrupo(): ?string
+    {
+        return $this->grupo;
+    }
+
+    public function setGrupo(string $grupo): self
+    {
+        $this->grupo = $grupo;
 
         return $this;
     }

@@ -95,6 +95,19 @@ div.probandoMierda2 {
 #tablero {
   height: 90%;
 }
+#tablero p{
+  font-size: 12px;
+}
+/* p.parrafos_zquierda{
+  transform: rotate(90deg);
+} */
+
+#impuesto {
+  background: url(../imagenes/impuesto.png) no-repeat center;
+  background-size: 60% 50%;
+  transform: rotate(90deg);
+}
+
 
 
 
