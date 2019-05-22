@@ -372,6 +372,50 @@ function actualizar_datos_usuario () {
 
     });
 }
+function actualizar_propiedades () {
+    $.ajax({
+        type: 'POST',
+        url:'/actualizar_propiedades',
+        data: {
+            jugador: jugador_actual
+        },success:function(response) {
+            
+           console.log(response);
+
+           $('#propiedades_jugador').children().remove();
+
+           for (i = 0; i < response.datos_propiedades_jugados_actual.length; i++) {
+               
+                // console.log(response.datos_propiedades_jugados_actual[i][1]);
+                
+
+                switch (response.datos_propiedades_jugados_actual[i][1]) {
+                    case "verde":
+                        $('#propiedades_jugador').append('<div class="row padreMierda"><div class="bg-success probandoMierda"></div><div class="h-100 bg-light probandoMierda2"><p>'+response.datos_propiedades_jugados_actual[i][0]+'</p></div></div>');
+                        break;
+                    case "rojo":
+                        $('#propiedades_jugador').append('<div class="row padreMierda"><div class="bg-danger probandoMierda"></div><div class="h-100 bg-light probandoMierda2"><p>'+response.datos_propiedades_jugados_actual[i][0]+'</p></div></div>');
+                        break;
+                    case "amarilla":
+                        $('#propiedades_jugador').append('<div class="row padreMierda"><div class="bg-warning probandoMierda"></div><div class="h-100 bg-light probandoMierda2"><p>'+response.datos_propiedades_jugados_actual[i][0]+'</p></div></div>');
+                        break;
+                    case "azul":
+                        $('#propiedades_jugador').append('<div class="row padreMierda"><div class="bg-primary probandoMierda"></div><div class="h-100 bg-light probandoMierda2"><p>'+response.datos_propiedades_jugados_actual[i][0]+'</p></div></div>');
+                        break;
+                    
+                    default:
+                        //Mensaje de error
+                        break;
+    
+                    
+                }
+               
+           }
+           
+        }
+
+    });
+}
 
 function comprar_titulo_propiedad() {
     $.ajax({
@@ -383,17 +427,25 @@ function comprar_titulo_propiedad() {
         },success:function(response) {
             console.log(response);
             $('#buy_button').hide();
-            if(response.grupo=="verde") {
-                $('#propiedades_jugador').append('<div class="row padreMierda"><div class="bg-success probandoMierda"></div><div class="h-100 bg-light probandoMierda2"><p>'+$c+'</p></div></div>');
-            }
-            if(response.grupo=="rojo") {
-                $('#propiedades_jugador').append('<div class="row padreMierda"><div class="bg-danger probandoMierda"></div><div class="h-100 bg-light probandoMierda2"><p>'+$c+'</p></div></div>');
-            }
-            if(response.grupo=="amarillo") {
-                $('#propiedades_jugador').append('<div class="row padreMierda"><div class="bg-warning probandoMierda"></div><div class="h-100 bg-light probandoMierda2"><p>'+$c+'</p></div></div>');
-            }
-            if(response.grupo=="azul") {
-                $('#propiedades_jugador').append('<div class="row padreMierda"><div class="bg-primary probandoMierda"></div><div class="h-100 bg-light probandoMierda2"><p>'+$c+'</p></div></div>');
+            switch (response.grupo) {
+                case "verde":
+                    $('#propiedades_jugador').append('<div class="row padreMierda"><div class="bg-success probandoMierda"></div><div class="h-100 bg-light probandoMierda2"><p>'+response.nombre_propiedad+'</p></div></div>');
+                    break;
+                case "rojo":
+                    $('#propiedades_jugador').append('<div class="row padreMierda"><div class="bg-danger probandoMierda"></div><div class="h-100 bg-light probandoMierda2"><p>'+response.nombre_propiedad+'</p></div></div>');
+                    break;
+                case "amarilla":
+                    $('#propiedades_jugador').append('<div class="row padreMierda"><div class="bg-warning probandoMierda"></div><div class="h-100 bg-light probandoMierda2"><p>'+response.nombre_propiedad+'</p></div></div>');
+                    break;
+                case "azul":
+                    $('#propiedades_jugador').append('<div class="row padreMierda"><div class="bg-primary probandoMierda"></div><div class="h-100 bg-light probandoMierda2"><p>'+response.nombre_propiedad+'</p></div></div>');
+                    break;
+                
+                default:
+                    //Mensaje de error
+                    break;
+
+                
             }
            
         }
@@ -517,6 +569,10 @@ function comprar_titulo_propiedad() {
         });
         $('#buy_button').click(function(){
             comprar_titulo_propiedad();
+        });
+
+        $('#actualizar_button').click(function(){
+            actualizar_propiedades();
         });
 
 

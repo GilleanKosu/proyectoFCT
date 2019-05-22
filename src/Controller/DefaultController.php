@@ -13,6 +13,8 @@ use App\Entity\Casillas;
 use App\Entity\Carta;
 use App\Entity\Mensaje;
 use App\Entity\TituloPropiedad;
+use Proxies\__CG__\App\Entity\Casillas as ProxiesCasillas;
+
 class DefaultController extends AbstractController
 {
     /**
@@ -364,6 +366,7 @@ class DefaultController extends AbstractController
             $tituloPropiedad = $repository->findTituloById($_POST['id_casilla']);
             $usuario_actual = $repository2->findOneById($_POST['jugador']);
 
+
             $tituloPropiedad->setUsuario($usuario_actual);
 
             $entityManager = $this->getDoctrine()->getManager();
@@ -372,8 +375,32 @@ class DefaultController extends AbstractController
                     
             $entityManager->flush();
             
-            return $this->json(['grupo' => $tituloPropiedad->getGrupo()]);
+            return $this->json(['grupo' => $tituloPropiedad->getGrupo(), 'nombre_propiedad' => $tituloPropiedad->getNombre()]);
         
+    }
+    /**
+     * @Route("/actualizar_propiedades", name="actualizarPropiedades")
+     */
+    public function actualizar_propiedades(){
+
+        
+
+        $repository = $this->getDoctrine()->getRepository(User::class);
+    
+        $usuario_actual = $repository->findOneById($_POST['jugador']);
+
+        foreach ($usuario_actual->getTituloPropiedads() as $key => $value) {
+
+            $datos_propiedades_jugados_actual[$key][0]=$value->getNombre();
+
+            $datos_propiedades_jugados_actual[$key][1]=$value->getGrupo();
+            
+        }
+
+
+        
+        return $this->json(['datos_propiedades_jugados_actual' => $datos_propiedades_jugados_actual]);
+    
     }
 
 }
