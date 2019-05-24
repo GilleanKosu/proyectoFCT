@@ -453,11 +453,26 @@ function comprar_titulo_propiedad() {
     });
 }
 
+function vender_propiedades () {
+    var elementos_seleccionados = $('.seleccionado');
+    console.log(elementos_seleccionados);
+}
+
 
 (function () {
     $(function() {
+        
+        //Eventos para marcar las propiedades compradas
+        $(document).on('click', '.probandoMierda2', function() {
+            $(this).parent().css("margin-left", "10px"); 
+            $(this).parent().addClass( "seleccionado" );
+        });
+        $(document).on('dblclick', '.probandoMierda2', function() {
+            $(this).parent().css("margin-left", "-15px");
+            $(this).parent().removeClass("seleccionado"); 
+        });
 
-
+        //Los botones estan ocultos al principio de la partida
         $('#end_turn_button, #roll_dice_button, #buy_button, #sell_button').hide();
         
         $('.logueoJugador').submit(function(evento){
@@ -573,6 +588,9 @@ function comprar_titulo_propiedad() {
 
         $('#actualizar_button').click(function(){
             actualizar_propiedades();
+        });
+        $('#sell_button').click(function(){
+            vender_propiedades();
         });
 
 
