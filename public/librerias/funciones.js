@@ -13,6 +13,7 @@ var fichas = ['imagenes/sombrero-ficha.png', 'imagenes/perro.png', 'imagenes/coc
 var casilla=1;
 var jugador_actual;//Este es el id del jugador que esta actuando en cada turno para futuros usos
 var casilla_actual_jugador;
+var propiedades_edificar = [];
 
 
 
@@ -457,6 +458,23 @@ function vender_propiedades () {
     var elementos_seleccionados = $('.seleccionado');
     console.log(elementos_seleccionados);
 }
+function edificar_propiedades () {
+    propiedad_marcada = $('.seleccionado');
+    if (propiedad_marcada.length <1 || propiedad_marcada.length >1) {
+        alert('Marca solo una propiedad')
+        //Para edificar necesitas tener marcada de una propiedad solo
+    } else {
+        $.ajax({            
+            type: 'POST',
+            url:'/edificar_propiedades',
+            data: {
+                propiedad_marcada: propiedad_marcada.children().eq(1).children().eq(0).text(),
+            },success:function(response) {
+                console.log(response);
+            }
+        });
+    }
+}
 
 
 (function () {
@@ -467,6 +485,7 @@ function vender_propiedades () {
             $(this).parent().css("margin-left", "10px"); 
             $(this).parent().addClass( "seleccionado" );
         });
+        
         $(document).on('dblclick', '.probandoMierda2', function() {
             $(this).parent().css("margin-left", "-15px");
             $(this).parent().removeClass("seleccionado"); 
@@ -593,7 +612,10 @@ function vender_propiedades () {
             vender_propiedades();
         });
 
-
+        $('#construct_button').click(function(){
+            edificar_propiedades();
+        });
+        
 
 
     });

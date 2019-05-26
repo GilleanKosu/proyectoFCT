@@ -403,4 +403,15 @@ class DefaultController extends AbstractController
     
     }
 
+    /**
+     * @Route("/edificar_propiedades", name="edificar_propiedades")
+     */
+    public function edificar_propiedades(){
+
+       var_dump($_POST);
+       die();
+        // return $this->json(['datos_propiedades_jugados_actual' => ""]);
+    
+    }
+
 }
