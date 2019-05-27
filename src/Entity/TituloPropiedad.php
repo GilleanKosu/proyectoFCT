@@ -41,6 +41,31 @@ class TituloPropiedad
      */
     private $grupo;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $alquilerBase;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $factorRevalorizacion;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $numCasas;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $numHoteles;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $precioEdificar;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -102,6 +127,66 @@ class TituloPropiedad
     public function setGrupo(string $grupo): self
     {
         $this->grupo = $grupo;
+
+        return $this;
+    }
+
+    public function getAlquilerBase(): ?int
+    {
+        return $this->alquilerBase;
+    }
+
+    public function setAlquilerBase(?int $alquilerBase): self
+    {
+        $this->alquilerBase = $alquilerBase;
+
+        return $this;
+    }
+
+    public function getFactorRevalorizacion(): ?float
+    {
+        return $this->factorRevalorizacion;
+    }
+
+    public function setFactorRevalorizacion(?float $factorRevalorizacion): self
+    {
+        $this->factorRevalorizacion = $factorRevalorizacion;
+
+        return $this;
+    }
+
+    public function getNumCasas(): ?int
+    {
+        return $this->numCasas;
+    }
+
+    public function setNumCasas(?int $numCasas): self
+    {
+        $this->numCasas = $numCasas;
+
+        return $this;
+    }
+
+    public function getNumHoteles(): ?int
+    {
+        return $this->numHoteles;
+    }
+
+    public function setNumHoteles(?int $numHoteles): self
+    {
+        $this->numHoteles = $numHoteles;
+
+        return $this;
+    }
+
+    public function getPrecioEdificar(): ?int
+    {
+        return $this->precioEdificar;
+    }
+
+    public function setPrecioEdificar(?int $precioEdificar): self
+    {
+        $this->precioEdificar = $precioEdificar;
 
         return $this;
     }

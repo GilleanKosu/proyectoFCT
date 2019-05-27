@@ -102,6 +102,7 @@ function mover_jugador(valor_cara) {
                     console.log(response.casilla_antigua);
                     console.log(response.casilla_actualizada);
                     comprobar_casilla(response.casilla_actualizada);
+                    actualizar_propiedades();
                 }
             });
         }
@@ -464,13 +465,49 @@ function edificar_propiedades () {
         alert('Marca solo una propiedad')
         //Para edificar necesitas tener marcada de una propiedad solo
     } else {
-        $.ajax({            
+        $.ajax({        
+                
             type: 'POST',
+
             url:'/edificar_propiedades',
+
             data: {
+
                 propiedad_marcada: propiedad_marcada.children().eq(1).children().eq(0).text(),
+
+                jugador: jugador_actual,
+
             },success:function(response) {
                 console.log(response);
+                if (response.respuesta == "casa") {
+
+                    $('#'+response.id_casilla).parent().children().eq(0).append('<img class="casa" src="imagenes/casa.png">');
+
+                }
+                if (response.respuesta == "hotel") {
+
+                    $('#'+response.id_casilla).parent().children().eq(0).find('.casa').remove();
+
+                    $('#'+response.id_casilla).parent().children().eq(0).append('<img class="hotel" src="imagenes/hotel.png">');
+
+                }
+                if (response.respuesta == "nosaldo") {
+
+                    alert("No tienes suficiente saldo para edificar propiedades");
+
+                }
+                if (response.respuesta == "nopropietario") {
+
+                    alert("No puedes edificar en una propiedad que no te pertenece");
+
+                }
+                if (response.respuesta == "noedificarmas") {
+
+                    alert("No se puede edificar mar");
+
+                }
+
+                actualizar_datos_usuario();
             }
         });
     }

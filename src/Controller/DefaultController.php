@@ -408,9 +408,69 @@ class DefaultController extends AbstractController
      */
     public function edificar_propiedades(){
 
-       var_dump($_POST);
-       die();
-        // return $this->json(['datos_propiedades_jugados_actual' => ""]);
+        $repository = $this->getDoctrine()->getRepository(TituloPropiedad::class);
+        $repository2 = $this->getDoctrine()->getRepository(User::class);
+
+        $tituloPropiedad = $repository->findTituloByName($_POST['propiedad_marcada']);
+        $jugador_turno = $repository2->findOneById($_POST['jugador']);
+
+        if ($jugador_turno->getSaldoPartida() >= $tituloPropiedad->getPrecioEdificar()) {
+
+            if ($_POST['jugador'] != $tituloPropiedad->getUsuario()->getId()) {//Si el jugador que ha solicitado edificar no es el propietario no podra edificar
+
+                return $this->json(['respuesta' => "nopropietario"]);
+
+            } else {
+
+                $entityManager = $this->getDoctrine()->getManager();
+
+                if (($tituloPropiedad->getNumCasas()<4) && ($tituloPropiedad->getNumHoteles()<=2)) {
+    
+                    $tituloPropiedad->setNumCasas($tituloPropiedad->getNumCasas()+1);
+                    
+                    $nombre_casilla = $tituloPropiedad -> getCasilla()->getNombre();
+
+                    $jugador_turno->setSaldoPartida($jugador_turno->getSaldoPartida() - $tituloPropiedad->getPrecioEdificar());
+    
+                    $entityManager->merge($tituloPropiedad);
+    
+                    $entityManager->flush();
+                    
+                    return $this->json(['respuesta' => "casa", 'id_casilla' => $nombre_casilla]);
+                }
+
+                if ( ( $tituloPropiedad->getNumCasas()==4 ) && ( $tituloPropiedad->getNumHoteles()<2 ) ) {
+
+                    $tituloPropiedad->setNumCasas(0);
+
+                    $tituloPropiedad->setNumHoteles( $tituloPropiedad->getNumHoteles() + 1 );
+
+                    $jugador_turno->setSaldoPartida($jugador_turno->getSaldoPartida() - $tituloPropiedad->getPrecioEdificar());
+                    
+                    $nombre_casilla = $tituloPropiedad -> getCasilla()->getNombre();
+    
+                    $entityManager->merge($tituloPropiedad);
+    
+                    $entityManager->flush();
+                    
+                    return $this->json(['respuesta' => "hotel", 'id_casilla' => $nombre_casilla]);
+                }
+
+                if (($tituloPropiedad->getNumCasas()==4 ) && ($tituloPropiedad->getNumHoteles()==2)) {
+                    
+                    return $this->json(['respuesta' => "noedificarmas"]);
+
+                }
+
+            }
+
+            
+            
+        } else {
+            return $this->json(['respuesta' => "nosaldo"]);
+        }
+
+        
     
     }
 

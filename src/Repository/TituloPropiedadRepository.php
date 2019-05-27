@@ -56,4 +56,13 @@ class TituloPropiedadRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     }
+    public function findTituloByName($value): ?TituloPropiedad
+    {
+        return $this->createQueryBuilder('t')
+            ->andWhere('t.nombre = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
 }
