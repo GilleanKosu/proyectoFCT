@@ -335,6 +335,7 @@ function comprobar_casilla(casilla_actual) {//Con este metodo una vez tiremos el
                                 }
                                 if (response.info_jugadores=="yes" && response.mismo_propietario==false) { //Si tiene propietario pero no es el jugador actual
                                     
+                                    pagar_alquiler(response.propietario, casilla_actual);
                                     //PAGAR DINERO
 
                                 }
@@ -348,6 +349,23 @@ function comprobar_casilla(casilla_actual) {//Con este metodo una vez tiremos el
 
         }
     });
+}
+
+function pagar_alquiler(prop, cas) {
+    $.ajax({
+        type: 'POST',
+        url:'/pagar_alquiler',
+        data: {
+            jugador_actual: jugador_actual,
+            propietario_calle: prop,
+            id_casilla:cas,
+        },success:function(response) {
+            console.log(response);
+            actualizar_datos_usuario();
+        }
+
+    });
+    
 }
 
 function actualizar_datos_usuario () {
@@ -456,8 +474,33 @@ function comprar_titulo_propiedad() {
 }
 
 function vender_propiedades () {
-    var elementos_seleccionados = $('.seleccionado');
-    console.log(elementos_seleccionados);
+
+    var propiedad_seleccionada = $('.seleccionado');
+
+    if (propiedad_seleccionada.length >1) {
+
+        alert("No se puede marcar mas de 1 propiedad para vender");
+
+    } else if (propiedad_seleccionada.length == 0) {
+
+        alert("Debe marcar al menos 1 propiedad");
+
+    } else {
+        propiedad_seleccionada = propiedad_seleccionada.children().eq(1).children().eq(0).text();
+
+        $.ajax({
+
+            type: 'POST',
+            url:'/vender_titulo_propiedad',
+            data: {
+                    nombre_casilla:propiedad_seleccionada,
+                    jugador: jugador_actual
+            },success:function(response) {
+                actualizar_datos_usuario();
+            }
+    
+        });
+    }
 }
 function edificar_propiedades () {
     propiedad_marcada = $('.seleccionado');
@@ -512,6 +555,8 @@ function edificar_propiedades () {
         });
     }
 }
+
+
 
 
 (function () {

@@ -348,7 +348,7 @@ class DefaultController extends AbstractController
                 if ($usuario_actual->getId() == $tituloPropiedad->getUsuario()->getId()) {
                     return $this->json(['info_jugadores' => 'yes', 'mismo_propietario' => true]);
                 } else {
-                    return $this->json(['info_jugadores' => 'yes', 'mismo_propietario' => false]);
+                    return $this->json(['info_jugadores' => 'yes', 'mismo_propietario' => false, 'propietario' => $tituloPropiedad->getUsuario()->getId()]);
                 }
                 
             }
@@ -473,5 +473,63 @@ class DefaultController extends AbstractController
         
     
     }
+
+    /**
+     * @Route("/pagar_alquiler", name="pagarAlquiler")
+     */
+    public function pagar_alquiler(){
+
+        $repository = $this->getDoctrine()->getRepository(User::class);
+        $repository2 = $this->getDoctrine()->getRepository(TituloPropiedad::class);
+    
+        $usuario_actual = $repository->findOneById($_POST['jugador_actual']);
+        $propietario_casilla = $repository->findOneById($_POST['propietario_calle']);
+        $titulo_propiedad = $repository2->findTituloById($_POST['id_casilla']);
+
+        $alquiler = ( $titulo_propiedad->getAlquilerBase()) + ( $titulo_propiedad->getPrecioEdificar() * ($titulo_propiedad->getNumCasas() + $titulo_propiedad->getNumHoteles() ) );
+        $usuario_actual -> setSaldoPartida($usuario_actual->getSaldoPartida()-$alquiler);
+        $propietario_casilla -> setSaldoPartida( $propietario_casilla->getSaldoPartida() + $alquiler );
+
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $entityManager->merge($usuario_actual);
+
+        $entityManager->merge($propietario_casilla);
+    
+        $entityManager->flush();
+        
+        return $this->json(['resultado_operacion' => "correcto"]);
+    
+    }
+
+    /**
+     * @Route("/vender_titulo_propiedad", name="venderTituloPropiedad")
+     */
+    public function vender_titulo_propiedad(){
+
+        $repository = $this->getDoctrine()->getRepository(User::class);
+        $repository2 = $this->getDoctrine()->getRepository(TituloPropiedad::class);
+    
+        $propietario_casilla = $repository->findOneById($_POST['jugador']);
+        $titulo_propiedad = $repository2->findTituloByName($_POST['nombre_casilla']);
+
+        $precio_venta = ( $titulo_propiedad->getPrecioCompra() + ( ( $titulo_propiedad->getPrecioEdificar() * ($titulo_propiedad->getNumCasas() + $titulo_propiedad->getNumHoteles() ) ) * $titulo_propiedad->getFactorRevalorizacion() ) );
+
+        $propietario_casilla -> setSaldoPartida( $propietario_casilla->getSaldoPartida() + $precio_venta );
+        $titulo_propiedad->setUsuario(NULL);
+        $titulo_propiedad->setNumCasas(0);
+        $titulo_propiedad->setNumHoteles(0);
+
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $entityManager->merge($propietario_casilla);
+        $entityManager->merge($titulo_propiedad);
+    
+        $entityManager->flush();
+        
+        return $this->json(['resultado_operacion' => "correcto"]);
+    
+    }
+
 
 }
