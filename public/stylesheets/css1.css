@@ -113,6 +113,56 @@ img.casa {
 img.hotel {
   width: 15%;
 }
+div.titulo_prop{
+  width: 100%;
+  height: 20%;
+}
+div.titulo_prop p{
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+  color: white;
+}
+hr.linea_prop {
+  height: 2px;
+}
+div.texto_prop p {
+  margin-left: 7%;
+  font-size: 13px;
+  font-weight: bold;
+  color: black;
+}
+div.grupo_verde {
+  background-color: green;
+}
+div.grupo_amarillo {
+  background-color: darkgoldenrod;
+}
+div.grupo_amarillo p{
+  color: black;
+}
+div.grupo_azul {
+  background-color: deepskyblue;
+}
+div.grupo_rojo {
+  background-color: darkred;
+}
+.ui-dialog-titlebar {
+    height: 35px;
+    background-color: darkgrey;
+}
+#carta_suerte {
+  background-color: orange;
+}
+#chance {
+  text-align: center;
+  font-weight: bold;
+  text-decoration: underline;
+  font-size: 18px;
+}
+#mensaje_suerte {
+  font-size: 13px;
+}
 
 
 

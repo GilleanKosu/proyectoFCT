@@ -151,13 +151,33 @@ function comprobar_casilla(casilla_actual) {//Con este metodo una vez tiremos el
                     });
                     
                     baraja_cartas.splice(-1,1);//Sacamos la ultima carta
-                    console.log('Ha salido:'+baraja_cartas[(baraja_cartas.length-1)][1]);
+                    $('#mensaje_suerte').text(baraja_cartas[(baraja_cartas.length-1)][1]);
+
+                    $('#carta_suerte').show();
+                    
+                    $('#carta_suerte').dialog({
+                        width: 250,
+                        height: 150,
+                        resizable: false,
+                    });
                     console.log(baraja_cartas);
                     actualizar_datos_usuario();
                     
 
                 } else {//Si siguen quedando cartas en la baraja
+
+                    $('#mensaje_suerte').text(baraja_cartas[(baraja_cartas.length-1)][1]);
+
+                    $('#carta_suerte').show();
+                    $('#carta_suerte').dialog({
+                        width: 250,
+                        height: 150,
+                        resizable: false,
+                    });
+                    
+
                     switch (baraja_cartas[(baraja_cartas.length-1)][1]) {
+                        
 
                         case 'Te desplazas a la casilla de inicio':
                             id_ficha = turno_jugador + 1;
@@ -697,7 +717,126 @@ function edificar_propiedades () {
         $('#construct_button').click(function(){
             edificar_propiedades();
         });
+
+        $('#cartas_propiedades').children().hide();//Ocultamos todas las cartas de las propiedades para luego mostrarlas 
+                                                        //segun se pulse sobre las propiedades
+
+        $('#fuencarral').click(function() {
+            $('#prop1').show();
+            $('#prop1').dialog({
+                width: 200,
+                height: 300,
+                resizable: false,
+            });
+        });
         
+        $('#alberto_aguilera').click(function() {
+            $('#prop2').show();
+            $('#prop2').dialog({
+                width: 200,
+                height: 300,
+                resizable: false,
+            });
+        });
+
+        $('#glorieta_bilbao').click(function() {
+            $('#prop3').show();
+            $('#prop3').dialog({
+                width: 200,
+                height: 300,
+                resizable: false,
+            });
+        });
+
+        $('#calle_bailen').click(function() {
+            $('#prop4').show();
+            $('#prop4').dialog({
+                width: 200,
+                height: 300,
+                resizable: false,
+            });
+        });
+
+        $('#plaza_españa').click(function() {
+            $('#prop5').show();
+            $('#prop5').dialog({
+                width: 200,
+                height: 300,
+                resizable: false,
+            });
+        });
+
+        $('#puerta_del_sol').click(function() {
+            $('#prop6').show();
+            $('#prop6').dialog({
+                width: 200,
+                height: 300,
+                resizable: false,
+            });
+        });
+
+        $('#gran_via').click(function() {
+            $('#prop7').show();
+            $('#prop7').dialog({
+                width: 200,
+                height: 300,
+                resizable: false,
+            });
+        });
+
+        $('#paseo_de_la_castellana').click(function() {
+            $('#prop8').show();
+            $('#prop8').dialog({
+                width: 200,
+                height: 300,
+                resizable: false,
+            });
+        });
+
+        $('#paseo_del_prado').click(function() {
+            $('#prop9').show();
+            $('#prop9').dialog({
+                width: 200,
+                height: 300,
+                resizable: false,
+            });
+        });
+
+        $('#reyes_catolicos').click(function() {
+            $('#prop10').show();
+            $('#prop10').dialog({
+                width: 200,
+                height: 300,
+                resizable: false,
+            });
+        });
+
+        $('#cea_bermudez').click(function() {
+            $('#prop11').show();
+            $('#prop11').dialog({
+                width: 200,
+                height: 300,
+                resizable: false,
+            });
+        });
+
+        $('#maria_molina').click(function() {
+            $('#prop12').show();
+            $('#prop12').dialog({
+                width: 200,
+                height: 300,
+                resizable: false,
+            });
+        });
+
+        $('#avenida_america').click(function() {
+            $('#prop13').show();
+            $('#prop13').dialog({
+                width: 200,
+                height: 300,
+                resizable: false,
+            });
+        });
 
 
     });

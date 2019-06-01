@@ -6,6 +6,10 @@
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
             <script src="https://code.jquery.com/jquery-3.4.0.js" integrity="sha256-DYZMCC8HTC+QDr5QNaIcfR7VSPtcISykd+6eSmBW5qo="crossorigin="anonymous"></script>            
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+            
+            <script src="librerias/jquery-ui-1.12.1/jquery-ui.js"></script>
+            <link rel="stylesheet" type="text/css" href="librerias/jquery-ui-1.12.1/jquery-ui.css">
+            
             <link rel="stylesheet" type="text/css" href="stylesheets/css1.css">
             <script type="text/javascript" src="librerias/funciones.js"></script>
             <title>Tablero Monopoly</title>
@@ -364,53 +368,124 @@
                         
                 <div id="propiedades_jugador" class="container col-xl-2 col-lg-2 col-md-2 col-sm-2 float-left ml-1">
 
-                        {# <div class="row padreMierda">
-                                <div class="bg-warning probandoMierda"></div><div class="h-100 bg-light probandoMierda2"><p>Paseo de la Castellana</p></div>
-                        </div>
-                        <div class="row padreMierda">
-                                <div class="bg-warning probandoMierda"></div><div class="h-100 bg-light probandoMierda2"><p>Paseo de la Castellana</p></div>
-                        </div>
-                        <div class="row padreMierda">
-                                <div class="bg-warning probandoMierda"></div><div class="h-100 bg-light probandoMierda2"><p>Paseo de la Castellana</p></div>
-                        </div>
-                        <div class="row padreMierda">
-                                <div class="bg-danger probandoMierda"></div><div class="h-100 bg-light probandoMierda2"><p>Gran Via</p></div>
-                        </div>
-                        <div class="row padreMierda">
-                                <div class="bg-danger probandoMierda"></div><div class="h-100 bg-light probandoMierda2"><p>Gran Via</p></div>
-                        </div>
-                        <div class="row padreMierda">
-                                <div class="bg-danger probandoMierda"></div><div class="h-100 bg-light probandoMierda2"><p>Gran Via</p></div>
-                        </div>
-                        <div class="row padreMierda">
-                                <div class="bg-danger probandoMierda"></div><div class="h-100 bg-light probandoMierda2"><p>Gran Via</p></div>
-                        </div>
-                        <div class="row padreMierda">
-                                <div class="bg-primary probandoMierda"></div><div class="h-100 bg-light probandoMierda2"><p>Calle Belén</p></div>
-                        </div>
-                        <div class="row padreMierda">
-                                <div class="bg-success probandoMierda"></div><div class="h-100 bg-light probandoMierda2"><p>Museo del Prado</p></div>
-                        </div>
-                        <div class="row padreMierda">
-                                <div class="bg-success probandoMierda"></div><div class="h-100 bg-light probandoMierda2"><p>Museo del Prado</p></div>
-                        </div>
-                        <div class="row padreMierda">
-                                <div class="bg-success probandoMierda"></div><div class="h-100 bg-light probandoMierda2"><p>Museo del Prado</p></div>
-                        </div>
-                        <div class="row padreMierda">
-                                <div class="bg-success probandoMierda"></div><div class="h-100 bg-light probandoMierda2"><p>Museo del Prado</p></div>
-                        </div>
-                        <div class="row padreMierda">
-                                <div class="bg-success probandoMierda"></div><div class="h-100 bg-light probandoMierda2"><p>Museo del Prado</p></div>
-                        </div>  #}
-                       
-
                 </div>
             
         </div>
         
         </div>
-        
+
+        <div id="cartas_propiedades">
+                <div id="prop1">
+                        <div class="titulo_prop grupo_verde"><p>Fuencarral</p></div>
+                        <hr class="linea_prop bg-dark">
+                        <div class="texto_prop"><p>Precio Compra &nbsp;1000€</p></div>
+                        <div class="texto_prop"><p>Alquiler Base &nbsp; 50€</p></div>
+                        <div class="texto_prop"><p>Precio Ed &nbsp;100€</p></div>
+                        <div class="texto_prop"><p>Factor Rev &nbsp;1.05</p></div>
+                </div>
+                <div id="prop2">
+                        <div class="titulo_prop grupo_verde"><p>Alberto Aguilera</p></div>
+                        <hr class="linea_prop bg-dark">
+                        <div class="texto_prop"><p>Precio Compra &nbsp;1250€</p></div>
+                        <div class="texto_prop"><p>Alquiler Base &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;75€</p></div>
+                        <div class="texto_prop"><p>Precio Compra &nbsp;&nbsp;&nbsp;150€</p></div>
+                        <div class="texto_prop"><p>Factor Rev &nbsp;&nbsp;&nbsp;&nbsp;1.10</p></div>
+                </div>
+                <div id="prop3">
+                        <div class="titulo_prop grupo_verde"><p>Glorieta Bilbao</p></div>
+                        <hr class="linea_prop bg-dark">
+                        <div class="texto_prop"><p>Precio Compra &nbsp;1500€</p></div>
+                        <div class="texto_prop"><p>Alquiler Base &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100€</p></div>
+                        <div class="texto_prop"><p>Precio Ed &nbsp;&nbsp;&nbsp;200€</p></div>
+                        <div class="texto_prop"><p>Factor Rev &nbsp;&nbsp;&nbsp;&nbsp;1.15</p></div>
+                </div>
+                <div id="prop4">
+                        <div class="titulo_prop grupo_amarillo"><p>Calle Bailen</p></div>
+                        <hr class="linea_prop bg-dark">
+                        <div class="texto_prop"><p>Precio Compra &nbsp;1750€</p></div>
+                        <div class="texto_prop"><p>Alquiler Base &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;125€</p></div>
+                        <div class="texto_prop"><p>Precio Ed &nbsp;&nbsp;&nbsp;225€</p></div>
+                        <div class="texto_prop"><p>Factor Rev &nbsp;&nbsp;&nbsp;&nbsp;1.20</p></div>
+                </div>
+                <div id="prop5">
+                        <div class="titulo_prop grupo_amarillo"><p>Plaza España</p></div>
+                        <hr class="linea_prop bg-dark">
+                        <div class="texto_prop"><p>Precio Compra &nbsp;2000€</p></div>
+                        <div class="texto_prop"><p>Alquiler Base &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;150€</p></div>
+                        <div class="texto_prop"><p>Precio Ed &nbsp;&nbsp;&nbsp;250€</p></div>
+                        <div class="texto_prop"><p>Factor Rev &nbsp;&nbsp;&nbsp;&nbsp;1.25</p></div>
+                </div>
+                <div id="prop6">
+                        <div class="titulo_prop grupo_amarillo"><p>Puerta del Sol</p></div>
+                        <hr class="linea_prop bg-dark">
+                        <div class="texto_prop"><p>Precio Compra &nbsp;2250€</p></div>
+                        <div class="texto_prop"><p>Alquiler Base &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;175€</p></div>
+                        <div class="texto_prop"><p>Precio Ed &nbsp;&nbsp;&nbsp;275€</p></div>
+                        <div class="texto_prop"><p>Factor Rev &nbsp;&nbsp;&nbsp;&nbsp;1.30</p></div>
+                </div>
+                <div id="prop7">
+                        <div class="titulo_prop grupo_azul"><p>Gran Via</p></div>
+                        <hr class="linea_prop bg-dark">
+                        <div class="texto_prop"><p>Precio Compra &nbsp;2500€</p></div>
+                        <div class="texto_prop"><p>Alquiler Base &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;200€</p></div>
+                        <div class="texto_prop"><p>Precio Ed &nbsp;&nbsp;&nbsp;300€</p></div>
+                        <div class="texto_prop"><p>Factor Rev &nbsp;&nbsp;&nbsp;&nbsp;1.35</p></div>
+                </div>
+                <div id="prop8">
+                        <div class="titulo_prop grupo_azul"><p>Paseo Castellana</p></div>
+                        <hr class="linea_prop bg-dark">
+                        <div class="texto_prop"><p>Precio Compra &nbsp;2750€</p></div>
+                        <div class="texto_prop"><p>Alquiler Base &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;225€</p></div>
+                        <div class="texto_prop"><p>Precio Ed &nbsp;&nbsp;&nbsp;325€</p></div>
+                        <div class="texto_prop"><p>Factor Rev &nbsp;&nbsp;&nbsp;&nbsp;1.40</p></div>
+                </div>
+                <div id="prop9">
+                        <div class="titulo_prop grupo_azul"><p>Paseo del Prado</p></div>
+                        <hr class="linea_prop bg-dark">
+                        <div class="texto_prop"><p>Precio Compra &nbsp;3000€</p></div>
+                        <div class="texto_prop"><p>Alquiler Base &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;250€</p></div>
+                        <div class="texto_prop"><p>Precio Ed &nbsp;&nbsp;&nbsp;350€</p></div>
+                        <div class="texto_prop"><p>Factor Rev &nbsp;&nbsp;&nbsp;&nbsp;1.45</p></div>
+                </div>
+                <div id="prop10">
+                        <div class="titulo_prop grupo_rojo"><p>Reyes Catolicos</p></div>
+                        <hr class="linea_prop bg-dark">
+                        <div class="texto_prop"><p>Precio Compra &nbsp;3250€</p></div>
+                        <div class="texto_prop"><p>Alquiler Base &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;275€</p></div>
+                        <div class="texto_prop"><p>Precio Ed &nbsp;&nbsp;&nbsp;375€</p></div>
+                        <div class="texto_prop"><p>Factor Rev &nbsp;&nbsp;&nbsp;&nbsp;1.50</p></div>
+                </div>
+                <div id="prop11">
+                        <div class="titulo_prop grupo_rojo"><p>Cea Bermudez</p></div>
+                        <hr class="linea_prop bg-dark">
+                        <div class="texto_prop"><p>Precio Compra &nbsp;3500€</p></div>
+                        <div class="texto_prop"><p>Alquiler Base &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;300€</p></div>
+                        <div class="texto_prop"><p>Precio Ed &nbsp;&nbsp;&nbsp;400€</p></div>
+                        <div class="texto_prop"><p>Factor Rev &nbsp;&nbsp;&nbsp;&nbsp;1.70</p></div>
+                </div>
+                <div id="prop12">
+                        <div class="titulo_prop grupo_rojo"><p>Maria Molina</p></div>
+                        <hr class="linea_prop bg-dark">
+                        <div class="texto_prop"><p>Precio Compra &nbsp;3750€</p></div>
+                        <div class="texto_prop"><p>Alquiler Base &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;325€</p></div>
+                        <div class="texto_prop"><p>Precio Ed &nbsp;&nbsp;&nbsp;425€</p></div>
+                        <div class="texto_prop"><p>Factor Rev &nbsp;&nbsp;&nbsp;&nbsp;1.80</p></div>
+                </div>
+                <div id="prop13">
+                        <div class="titulo_prop grupo_rojo"><p>Avenida America</p></div>
+                        <hr class="linea_prop bg-dark">
+                        <div class="texto_prop"><p>Precio Compra &nbsp;4000€</p></div>
+                        <div class="texto_prop"><p>Alquiler Base &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;350€</p></div>
+                        <div class="texto_prop"><p>Precio Ed &nbsp;&nbsp;&nbsp;450€</p></div>
+                        <div class="texto_prop"><p>Factor Rev &nbsp;&nbsp;&nbsp;&nbsp;2.00</p></div>
+                </div>
+                <div id="carta_suerte">
+                        <div id="contenedor_suerte">
+                                <div id="chance">Suerte</div>
+                                <p id="mensaje_suerte"><p>
+                        </div>
+                </div>
+        </div>
         <script>
             function myFunc() {
                 var myJsVar = [];
