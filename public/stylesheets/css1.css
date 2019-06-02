@@ -11,7 +11,7 @@ body {
   text-align: center;
 }
 #infojuego p {
-  font-size: 30px;
+  font-size: 20px;
 }
 .filaArriba, .filaAbajo{
   height: 17%;
@@ -163,7 +163,12 @@ div.grupo_rojo {
 #mensaje_suerte {
   font-size: 13px;
 }
-
+#jugadorTurno {
+  text-align: center;
+}
+#numeroTurno {
+  text-align: center;
+}
 
 
 

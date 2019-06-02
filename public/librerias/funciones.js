@@ -15,8 +15,6 @@ var jugador_actual;//Este es el id del jugador que esta actuando en cada turno p
 var casilla_actual_jugador;
 var propiedades_edificar = [];
 
-
-
 //Cada vez que se pase de turno o se inicie la partida el numero aumentará
 function sumar_Turno () {
         turnos = turnos + 1;
@@ -51,12 +49,21 @@ function siguiente_jugador() {
                 turno_jugador = 0;
 
         }
-        
-        $('#jugadorTurno').text('Turno del jugador: ' + jugadores_mezclados[turno_jugador]);
+        $('#jugadorTurno').children().remove();
+        $('#jugadorTurno').append('<p>Turno del jugador: <b style="color:red;">' + jugadores_mezclados[turno_jugador] + '</b></p>');
 }
 function lanzar_dado () {
                    
     tirada_dado = Math.floor((Math.random()*caras_dado) +1);
+    $('#mensaje_dado').text("Has sacado un: " + tirada_dado);
+
+    $('#dado').show();
+
+    $('#dado').dialog({
+        width: 250,
+        height: 150,
+        resizable: false,
+    });
 
 }
 function mover_jugador(valor_cara) {
@@ -154,7 +161,7 @@ function comprobar_casilla(casilla_actual) {//Con este metodo una vez tiremos el
                     $('#mensaje_suerte').text(baraja_cartas[(baraja_cartas.length-1)][1]);
 
                     $('#carta_suerte').show();
-                    
+
                     $('#carta_suerte').dialog({
                         width: 250,
                         height: 150,
@@ -357,7 +364,7 @@ function comprobar_casilla(casilla_actual) {//Con este metodo una vez tiremos el
                                     
                                     pagar_alquiler(response.propietario, casilla_actual);
                                     //PAGAR DINERO
-
+                                    actualizar_datos_usuario();
                                 }
                             }
                             
@@ -365,6 +372,68 @@ function comprobar_casilla(casilla_actual) {//Con este metodo una vez tiremos el
                 
                     });
                 break;
+            case "impuesto":
+                    $.ajax({
+                            
+                        type: 'POST',
+
+                        url:'/actualizar_saldo_jugador',
+
+                        data: {
+
+                            actualizar:"restar",
+                            cantidad:1000,
+                            jugador: jugador_actual,
+                            id_jugadores_partida:id_jugadores_partida
+
+                        },success () {
+
+                            $('#mensaje_impuesto').text("Le pagas 1000 a la banca");
+
+                            $('#impuestos').show();
+
+                            $('#impuestos').dialog({
+                                width: 250,
+                                height: 150,
+                                resizable: false,
+                            });
+
+                            actualizar_datos_usuario();
+                            
+                        }
+                    });
+                break;
+            // case "inicio":
+            //         $.ajax({
+                            
+            //             type: 'POST',
+
+            //             url:'/actualizar_saldo_jugador',
+
+            //             data: {
+
+            //                 actualizar:"sumar",
+            //                 cantidad:1500,
+            //                 jugador: jugador_actual,
+            //                 id_jugadores_partida:id_jugadores_partida
+
+            //             },success () {
+
+            //                 $('#mensaje_init').text("Ha vuelto a pasar por el inicio y recibes 1500");
+
+            //                 $('#init').show();
+
+            //                 $('#init').dialog({
+            //                     width: 250,
+            //                     height: 150,
+            //                     resizable: false,
+            //                 });
+
+            //                 actualizar_datos_usuario();
+                            
+            //             }
+            //         });
+            //     break;
             }
 
         }
