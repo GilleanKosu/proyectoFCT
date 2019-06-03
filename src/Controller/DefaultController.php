@@ -405,8 +405,6 @@ class DefaultController extends AbstractController
             $datos_propiedades_jugados_actual[$key][1]=$value->getGrupo();
             
         }
-
-
         
         return $this->json(['datos_propiedades_jugados_actual' => $datos_propiedades_jugados_actual]);
     

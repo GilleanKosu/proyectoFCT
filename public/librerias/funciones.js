@@ -15,6 +15,19 @@ var jugador_actual;//Este es el id del jugador que esta actuando en cada turno p
 var casilla_actual_jugador;
 var propiedades_edificar = [];
 
+function rollDiceWithoutValues() {
+    const element = document.getElementById('dice-box1');
+    const numberOfDice = 1;
+    const options = {
+      element, // element to display the animated dice in.
+      numberOfDice, // number of dice to use 
+      callback: lanzar_dado
+    }
+    rollADie(options);
+}
+
+
+
 //Cada vez que se pase de turno o se inicie la partida el numero aumentará
 function sumar_Turno () {
         turnos = turnos + 1;
@@ -52,10 +65,12 @@ function siguiente_jugador() {
         $('#jugadorTurno').children().remove();
         $('#jugadorTurno').append('<p>Turno del jugador: <b style="color:red;">' + jugadores_mezclados[turno_jugador] + '</b></p>');
 }
-function lanzar_dado () {
-                   
-    tirada_dado = Math.floor((Math.random()*caras_dado) +1);
-    $('#mensaje_dado').text("Has sacado un: " + tirada_dado);
+function lanzar_dado (resultado_tirada) {
+    
+    // tirada_dado = Math.floor((Math.random()*caras_dado) +1);//FORMA ANTIGUA
+    tirada_dado = Math.floor(resultado_tirada);
+
+    $('#mensaje_dado').text("Has sacado un: " + resultado_tirada);
 
     $('#dado').show();
 
@@ -359,6 +374,7 @@ function comprobar_casilla(casilla_actual) {//Con este metodo una vez tiremos el
                             } else {
                                 if (response.info_jugadores=="yes" && response.mismo_propietario==true) { //Si tiene propietario pero y es el jugador actual
                                     $('#sell_button').show();
+                                    $('#construct_button').show();
                                 }
                                 if (response.info_jugadores=="yes" && response.mismo_propietario==false) { //Si tiene propietario pero no es el jugador actual
                                     
@@ -556,7 +572,8 @@ function comprar_titulo_propiedad() {
 
                 
             }
-           
+           $('#construct_button').show();
+           $('buy_button').hide();
         }
 
     });
@@ -663,7 +680,7 @@ function edificar_propiedades () {
         });
 
         //Los botones estan ocultos al principio de la partida
-        $('#end_turn_button, #roll_dice_button, #buy_button, #sell_button').hide();
+        $('#end_turn_button, #roll_dice_button, #buy_button, #sell_button, #construct_button').hide();
         
         $('.logueoJugador').submit(function(evento){
             evento.preventDefault();
@@ -766,19 +783,22 @@ function edificar_propiedades () {
 
         $('#end_turn_button').click(function() {
             sumar_Turno();
+            $('#sell_button, #construct_button, #roll_dice_button').show();
             siguiente_jugador();
         });
         $('#roll_dice_button').click(function() {
             lanzar_dado();
+            $('#roll_dice_button').hide();
+            rollDiceWithoutValues();
             mover_jugador();
         });
         $('#buy_button').click(function(){
             comprar_titulo_propiedad();
         });
 
-        $('#actualizar_button').click(function(){
-            actualizar_propiedades();
-        });
+        // $('#actualizar_button').click(function(){
+        //     actualizar_propiedades();
+        // });
         $('#sell_button').click(function(){
             vender_propiedades();
         });
