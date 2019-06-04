@@ -1,2 +1,2 @@
-# proyectoFCT
+# Qytetet
 Adaptación del juego Monopoly
