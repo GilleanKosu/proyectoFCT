@@ -27,7 +27,28 @@ class DefaultController extends AbstractController
      * @Route("/registro_usuarios", name="registroUsuarios")
      */
     public function registro_usuarios(){
-        if (isset($_POST['email'])) {
+        if (isset($_POST['email_usuario'])) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $usuario = new User ();
+            $usuario ->setEmail($_POST['email_usuario']);
+            $usuario ->setNickname($_POST['nickname_usuario']);
+            $usuario ->setPassword(md5($_POST['nueva_pass']));
+            $usuario ->setSaldoPartida(NULL);
+            $usuario ->setCasillas(NULL);
+            
+            $entityManager->persist($usuario);
+            $entityManager->flush();
+            return $this->render('registro_usuarios.html'); 
+
+        } else {
+            return $this->render('registro_usuarios.html'); 
+        }
+    }
+    /**
+     * @Route("/registro", name="registro")
+     */
+    public function registro(){
+
             $entityManager = $this->getDoctrine()->getManager();
            $usuario = new User ();
            // $usuario ->setId();
@@ -40,13 +61,10 @@ class DefaultController extends AbstractController
 
            $entityManager->persist($usuario);
            $entityManager->flush();
-
-           return new Response('registro_usuarios.html');
-
-        } else {
-            return $this->render('registro_usuarios.html'); 
-        }
+           return $this->json(['adsf']);
+        
     }
+
     /**
      * @Route("/tablero", name="tablero")
      */
@@ -187,7 +205,7 @@ class DefaultController extends AbstractController
            $casilla_nueva=0;
            
            if ($casilla_vieja + $_POST['dado']>20) {
-
+                $jugador_actualizado->setSaldoPartida($jugador_actualizado->getSaldoPartida()+1000);
                 if (($casilla_vieja + $_POST['dado'])==21) {
                     
                     $casilla_nueva = $repository2 -> findCasillaById(1);
@@ -535,6 +553,29 @@ class DefaultController extends AbstractController
         $entityManager->flush();
         
         return $this->json(['resultado_operacion' => "correcto"]);
+    
+    }
+    /**
+     * @Route("/ganador_perdedor", name="ganadorPerdedor")
+     */
+    public function ganador_perdedor(){
+
+        $repository = $this->getDoctrine()->getRepository(User::class);
+    
+        $usuario = $repository->findOneById($_POST['jugador']);
+
+        if ($usuario->getSaldoPartida() <= 0) {
+            $usuario2 = $repository->findOneById($_POST['array_jugadores'][0]);
+            $max = $usuario2->getSaldoPartida();
+            foreach ($_POST['array_jugadores'] as $key => $value) {
+                $usuario3 = $repository->findOneById($value);
+               if ($usuario3->getSaldoPartida()>$max) {
+                return $this->json(['bancarrota' => "si" , 'jugador_ganador' => $usuario3->getNombre()]);
+               }
+            }
+        }
+        
+        return $this->json(['bancarrota' => "no"]);
     
     }
 

@@ -6,28 +6,7 @@
   crossorigin="anonymous"></script>
 <link rel="stylesheet" href="stylesheets/css_registro.css">
 <link rel="stylesheet" type="text/css" href="stylesheets/cssIndex.css">
-<script type="text/javascript">
-	$(function() {
 
-        $('#registro_users').submit(function(form) {
-        	form.preventDefault();
-        	$.ajax({
-            type: 'POST',
-            url:'/registro_usuarios',
-            data: {
-                    email:$('#email').val(),
-                    nickname:$('#nickname').val(),
-                    password:$('#nueva_pass').val(),
-            },success:function(response) {
-                    window.location = '/';
-                    
-            }
-
-            });
-        });
-
-    });
-</script>
 
 
 <body>
@@ -111,24 +90,24 @@
 	    	<div class="input-group-prepend">
 			    <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
 			</div>
-	    	<input name="telefono_usuario" class="form-control" placeholder="Numero telefono" type="text">
+	    	<input name="telefono_usuario" class="form-control" placeholder="Numero telefono" type="phone">
 	    </div> 
 	    <div class="form-group input-group">
 	    	<div class="input-group-prepend">
 			    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
 			</div>
-	        <input class="form-control" placeholder="Nueva contraseña" type="password" name="nueva_pass" id="nueva_pass">
+	        <input class="form-control" placeholder="Nueva contraseña" type="password" name="nueva_pass" id="nueva_pass" pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$">
 	    </div> 
 	    <div class="form-group input-group">
 	    	<div class="input-group-prepend">
 			    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
 			</div>
-	        <input class="form-control" placeholder="Repetir contraseña" type="password" name="repetir_pass" id="repetir_pass">
-	    </div>                                       
+	        <input class="form-control" placeholder="Repetir contraseña" type="password" name="repetir_pass" id="repetir_pass" pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$">
+	    </div>                                       	
 	    <div class="form-group">
 	        <button type="submit" class="btn btn-primary btn-block" name="enviar_registro"> Crear cuenta  </button>
 	    </div>     
-	    <p class="text-center">Ya tienes una cuenta? <a href="/login_usuario">Log In</a> </p>                                                                 
+	    <p class="text-center">Ya tienes una cuenta? <a href="/logeoAjax">Log In</a></p>                                                                 
 	</form>
 	</article>
 	</div>

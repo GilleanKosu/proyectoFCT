@@ -70,15 +70,15 @@ function lanzar_dado (resultado_tirada) {
     // tirada_dado = Math.floor((Math.random()*caras_dado) +1);//FORMA ANTIGUA
     tirada_dado = Math.floor(resultado_tirada);
 
-    $('#mensaje_dado').text("Has sacado un: " + resultado_tirada);
+    // $('#mensaje_dado').text("Has sacado un: " + resultado_tirada);
 
-    $('#dado').show();
+    // $('#dado').show();
 
-    $('#dado').dialog({
-        width: 250,
-        height: 150,
-        resizable: false,
-    });
+    // $('#dado').dialog({
+    //     width: 250,
+    //     height: 150,
+    //     resizable: false,
+    // });
 
 }
 function mover_jugador(valor_cara) {
@@ -107,7 +107,7 @@ function mover_jugador(valor_cara) {
                         case 1:
 
                             $('#ficha_jugador2').remove();
-                            $('#'+casillas_tablero[response.casilla_actualizada]).children().eq(1).append('<img id="ficha_jugador2" class="w-50 ficha" src="'+fichas[1]+'">');
+                            $('#'+casillas_tablero[response.casilla_actualizada]).children().eq(1).append('<img id="ficha_jugador2" class="ficha" src="'+fichas[1]+'">');
                             break;
                         case 2:
                             $('#ficha_jugador3').remove();
@@ -124,6 +124,7 @@ function mover_jugador(valor_cara) {
                     console.log(response.casilla_antigua);
                     console.log(response.casilla_actualizada);
                     comprobar_casilla(response.casilla_actualizada);
+                    actualizar_datos_usuario();
                     actualizar_propiedades();
                 }
             });
@@ -252,6 +253,7 @@ function comprobar_casilla(casilla_actual) {//Con este metodo una vez tiremos el
                                     jugador: jugador_actual//Este es el jugador que esta en cada turno
                                 },success (response) {
                                     //Aqui actualizaremos el saldo en las casillas correspondientes
+                                    ganador_perdedor();
                                 }
                             });
                             break;
@@ -298,6 +300,7 @@ function comprobar_casilla(casilla_actual) {//Con este metodo una vez tiremos el
                                 id_jugadores_partida:id_jugadores_partida
                             },success (response) {
                                 //Aqui actualizaremos el saldo en las casillas correspondientes
+                                ganador_perdedor();
                             }
                         });
 
@@ -381,6 +384,7 @@ function comprobar_casilla(casilla_actual) {//Con este metodo una vez tiremos el
                                     pagar_alquiler(response.propietario, casilla_actual);
                                     //PAGAR DINERO
                                     actualizar_datos_usuario();
+                                    ganador_perdedor();
                                 }
                             }
                             
@@ -415,6 +419,7 @@ function comprobar_casilla(casilla_actual) {//Con este metodo una vez tiremos el
                             });
 
                             actualizar_datos_usuario();
+                            ganador_perdedor();
                             
                         }
                     });
@@ -512,7 +517,7 @@ function actualizar_propiedades () {
            for (i = 0; i < response.datos_propiedades_jugados_actual.length; i++) {
                
                 // console.log(response.datos_propiedades_jugados_actual[i][1]);
-                
+                $('#propiedades_jugador').children().remove();
 
                 switch (response.datos_propiedades_jugados_actual[i][1]) {
                     case "verde":
@@ -529,7 +534,7 @@ function actualizar_propiedades () {
                         break;
                     
                     default:
-                        //Mensaje de error
+                        alert('Ninguna propiedad de ese grupo')
                         break;
     
                     
@@ -537,7 +542,10 @@ function actualizar_propiedades () {
                
            }
            
-        }
+        }, error: function () {
+            $('#propiedades_jugador').children().remove();
+          }
+        
 
     });
 }
@@ -567,13 +575,22 @@ function comprar_titulo_propiedad() {
                     break;
                 
                 default:
-                    //Mensaje de error
+                    alert('No se puede comprar esa propiedad')
                     break;
 
                 
             }
            $('#construct_button').show();
            $('buy_button').hide();
+
+        }, error:function() {
+            $('#mensaje_errores').text("No se puede comprar esa propiedad");
+                $('#errores').show();
+                $('#errores').dialog({
+                    width: 200,
+                    height: 300,
+                    resizable: false,
+                });
         }
 
     });
@@ -603,6 +620,15 @@ function vender_propiedades () {
                     jugador: jugador_actual
             },success:function(response) {
                 actualizar_datos_usuario();
+                actualizar_propiedades();
+            }, error:function() {
+                $('#mensaje_errores').text("No se puede vender esa propiedad");
+                $('#errores').show();
+                $('#errores').dialog({
+                    width: 200,
+                    height: 300,
+                    resizable: false,
+                });
             }
     
         });
@@ -652,14 +678,49 @@ function edificar_propiedades () {
                 }
                 if (response.respuesta == "noedificarmas") {
 
-                    alert("No se puede edificar mar");
+                    alert("No se puede edificar mas");
 
                 }
 
                 actualizar_datos_usuario();
+            },error:function() {
+                $('#mensaje_errores').text("No se puede edificar esa propiedad");
+                $('#errores').show();
+                $('#errores').dialog({
+                    width: 200,
+                    height: 300,
+                    resizable: false,
+                });
             }
+
         });
     }
+}
+
+function ganador_perdedor() {
+    $.ajax({
+
+        type: 'POST',
+        url:'/ganador_perdedor',
+        data: {
+                jugador: jugador_actual,
+                array_jugadores: id_jugadores_partida
+        },success:function(response) {
+
+            if (response.bancarrota == "si") {
+                $('#mensaje_winner').text("El ganador es: " + response.jugador_ganador);
+                $('#winner').show();
+                $('#winner').dialog({
+                    width: 200,
+                    height: 300,
+                    resizable: false,
+                });
+            }
+            
+
+        }
+
+    });
 }
 
 
@@ -758,16 +819,16 @@ function edificar_propiedades () {
 
                         //Añadir las fichas al tablero
                         if (jugadores_mezclados[0]) {
-                            $('#inicio').children().eq(1).append('<img id="ficha_jugador1" class="w-25 ficha" src="'+fichas[0]+'">');
+                            $('#inicio').children().eq(1).append('<img id="ficha_jugador1" class="ficha" src="'+fichas[0]+'">');
                         }
                         if (jugadores_mezclados[1]) {
-                            $('#inicio').children().eq(1).append('<img id="ficha_jugador2" class="w-25 ficha" src="'+fichas[1]+'">');
+                            $('#inicio').children().eq(1).append('<img id="ficha_jugador2" class="ficha" src="'+fichas[1]+'">');
                         }
                         if (jugadores_mezclados[2]) {
-                            $('#inicio').children().eq(2).append('<img id="ficha_jugador3" class="w-50 ficha" src="'+fichas[2]+'">');
+                            $('#inicio').children().eq(2).append('<img id="ficha_jugador3" class="ficha" src="'+fichas[2]+'">');
                         }
                         if (jugadores_mezclados[3]) {
-                            $('#inicio').children().eq(2).append('<img id="ficha_jugador4" class="w-25 ficha" src="'+fichas[3]+'">');
+                            $('#inicio').children().eq(2).append('<img id="ficha_jugador4" class="ficha" src="'+fichas[3]+'">');
                         }
                         
 
@@ -794,6 +855,7 @@ function edificar_propiedades () {
         });
         $('#buy_button').click(function(){
             comprar_titulo_propiedad();
+            ganador_perdedor();
         });
 
         // $('#actualizar_button').click(function(){
@@ -805,6 +867,7 @@ function edificar_propiedades () {
 
         $('#construct_button').click(function(){
             edificar_propiedades();
+            ganador_perdedor();
         });
 
         $('#cartas_propiedades').children().hide();//Ocultamos todas las cartas de las propiedades para luego mostrarlas 
