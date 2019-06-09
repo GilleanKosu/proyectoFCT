@@ -34,7 +34,7 @@ body {
 }
 .filaAbajo div.suerte, .filaArriba div.suerte {
   background: url(../imagenes/interrogacion.png) no-repeat center;
-  background-size: 100% 80%;
+  background-size: 95% 65%;
 }
 .filaAbajo div p, .filaArriba div p{
   text-align: center;

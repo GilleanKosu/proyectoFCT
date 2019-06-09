@@ -816,7 +816,6 @@ function ganador_perdedor() {
                             $('#datos_jugadores').append('<div id="jugador_azul" class="row p-4"><p class="mx-auto">'+array_datos_jugadores[3].nickName+'</p></div><div id="dinero_jugador_azul" class="row"><p class="mx-auto" style="color:white;">$ '+array_datos_jugadores[3].Saldo+'</p></div>');
                         }
 
-
                         //Añadir las fichas al tablero
                         if (jugadores_mezclados[0]) {
                             $('#inicio').children().eq(1).append('<img id="ficha_jugador1" class="ficha" src="'+fichas[0]+'">');

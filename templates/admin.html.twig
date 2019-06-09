@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>Admin</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.0.js" integrity="sha256-DYZMCC8HTC+QDr5QNaIcfR7VSPtcISykd+6eSmBW5qo="crossorigin="anonymous"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/f3a6a86392.js"></script>
+    <script>
+        function obtener_lista_usuarios () {
+             $.ajax({
+                    type: 'POST',
+                    url:'/sacar_lista_usuarios',
+                    success:function(usuarios) {
+                        for (i=0; i<usuarios.lista_usuarios.length; i++) {
+                            $('#tabla_datos').append('<tr><td>'+usuarios.lista_usuarios[i][0]+'</td><td>'+usuarios.lista_usuarios[i][1]+'</td><td>'+usuarios.lista_usuarios[i][2]+'</td></tr>'); 
+                        }
+
+                    }
+    
+                });
+        }
+        function obtener_lista_mensajes () {
+             $.ajax({
+                    type: 'POST',
+                    url:'/sacar_lista_mensajes',
+                    success:function(mensajes) {
+                        
+                        for (i=0; i<mensajes.lista_mensajes.length; i++) {
+
+                            $('#cargarPaginas').append('<button type="button" class="btn" data-toggle="collapse" data-target="#texto-mensaje'+i+'"><i class="fas fa-envelope" style="color:red"></i> Mensaje</button>');
+                            $('#cargarPaginas').append('<div id="texto-mensaje'+i+'" class="collapse"><p>Remitente: <b>'+mensajes.lista_mensajes[i][0]+'</b> Receptor: <b>Admin</b></p><p class="text-justify">'+mensajes.lista_mensajes[i][2]+'</p></div><br>');
+                        }
+
+                    }
+    
+                });
+        }
+        $(function() {
+
+            $('#usuarios').click(function(){
+                $('#cargarPaginas').children().remove();
+                $('#cargarPaginas').append('<div class="container"><form method="POST" action="/admin"><div class="row p-5"><input type="text" class="form-control w-25 ml-2 mr-2" placeholder="Email" name="email_usuario"><input type="text" class="form-control w-25 ml-2 mr-2" placeholder="NickName" name="nickname_usuario"><input type="text" class="form-control w-25 ml-2 mr-2" placeholder="Password" name="nueva_pass"><input type="submit" class="btn btn-primary" value="Enviar" name="addUserAdmin"></div></form>');
+                $('#cargarPaginas').append('<table id="tabla_datos" class="table table-hover"></table>');
+                $('#tabla_datos').append('<thead class="thead-light"><tr><th>Email</th><th>NickName</th><th>Password</th></tr></thead><tbody>');
+
+                obtener_lista_usuarios();
+
+                $('#tabla_datos').append('</tbody>');
+                
+            });
+            $('#partidas').click(function(){
+                
+
+
+            });
+            $('#mensajes').click(function(){
+                $('#cargarPaginas').children().remove();
+                obtener_lista_mensajes();
+            });
+        });
+
+    
+    </script>
+
+</head>
+<body>
+    <div class="container w-100 h-100">
+            <div class="row">
+                <div class="col-xl-2 col-lg-2 col-sm-2">
+                    <button id="usuarios" class="w-100">Usuarios</button>
+                    <button id="partidas" class="w-100">Partidas</button>
+                    <button id="mensajes" class="w-100">Mensajes</button>
+                </div>
+                <div id="cargarPaginas" class="col-xl-10 col-lg-10 col-sm-10"></div>
+                
+                
+            </div>
+    </div>
+
+   
+</body>
+</html>

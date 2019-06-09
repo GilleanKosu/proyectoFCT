@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Controller;
-
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,6 +22,64 @@ class DefaultController extends AbstractController
     public function index(){
         return $this->render('index.html');
     }
+    /**
+     * @Route("/admin", name="admin")
+     */
+    public function admin(){
+
+        if (isset($_POST['addUserAdmin'])) {
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $usuario = new User ();
+            $usuario ->setEmail($_POST['email_usuario']);
+            $usuario ->setNickname($_POST['nickname_usuario']);
+            $usuario ->setPassword(md5($_POST['nueva_pass']));
+            $usuario ->setSaldoPartida(NULL);
+            $usuario ->setCasillas(NULL);
+            
+            $entityManager->persist($usuario);
+            $entityManager->flush();
+            return $this->render('admin.html.twig');
+        }
+        return $this->render('admin.html.twig');
+
+    }
+    /**
+     * @Route("/sacar_lista_usuarios", name="sacarListaUsuarios")
+     */
+    public function sacar_lista_usuarios(){
+
+        $repository = $this->getDoctrine()->getRepository(User::class);
+
+        $usuarios = $repository->findAll();
+
+        $lista_usuarios=array();
+        foreach ($usuarios as $key => $value) {
+            $lista_usuarios[$key][0]=$value->getEmail();
+            $lista_usuarios[$key][1]=$value->getUsername();
+            $lista_usuarios[$key][2]=$value->getPassword();
+        }
+        return $this->json(['lista_usuarios' => $lista_usuarios]);
+    }
+    /**
+     * @Route("/sacar_lista_mensajes", name="sacarListaMensajes")
+     */
+    public function sacar_lista_mensajes(){
+
+        $repository = $this->getDoctrine()->getRepository(Mensaje::class);
+
+        $mensajes = $repository->findAll();
+
+        $lista_mensajes=array();
+        foreach ($mensajes as $key => $value) {
+            $lista_mensajes[$key][0]=$value->getNombreRemitente();
+            $lista_mensajes[$key][1]=$value->getEmailRemitente();
+            $lista_mensajes[$key][2]=$value->getMensajeRemitente();
+            // $lista_mensajes[$key][2]=$value->getMensajeRemitente();
+        }
+        return $this->json(['lista_mensajes' => $lista_mensajes]);
+    }
+
     /**
      * @Route("/registro_usuarios", name="registroUsuarios")
      */
@@ -68,11 +125,8 @@ class DefaultController extends AbstractController
     /**
      * @Route("/tablero", name="tablero")
      */
-    public function tablero()
-    {   
-        // var_dump($_POST);
-        // var_dump(json_decode(stripslashes($_POST['hidden_jugadores'])));
-        // die();
+    public function tablero(){
+           
         return $this->render('tableBoots.html.twig', ['jugadores_partida_tablero' => json_decode(stripslashes($_POST['hidden_jugadores'])), 'id_jugadores_partida' => json_decode(stripslashes($_POST['hidden_id_jugadores']))]);
     }
     /**
@@ -80,9 +134,7 @@ class DefaultController extends AbstractController
      */
     public function contacto()
     {   
-        // var_dump($_POST);
-        // var_dump(json_decode(stripslashes($_POST['hidden_jugadores'])));
-        // die();
+        
         if (isset($_POST['nombre_contacto']) && isset($_POST['email_contacto']) && isset($_POST['txtMsg'])) {
             
             $mensaje = new Mensaje();
@@ -107,12 +159,19 @@ class DefaultController extends AbstractController
     public function logeoAjax(){ //Obtenemos el usuario con el email y la contraseña que nos introduce el usuario en cada formulario
         
         if(isset($_POST['email']) && isset($_POST['password'])) {//Comprobamos si se han pasado ciertos datos por POST
+
             $repository = $this->getDoctrine()->getRepository(User::class);
-            // $encriptedPass=password_hash($_POST['password'], PASSWORD_ARGON2I);
+
             $usuario = $repository->findUserByEmailPass($_POST['email'], md5($_POST['password']));
+
+            $_SESSION[$usuario -> getNickname()] = $usuario;
+
             return $this->json(['username' => $usuario -> getEmail(), 'id' => $usuario -> getId(), 'nickname' => $usuario -> getNickname(), 'id' => $usuario -> getId()]);
+
         } else {
+
             return $this->render('login_tablero.html');
+
         }
         
     }
