@@ -9,7 +9,33 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/f3a6a86392.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script>
+        {# google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+
+            // Create the data table.
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Topping');
+            data.addColumn('number', 'Slices');
+            data.addRows([
+            ['Mushrooms', 3],
+            ['Onions', 1],
+            ['Olives', 1],
+            ['Zucchini', 1],
+            ['Pepperoni', 2]
+            ]);
+
+            // Set chart options
+            var options = {'title':'How Much Pizza I Ate Last Night',
+                        'width':400,
+                        'height':300};
+
+            // Instantiate and draw our chart, passing in some options.
+            var chart = new google.visualization.ColumnChart(document.getElementById('cargarPaginas'));
+            chart.draw(data, options);
+        } #}
         function obtener_lista_usuarios () {
              $.ajax({
                     type: 'POST',
@@ -39,6 +65,17 @@
     
                 });
         }
+        function obtener_estadisticas_partidas () {
+             $.ajax({
+                    type: 'POST',
+                    url:'/sacar_estadisticas_partidas',
+                    success:function(response) {
+                        
+                        console.log(response);
+                    }
+    
+                });
+        }
         $(function() {
 
             $('#usuarios').click(function(){
@@ -53,8 +90,8 @@
                 
             });
             $('#partidas').click(function(){
-                
-
+                $('#cargarPaginas').children().remove();
+                obtener_estadisticas_partidas();
 
             });
             $('#mensajes').click(function(){

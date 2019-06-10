@@ -79,6 +79,33 @@ class DefaultController extends AbstractController
         }
         return $this->json(['lista_mensajes' => $lista_mensajes]);
     }
+    /**
+     * @Route("/sacar_estadisticas_partidas", name="sacarEstadisticasPartidas")
+     */
+    public function sacar_estadisticas_partidas(){
+
+        $repository = $this->getDoctrine()->getRepository(Partida::class);
+
+        $numero_partidas = $repository->countAllGames();
+
+        $fechas = array ('Enero' => array('Comienzo' => '2019-01-01', 'Fin' => '2019-01-31'), 
+        'Febrero' => array('Comienzo' => '2019-02-01', 'Fin' => '2019-02-28'),
+        'Marzo' => array('Comienzo' => '2019-03-01', 'Fin' => '2019-03-31'),
+        'Abril' => array('Comienzo' => '2019-04-01', 'Fin' => '2019-04-30'),
+        'Mayo' => array('Comienzo' => '2019-05-01', 'Fin' => '2019-05-31'),
+        'Junio' => array('Comienzo' => '2019-06-01', 'Fin' => '2019-06-30'));
+
+        $partidas_fecha = array();
+        
+        foreach ($fechas as $key => $value) {
+            $numero_total = $repository->gamesByDate($value['Comienzo'], $value['Fin']);
+            array_push($partidas_fecha, $numero_total);
+        } 
+        
+        $partida_larga = $repository->partidaMasLarga();
+ 
+        return $this->json(['numero_partidas' => $numero_partidas,'numero_fecha' => $partidas_fecha, 'partida_larga' => $partida_larga]);
+    }
 
     /**
      * @Route("/registro_usuarios", name="registroUsuarios")

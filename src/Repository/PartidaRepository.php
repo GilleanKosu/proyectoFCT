@@ -48,12 +48,12 @@ class PartidaRepository extends ServiceEntityRepository
     }
     */
 
-    public function findAllGames($value): ?Partida
+    public function findAllGames(): ?array
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.id = :val')
+            ->andWhere('p.id >= :val')
             ->addSelect("COUNT(p.id) numero_partidas")
-            ->setParameter('val', $value)
+            ->setParameter('val', 0)
             ->getQuery()
             ->getOneOrNullResult()
         ;
@@ -63,6 +63,33 @@ class PartidaRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('p')
             ->andWhere('p.id = :val')
             ->setParameter('val', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+    public function countAllGames(): ?array
+    {
+        return $this->createQueryBuilder('p')
+            ->select('count(p.id)')
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+    public function gamesByDate($fechaComienzo, $fechaFin): ?array
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.fecha BETWEEN :fechaComienzo AND :fechaFin')
+            ->setParameter('fechaComienzo', $fechaComienzo)
+            ->setParameter('fechaFin', $fechaFin)
+            ->select('count(p.id)')
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+    public function partidaMasLarga(): ?array
+    {
+        return $this->createQueryBuilder('p')
+            ->select('p, MAX(p.num_turnos) AS max_score')
             ->getQuery()
             ->getOneOrNullResult()
         ;
