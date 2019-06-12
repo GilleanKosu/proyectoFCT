@@ -56,7 +56,7 @@ class DefaultController extends AbstractController
         $lista_usuarios=array();
         foreach ($usuarios as $key => $value) {
             $lista_usuarios[$key][0]=$value->getEmail();
-            $lista_usuarios[$key][1]=$value->getUsername();
+            $lista_usuarios[$key][1]=$value->getNickname();
             $lista_usuarios[$key][2]=$value->getPassword();
         }
         return $this->json(['lista_usuarios' => $lista_usuarios]);
@@ -103,7 +103,7 @@ class DefaultController extends AbstractController
         } 
         
         $partida_larga = $repository->partidaMasLarga();
- 
+        
         return $this->json(['numero_partidas' => $numero_partidas,'numero_fecha' => $partidas_fecha, 'partida_larga' => $partida_larga]);
     }
 
@@ -128,6 +128,7 @@ class DefaultController extends AbstractController
             return $this->render('registro_usuarios.html'); 
         }
     }
+    
     /**
      * @Route("/registro", name="registro")
      */
