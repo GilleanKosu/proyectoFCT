@@ -548,7 +548,7 @@ class DefaultController extends AbstractController
     
                     $entityManager->flush();
                     
-                    return $this->json(['respuesta' => "casa", 'id_casilla' => $nombre_casilla]);
+                    return $this->json(['respuesta' => "casa", 'id_casilla' => $nombre_casilla, 'grupo_casilla' => $tituloPropiedad->getGrupo()]);
                 }
 
                 if ( ( $tituloPropiedad->getNumCasas()==4 ) && ( $tituloPropiedad->getNumHoteles()<2 ) ) {
@@ -565,7 +565,7 @@ class DefaultController extends AbstractController
     
                     $entityManager->flush();
                     
-                    return $this->json(['respuesta' => "hotel", 'id_casilla' => $nombre_casilla]);
+                    return $this->json(['respuesta' => "hotel", 'id_casilla' => $nombre_casilla, 'grupo_casilla' => $tituloPropiedad->getGrupo()]);
                 }
 
                 if (($tituloPropiedad->getNumCasas()==4 ) && ($tituloPropiedad->getNumHoteles()==2)) {

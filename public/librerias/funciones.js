@@ -485,6 +485,7 @@ function actualizar_datos_usuario () {
         data: {
                 datos_jugadores:array_datos_jugadores,
         },success:function(response) {
+            
             array_datos_jugadores=response.info_jugadores;
             if (response.info_jugadores[0]) {
                 $('#dinero_jugador_rojo').children().first().text('$ '+response.info_jugadores[0].Saldo);
@@ -510,15 +511,15 @@ function actualizar_propiedades () {
             jugador: jugador_actual
         },success:function(response) {
             
-           console.log(response);
-
-           $('#propiedades_jugador').children().remove();
-
+           console.log('propiedades');
+           
+        //    $('#propiedades_jugador').children().remove();
+        $('#propiedades_jugador').children().remove();
            for (i = 0; i < response.datos_propiedades_jugados_actual.length; i++) {
                
                 // console.log(response.datos_propiedades_jugados_actual[i][1]);
-                $('#propiedades_jugador').children().remove();
-
+                
+                console.log(response.datos_propiedades_jugados_actual[i]);
                 switch (response.datos_propiedades_jugados_actual[i][1]) {
                     case "verde":
                         $('#propiedades_jugador').append('<div class="row padreMierda"><div class="bg-success probandoMierda"></div><div class="h-100 bg-light probandoMierda2"><p>'+response.datos_propiedades_jugados_actual[i][0]+'</p></div></div>');
@@ -543,7 +544,7 @@ function actualizar_propiedades () {
            }
            
         }, error: function () {
-            $('#propiedades_jugador').children().remove();
+           
           }
         
 
@@ -656,14 +657,40 @@ function edificar_propiedades () {
                 console.log(response);
                 if (response.respuesta == "casa") {
 
-                    $('#'+response.id_casilla).parent().children().eq(0).append('<img class="casa" src="imagenes/casa.png">');
+                    if (response.grupo_casilla == "amarilla") {
+                        $('#'+response.id_casilla).parent().children().eq(1).append('<img class="casa w-50" src="imagenes/casa.png">');
+                    } else {
+                        if (response.grupo_casilla == "rojo") {
+                            $('#'+response.id_casilla).parent().children().eq(0).append('<img class="casa w-50" src="imagenes/casa.png">');
+                        } else {
+                            $('#'+response.id_casilla).parent().children().eq(0).append('<img class="casa" src="imagenes/casa.png">');
+                        }
+                       
+                    }
 
                 }
                 if (response.respuesta == "hotel") {
 
-                    $('#'+response.id_casilla).parent().children().eq(0).find('.casa').remove();
+                    if (response.grupo_casilla == "amarilla") {
+                        $('#'+response.id_casilla).parent().children().eq(1).find('.casa').remove();
 
-                    $('#'+response.id_casilla).parent().children().eq(0).append('<img class="hotel" src="imagenes/hotel.png">');
+                        $('#'+response.id_casilla).parent().children().eq(1).append('<img class="hotel w-50" src="imagenes/hotel.png">');
+                    } else {
+                        
+                        if (response.grupo_casilla == "rojo") {
+                            $('#'+response.id_casilla).parent().children().eq(0).find('.casa').remove();
+
+                            $('#'+response.id_casilla).parent().children().eq(0).append('<img class="hotel w-50" src="imagenes/hotel.png">');
+                        } else {
+                            $('#'+response.id_casilla).parent().children().eq(0).find('.casa').remove();
+
+                            $('#'+response.id_casilla).parent().children().eq(0).append('<img class="hotel" src="imagenes/hotel.png">');
+                        }
+
+                        
+                    }
+
+                    
 
                 }
                 if (response.respuesta == "nosaldo") {
@@ -850,7 +877,9 @@ function ganador_perdedor() {
             lanzar_dado();
             $('#roll_dice_button').hide();
             rollDiceWithoutValues();
+            actualizar_propiedades();
             mover_jugador();
+            
         });
         $('#buy_button').click(function(){
             comprar_titulo_propiedad();
