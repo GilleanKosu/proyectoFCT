@@ -485,7 +485,7 @@ function actualizar_datos_usuario () {
         data: {
                 datos_jugadores:array_datos_jugadores,
         },success:function(response) {
-            
+            console.log("respuesta actualizar datos usuario");
             array_datos_jugadores=response.info_jugadores;
             if (response.info_jugadores[0]) {
                 $('#dinero_jugador_rojo').children().first().text('$ '+response.info_jugadores[0].Saldo);
@@ -544,7 +544,7 @@ function actualizar_propiedades () {
            }
            
         }, error: function () {
-           
+            $('#propiedades_jugador').children().remove();
           }
         
 
@@ -559,6 +559,7 @@ function comprar_titulo_propiedad() {
                 id_casilla:casilla_actual_jugador,
                 jugador: jugador_actual
         },success:function(response) {
+            console.log("respuesta compra");
             console.log(response);
             $('#buy_button').hide();
             switch (response.grupo) {
@@ -884,6 +885,7 @@ function ganador_perdedor() {
         $('#buy_button').click(function(){
             comprar_titulo_propiedad();
             ganador_perdedor();
+            actualizar_datos_usuario();
         });
 
         // $('#actualizar_button').click(function(){

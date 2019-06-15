@@ -483,9 +483,13 @@ class DefaultController extends AbstractController
 
             $tituloPropiedad->setUsuario($usuario_actual);
 
+            $usuario_actual ->setSaldoPartida($usuario_actual->getSaldoPartida() - $tituloPropiedad->getPrecioCompra());
+
             $entityManager = $this->getDoctrine()->getManager();
 
             $entityManager->merge($tituloPropiedad);
+            
+            $entityManager->merge($usuario_actual);
                     
             $entityManager->flush();
             
