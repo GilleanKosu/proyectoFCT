@@ -612,7 +612,6 @@ function vender_propiedades () {
 
     } else {
         propiedad_seleccionada = propiedad_seleccionada.children().eq(1).children().eq(0).text();
-
         $.ajax({
 
             type: 'POST',
@@ -621,6 +620,9 @@ function vender_propiedades () {
                     nombre_casilla:propiedad_seleccionada,
                     jugador: jugador_actual
             },success:function(response) {
+                console.log("casilla a borrar");
+                console.log($('#'+response.nombre_casilla).siblings().eq(0).children().remove());
+                // $('#'+response.nombre_casilla).children().eq(1).children().remove();
                 actualizar_datos_usuario();
                 actualizar_propiedades();
             }, error:function() {

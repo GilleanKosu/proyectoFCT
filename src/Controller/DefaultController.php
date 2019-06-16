@@ -628,10 +628,13 @@ class DefaultController extends AbstractController
     
         $propietario_casilla = $repository->findOneById($_POST['jugador']);
         $titulo_propiedad = $repository2->findTituloByName($_POST['nombre_casilla']);
+        $casilla_titulo_propiedad = $titulo_propiedad -> getCasilla();
 
         $precio_venta = ( $titulo_propiedad->getPrecioCompra() + ( ( $titulo_propiedad->getPrecioEdificar() * ($titulo_propiedad->getNumCasas() + $titulo_propiedad->getNumHoteles() ) ) * $titulo_propiedad->getFactorRevalorizacion() ) );
 
         $propietario_casilla -> setSaldoPartida( $propietario_casilla->getSaldoPartida() + $precio_venta );
+        
+
         $titulo_propiedad->setUsuario(NULL);
         $titulo_propiedad->setNumCasas(0);
         $titulo_propiedad->setNumHoteles(0);
@@ -643,7 +646,7 @@ class DefaultController extends AbstractController
     
         $entityManager->flush();
         
-        return $this->json(['resultado_operacion' => "correcto"]);
+        return $this->json(['resultado_operacion' => "correcto", 'nombre_casilla' => $casilla_titulo_propiedad->getNombre()]);
     
     }
     /**
